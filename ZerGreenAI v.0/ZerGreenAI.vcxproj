@@ -96,6 +96,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\CombatLearningAnalyst.cpp" />
     <ClCompile Include="Source\CombatAnalyst.cpp" />
     <ClCompile Include="Source\CombatStrategist.cpp" />
     <ClCompile Include="Source\ScoutAnalysis.cpp" />
@@ -141,6 +142,7 @@
     <ClCompile Include="Source\Upgrade.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\CombatLearningAnalyst.h" />
     <ClInclude Include="Source\CombatAnalyst.h" />
     <ClInclude Include="Source\CombatStrategist.h" />
     <ClInclude Include="Source\ScoutAnalysis.h" />

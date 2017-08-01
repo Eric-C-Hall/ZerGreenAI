@@ -130,6 +130,9 @@
     <ClCompile Include="Source\Upgrade.cpp">
       <Filter>ZerGreenAI\Production</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CombatLearningAnalyst.cpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ZerGreenAI.h">
@@ -278,6 +281,9 @@
     </ClInclude>
     <ClInclude Include="Source\Upgrade.h">
       <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CombatLearningAnalyst.h">
+      <Filter>ZerGreenAI\Combat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
