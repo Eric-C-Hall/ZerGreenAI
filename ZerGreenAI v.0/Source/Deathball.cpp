@@ -70,7 +70,7 @@ bool doSpecialStuff(Unit u)
 {
 	if (u->getType() == UnitTypes::Protoss_Reaver)
 	{
-		if (u->getTrainingQueue().size() > 0) return false;
+		if (u->getTrainingQueue().size() > 0 || u->getScarabCount() > ( Broodwar->self()->getUpgradeLevel(UpgradeTypes::Reaver_Capacity) == 1 ?9:4)) return false;
 
 		new debugText(u->getPosition(), "Baby's Coming", TEXT_VISIBLE_LENGTH);
 		u->train(UnitTypes::Protoss_Scarab);
@@ -103,8 +103,17 @@ void DeathballManager::goDirect(Unit u)
 	}
 	else if (wouldWinConfrontation)
 	{
-		new debugText(u->getPosition(), "Let's Get 'Em!", TEXT_VISIBLE_LENGTH);
-		u->attack(goal);
+		Unit enemy = u->getClosestUnit(IsEnemy);
+		if (enemy != nullptr)
+		{
+			new debugText(u->getPosition(), "You're going down!", TEXT_VISIBLE_LENGTH);
+			u->attack(enemy);
+		}
+		else
+		{
+			new debugText(u->getPosition(), "Let's Get 'Em!", TEXT_VISIBLE_LENGTH);
+			u->attack(goal);
+		}
 	}
 	else
 	{
@@ -166,7 +175,10 @@ Unit DeathballManager::rotateQueue()
 {
 	Unit returnValue = unitDecideQueue.front();
 	unitDecideQueue.pop();
-	unitDecideQueue.push(returnValue);
+	if (returnValue->exists())
+	{
+		unitDecideQueue.push(returnValue);
+	}
 	return returnValue;
 }
 

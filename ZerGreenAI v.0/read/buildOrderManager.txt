@@ -1,0 +1,1 @@
+R 3Gate_R.txt P Reavers_P.txt T Scouts_T.txt Z Templar_Z.txt X
