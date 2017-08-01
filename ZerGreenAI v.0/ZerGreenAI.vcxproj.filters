@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Source\Dll.cpp">
+      <Filter>ZerGreenAI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ZerGreenAI.cpp">
+      <Filter>ZerGreenAI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EasyBMP_1.06\EasyBMP.cpp">
+      <Filter>EasyBMP</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GlobalHarvesting.cpp">
+      <Filter>ZerGreenAI\Harvesting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LocalHarvesting.cpp">
+      <Filter>ZerGreenAI\Harvesting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Construction.cpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceAllocator.cpp">
+      <Filter>ZerGreenAI\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Management.cpp">
+      <Filter>ZerGreenAI\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BM.cpp">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Cheats.cpp">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Production.cpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LayoutPlanner.cpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Debug.cpp">
+      <Filter>ZerGreenAI\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Timer.cpp">
+      <Filter>ZerGreenAI\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Minimum.cpp">
+      <Filter>ZerGreenAI\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\OldCodePotentiallyUseful.cpp">
+      <Filter>ZerGreenAI\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\area.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\base.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\bwapiExt.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\bwem.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\cp.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\examples.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\exampleWall.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\graph.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\gridMap.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\map.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\mapDrawer.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\mapImpl.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\mapPrinter.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\neutral.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\tiles.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\utils.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWEM\winutils.cpp">
+      <Filter>BWEM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MapAnalyser.cpp">
+      <Filter>ZerGreenAI\Map Analysis</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Achievements.cpp">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BuildOrder.cpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Easter.cpp">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ProbeScout.cpp">
+      <Filter>ZerGreenAI\Scouting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Deathball.cpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ScoutAnalysis.cpp">
+      <Filter>ZerGreenAI\Scouting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CombatStrategist.cpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CombatAnalyst.cpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Upgrade.cpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\ZerGreenAI.h">
+      <Filter>ZerGreenAI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_VariousBMPutilities.h">
+      <Filter>EasyBMP</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EasyBMP_1.06\EasyBMP.h">
+      <Filter>EasyBMP</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_BMP.h">
+      <Filter>EasyBMP</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_DataStructures.h">
+      <Filter>EasyBMP</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GlobalHarvesting.h">
+      <Filter>ZerGreenAI\Harvesting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LocalHarvesting.h">
+      <Filter>ZerGreenAI\Harvesting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Construction.h">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceAllocator.h">
+      <Filter>ZerGreenAI\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Management.h">
+      <Filter>ZerGreenAI\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Namespaces.h">
+      <Filter>ZerGreenAI\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BM.h">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Cheats.h">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Production.h">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Hashes.h">
+      <Filter>ZerGreenAI\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LayoutPlanner.h">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Debug.h">
+      <Filter>ZerGreenAI\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Timer.h">
+      <Filter>ZerGreenAI\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Minimum.h">
+      <Filter>ZerGreenAI\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\area.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\base.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\bwapiExt.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\bwem.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\cp.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\defs.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\examples.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\exampleWall.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\graph.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\gridMap.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\map.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\mapDrawer.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\mapImpl.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\mapPrinter.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\neutral.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\tiles.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\utils.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEM\winutils.h">
+      <Filter>BWEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MapAnalyser.h">
+      <Filter>ZerGreenAI\Map Analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Achievements.h">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BuildOrder.h">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\bwemL.h">
+      <Filter>ZerGreenAI\Map Analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEMHashes.h">
+      <Filter>ZerGreenAI\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Easter.h">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ProbeScout.h">
+      <Filter>ZerGreenAI\Scouting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Deathball.h">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScoutAnalysis.h">
+      <Filter>ZerGreenAI\Scouting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CombatStrategist.h">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CombatAnalyst.h">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Upgrade.h">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="BWEM">
+      <UniqueIdentifier>{9213832e-44a9-49d3-bcd8-e1b8a4249020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI">
+      <UniqueIdentifier>{b64b36a3-8693-49e5-bc79-0eba1e2a5e06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EasyBMP">
+      <UniqueIdentifier>{f26e8db2-bd8f-4ff2-98aa-92a7bf525247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Harvesting">
+      <UniqueIdentifier>{75ba9922-40b1-4c31-b986-79eea56063d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Management">
+      <UniqueIdentifier>{dc1b34d6-d4c9-4782-a0b4-ea07ff111557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Chat">
+      <UniqueIdentifier>{793d31f8-0e4a-4fb3-844f-33dee5fb8253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Utility">
+      <UniqueIdentifier>{48db7d91-d675-4869-8eac-6f00f6688607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Debug">
+      <UniqueIdentifier>{5edef592-30b5-4a96-9bdb-0c08d2010819}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Map Analysis">
+      <UniqueIdentifier>{4c9e3470-bd6b-4b74-b965-0b7ad4f8f91a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Other">
+      <UniqueIdentifier>{959ebf47-3697-4e35-a2d7-4610fb330e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Scouting">
+      <UniqueIdentifier>{5973e7af-041b-436f-9799-0986dd2e6b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Combat">
+      <UniqueIdentifier>{899011b2-0b82-4690-8b0c-8b7b944a80be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Production">
+      <UniqueIdentifier>{32fbcc41-fb01-4262-9eb6-a0a6d0d706d8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="README.txt">
+      <Filter>ZerGreenAI</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
