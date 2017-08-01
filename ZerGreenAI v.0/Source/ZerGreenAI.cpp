@@ -16,9 +16,9 @@
 #include "ScoutAnalysis.h"
 #include "CombatStrategist.h"
 
-// -------------
+// ------------
 // ZerGreenAI
-// -------------
+// ------------
 //
 // Written by Eric Hall
 //
