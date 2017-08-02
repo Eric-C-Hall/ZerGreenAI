@@ -72,18 +72,26 @@ BattleRepresentation::BattleRepresentation(std::string s)
 
 }
 
+std::string writeMap(std::unordered_map<UnitType, int> map)
+{
+	std::string output = "";
+	for (auto const &m : map)
+	{
+		output.append('T', 1);
+		output.append(std::to_string((int)m.first));
+		output.append('N', 1);
+		output.append(std::to_string(m.second));
+	}
+	return output;
+}
+
 std::string BattleRepresentation::write()
 {
-	std::string output;
+	std::string output = "";
 	output.append('A',1);
-	for (auto const &a : attackerTypes)
-	{
-
-	}
-	for (auto const &d : defenderTypes)
-	{
-
-	}
+	output.append(writeMap(attackerTypes));
+	output.append('D',1);
+	output.append(writeMap(defenderTypes));
 	return output;
 
 }
