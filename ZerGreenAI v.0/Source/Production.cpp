@@ -70,7 +70,8 @@ void ProductionManager::onFrame()
 		}
 		else if (u->getTrainingQueue().size() > 1)
 		{
-			u->cancelTrain();
+			// will need to fix things getting skipped in the queue if uncommented
+			//u->cancelTrain();
 		}
 	}
 }

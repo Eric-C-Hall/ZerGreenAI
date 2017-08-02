@@ -140,6 +140,7 @@
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\ZerGreenAI.cpp" />
     <ClCompile Include="Source\Upgrade.cpp" />
+    <ClCompile Include="Source\ZealotScout.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CombatLearningAnalyst.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\ZerGreenAI.h" />
     <ClInclude Include="Source\Upgrade.h" />
+    <ClInclude Include="Source\ZealotScout.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt" />

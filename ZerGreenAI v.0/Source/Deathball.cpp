@@ -49,15 +49,14 @@ bool DeathballManager::isTogether()
 #define SHOW_SEPERATION 0
 
 #define NUM_IN_STORM 3
+#define STORM_RADIUS 64
 
 Position getStormLocation(Unit u)
 {
 	for (auto const &e : u->getUnitsInRadius(288, IsEnemy))
 	{
-		int numEnemyUnits = e->getUnitsInRadius(48, IsEnemy).size();
-		int numAlliedUnits = e->getUnitsInRadius(48, IsAlly).size();
-
-		new debugCircle(e->getPosition(), 48, Colors::Blue,120);
+		int numEnemyUnits = e->getUnitsInRadius(STORM_RADIUS, IsEnemy).size();
+		int numAlliedUnits = e->getUnitsInRadius(STORM_RADIUS, IsAlly).size();
 
 		if (numEnemyUnits - numAlliedUnits >= NUM_IN_STORM)
 		{
@@ -66,6 +65,12 @@ Position getStormLocation(Unit u)
 	}
 
 	return Positions::None;
+}
+
+#define TEMPLAR_LOW_ENERGY 50
+bool isTemplarLowEnergy(Unit u)
+{
+	return u->getType() == UnitTypes::Protoss_High_Templar && u->getEnergy() < TEMPLAR_LOW_ENERGY;
 }
 
 bool doSpecialStuff(Unit u)
@@ -80,9 +85,23 @@ bool doSpecialStuff(Unit u)
 	}
 	else if (u->getType() == UnitTypes::Protoss_High_Templar)
 	{
-		Position stormLocation = getStormLocation(u);
-		if (stormLocation == Positions::None) return false;
+		if (isTemplarLowEnergy(u))
+		{
+			new debugText(u->getPosition() + Position(0,10), "Looking for a buddy.", TEXT_VISIBLE_LENGTH);
 
+			Unit mergeBuddy = u->getClosestUnit(isTemplarLowEnergy);
+			if (mergeBuddy != nullptr)
+			{
+				new debugText(u->getPosition(), "Super Saiyan mode Engage!", TEXT_VISIBLE_LENGTH);
+				u->useTech(TechTypes::Archon_Warp, mergeBuddy);
+				return true;
+			}
+		}
+
+		Position stormLocation = getStormLocation(u);
+		if (stormLocation == Positions::None || !u->canUseTech(TechTypes::Psionic_Storm,stormLocation) || u->getEnergy() < TechTypes::Psionic_Storm.energyCost()) return false;
+
+		new debugCircle(stormLocation, STORM_RADIUS, Colors::Blue, 120);
 		new debugText(u->getPosition(), "Feel the Wrath of a Templar!", TEXT_VISIBLE_LENGTH);
 		u->useTech(TechTypes::Psionic_Storm, stormLocation);
 		return true;

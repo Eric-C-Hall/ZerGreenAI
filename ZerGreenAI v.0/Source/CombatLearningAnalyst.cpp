@@ -76,6 +76,14 @@ std::string BattleRepresentation::write()
 {
 	std::string output;
 	output.append('A',1);
+	for (auto const &a : attackerTypes)
+	{
+
+	}
+	for (auto const &d : defenderTypes)
+	{
+
+	}
 	return output;
 
 }
