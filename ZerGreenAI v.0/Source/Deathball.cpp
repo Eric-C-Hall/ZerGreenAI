@@ -5,6 +5,7 @@
 #include "Hashes.h"
 #include "CombatAnalyst.h"
 
+#define ENEMY_NEAR_DISTANCE 1000
 #define TOGETHER_DISTANCE 150
 #define TOGETHER_FRACTION 3
 
@@ -51,12 +52,19 @@ bool DeathballManager::isTogether()
 #define NUM_IN_STORM 3
 #define STORM_RADIUS 64
 
+bool isStormTargetable(Unit u)
+{
+	return !IsBuilding(u);
+}
+
+UnitFilter IsStormTargetable = isStormTargetable;
+
 Position getStormLocation(Unit u)
 {
 	for (auto const &e : u->getUnitsInRadius(288, IsEnemy))
 	{
-		int numEnemyUnits = e->getUnitsInRadius(STORM_RADIUS, IsEnemy).size();
-		int numAlliedUnits = e->getUnitsInRadius(STORM_RADIUS, IsAlly).size();
+		int numEnemyUnits = e->getUnitsInRadius(STORM_RADIUS, IsEnemy && IsStormTargetable).size();
+		int numAlliedUnits = e->getUnitsInRadius(STORM_RADIUS, IsAlly && IsStormTargetable).size();
 
 		if (numEnemyUnits - numAlliedUnits >= NUM_IN_STORM)
 		{
@@ -254,6 +262,11 @@ void DeathballManager::updateGoal()
 
 }
 
+Unitset DeathballManager::getNearbyEnemies()
+{
+	return Broodwar->getUnitsInRadius(currentBallPosition,ENEMY_NEAR_DISTANCE,IsEnemy);
+}
+
 Unitset DeathballManager::getNearbyUnits()
 {
 	Unitset nearbyUnits;
@@ -310,7 +323,7 @@ void DeathballManager::onFrame()
 
 void DeathballManager::updateConfrontation()
 {
-	wouldWinConfrontation = simulateAttack(getNearbyUnits(), Broodwar->enemy()->getUnits()).didWin;
+	wouldWinConfrontation = simulateAttack(getNearbyUnits(), getNearbyEnemies()).didWin;
 }
 
 DeathballManager::DeathballManager()

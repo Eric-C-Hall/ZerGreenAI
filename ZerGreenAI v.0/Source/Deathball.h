@@ -14,6 +14,7 @@ class DeathballManager : public JuniorManager
 	void unitDecide(Unit u);
 	void goDirect(Unit u);
 	bool isTogether();
+	Unitset getNearbyEnemies();
 	Unitset getNearbyUnits();
 	std::queue<Unit> unitDecideQueue;
 	Unit rotateQueue();
