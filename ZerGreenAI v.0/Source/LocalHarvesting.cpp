@@ -1,4 +1,5 @@
 #include "LocalHarvesting.h"
+#include "GlobalHarvesting.h"
 #include "Debug.h"
 #include "bwemL.h"
 
@@ -137,28 +138,28 @@ void LocalHarvestManager::onFrame()
 		}
 	}
 
-
-	if (base->getRemainingTrainTime() - 24 < 0)
+	if (getGlobalHarvester()->needProbes())
 	{
-		if (base->getTrainingQueue().size() < 2)
+		if (base->getRemainingTrainTime() - 24 < 0)
 		{
-			base->train(UnitTypes::Protoss_Probe);
+			if (base->getTrainingQueue().size() < 2)
+			{
+				base->train(UnitTypes::Protoss_Probe);
+			}
+		}
+		else if (base->getTrainingQueue().size() > 1)
+		{
+			base->cancelTrain();
 		}
 	}
-	else if (base->getTrainingQueue().size() > 1)
-	{
-		base->cancelTrain();
-	}
-
-
 }
 
-int LocalHarvestManager::numSaturated()
+unsigned int LocalHarvestManager::numSaturated()
 {
 	return 3 * nearbyGeysers.size() + 2 * nearbyMinerals.size();
 }
 
-int LocalHarvestManager::numGasHarvesters()
+unsigned int LocalHarvestManager::numGasHarvesters()
 {
 	int temp = 0;
 	for (auto const &g : nearbyGeysers)
@@ -171,12 +172,12 @@ int LocalHarvestManager::numGasHarvesters()
 	return temp;
 }
 
-int LocalHarvestManager::numMineralHarvesters()
+unsigned int LocalHarvestManager::numMineralHarvesters()
 {
 	return numHarvesters() - numGasHarvesters();
 }
 
-int LocalHarvestManager::numHarvesters()
+unsigned int LocalHarvestManager::numHarvesters()
 {
 	return assignedUnits.size();
 }
@@ -184,6 +185,11 @@ int LocalHarvestManager::numHarvesters()
 Position LocalHarvestManager::getPosition()
 {
 	return base->getPosition();
+}
+
+bool LocalHarvestManager::needProbes()
+{
+	return assignedUnits.size() < numSaturated();
 }
 
 Unit LocalHarvestManager::nearbyAvailableHarvester(Position p)

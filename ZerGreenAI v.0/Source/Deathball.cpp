@@ -8,6 +8,8 @@
 #define TOGETHER_DISTANCE 150
 #define TOGETHER_FRACTION 3
 
+#define BASE_DEFENCE_DISTANCE 1000
+
 #define NUM_SKIP_FRAME 15
 #define TEXT_VISIBLE_LENGTH 15
 #define NUM_UNITS_AT_ONCE 10
@@ -96,18 +98,33 @@ void DeathballManager::goDirect(Unit u)
 		return;
 	}
 
+	bool isNearBase = u->getDistance(Position(Broodwar->self()->getStartLocation())) < BASE_DEFENCE_DISTANCE;
+
 	if (u->getDistance(currentBallPosition) > TOGETHER_DISTANCE)
 	{
 		new debugText(u->getPosition(), "Wait for me!", TEXT_VISIBLE_LENGTH);
 		u->move(currentBallPosition);
 	}
-	else if (wouldWinConfrontation)
+	else if (wouldWinConfrontation || isNearBase)
 	{
-		Unit enemy = u->getClosestUnit(IsEnemy);
+		Unit enemy = u->getClosestUnit(IsEnemy && (CanAttack || IsTransport));
+		Unit passiveEnemy = u->getClosestUnit(IsEnemy);
 		if (enemy != nullptr)
 		{
-			new debugText(u->getPosition(), "You're going down!", TEXT_VISIBLE_LENGTH);
+			if (isNearBase)
+			{
+				new debugText(u->getPosition(), "My back is to a wall here...", TEXT_VISIBLE_LENGTH);
+			}
+			else
+			{
+				new debugText(u->getPosition(), "You're going down!", TEXT_VISIBLE_LENGTH);
+			}
 			u->attack(enemy);
+		}
+		else if (passiveEnemy != nullptr)
+		{
+			u->attack(passiveEnemy);
+			new debugText(u->getPosition(), "You shall be Cleansed.", TEXT_VISIBLE_LENGTH);
 		}
 		else
 		{
@@ -192,7 +209,16 @@ void DeathballManager::updateGoal()
 		return;
 	}
 
-	auto path = theMap.GetPath(currentBallPosition, Position(areaCenter(highPriTarget)));
+	BWEM::CPPath path;
+
+	if (theMap.GetTile(TilePosition(currentBallPosition)).Walkable())
+	{
+		path = theMap.GetPath(currentBallPosition, Position(areaCenter(highPriTarget)));
+	}
+	else
+	{
+		path = theMap.GetPath(Position(areaCenter(theMap.GetNearestArea(TilePosition(currentBallPosition)))),Position(areaCenter(highPriTarget)));
+	}
 	
 	if (path.size() > 1 && currentBallPosition.getApproxDistance(Position(path.front()->Center())) < CLOSE_ENOUGH_TO_GOAL)
 	{

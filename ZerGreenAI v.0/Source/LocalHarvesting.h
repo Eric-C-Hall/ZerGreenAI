@@ -24,11 +24,12 @@ class LocalHarvestManager : public JuniorManager
 public:
 	inline std::string name() { return "Local Harvester";}
 
-	int numSaturated();
-	int numHarvesters();
-	int numMineralHarvesters();
-	int numGasHarvesters();
+	unsigned int numSaturated();
+	unsigned int numHarvesters();
+	unsigned int numMineralHarvesters();
+	unsigned int numGasHarvesters();
 	Position getPosition();
+	bool needProbes();
 	Unit nearbyAvailableHarvester(Position p);
 	TilePosition getAssimilatorPosition();
 	LocalHarvestManager(Unit u);

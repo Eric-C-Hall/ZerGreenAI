@@ -26,7 +26,7 @@ void GlobalHarvestManager::assignWorker(Unit u)
 		}
 	}
 
-	int leastWorkers = 100;
+	unsigned int leastWorkers = 100;
 	LocalHarvestManager* bestManager = nullptr;
 	for (const auto &b : childManagers)
 	{
@@ -121,6 +121,18 @@ Unit GlobalHarvestManager::nearbyAvailableHarvester(Position p)
 		return nullptr;
 	}
 
+}
+
+bool GlobalHarvestManager::needProbes()
+{
+	for (auto const &b : childManagers)
+	{
+		if (b->needProbes())
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 TilePosition GlobalHarvestManager::getAssimilatorPosition()

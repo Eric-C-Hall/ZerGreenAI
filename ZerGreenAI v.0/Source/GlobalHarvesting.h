@@ -16,6 +16,7 @@ public:
 	int numMineralHarvesters();
 	int numGasHarvesters();
 
+	bool needProbes();
 	Unit nearbyAvailableHarvester(Position p);
 	TilePosition getAssimilatorPosition();
 	TilePosition getBasePosition();

@@ -271,7 +271,7 @@ void readBuildOrderManager()
 		case 'T': currentFile.race = Races::Terran; break;
 		case 'Z': currentFile.race = Races::Zerg; break;
 		case 'P': currentFile.race = Races::Protoss; break;
-		case 'R': currentFile.race = Races::Random; break;
+		case 'R': currentFile.race = Races::Unknown; break;
 		case 'X': goto gotFileNames; break;
 		}
 
