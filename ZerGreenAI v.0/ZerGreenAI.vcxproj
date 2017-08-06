@@ -69,6 +69,9 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalDependencies>../lib/BWAPId.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>move /y "$(OutDir)ZerGreenAI.dll" "$(OutDir)..\..\..\StarCraft\bwapi-data\AI"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -96,7 +99,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AbstractManagement.cpp" />
+    <ClCompile Include="Source\GeneralManagement.cpp" />
     <ClCompile Include="Source\Memory.cpp" />
     <ClCompile Include="Source\Control.cpp" />
     <ClCompile Include="Source\CombatLearningDeathball.cpp" />
@@ -146,7 +149,7 @@
     <ClCompile Include="Source\ZealotScout.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractManagement.h" />
+    <ClInclude Include="Source\GeneralManagement.h" />
     <ClInclude Include="Source\Memory.h" />
     <ClInclude Include="Source\Control.h" />
     <ClInclude Include="Source\CombatLearningDeathball.h" />

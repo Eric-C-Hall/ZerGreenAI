@@ -6,7 +6,19 @@ MemoryDatum::MemoryDatum(Unit u)
 	id = u->getID();
 }
 
-std::unordered_set memories;
+namespace std
+{
+	template<>
+	struct hash<MemoryDatum>
+	{
+		size_t operator()(MemoryDatum datum)
+		{
+			return datum.id;
+		}
+	};
+}
+
+std::unordered_set<MemoryDatum> memories;
 
 void memoryOnDiscover()
 {
@@ -18,4 +30,7 @@ void memoryOnHide()
 
 }
 
-void memoryOnFrame();
+void memoryOnFrame()
+{
+
+}

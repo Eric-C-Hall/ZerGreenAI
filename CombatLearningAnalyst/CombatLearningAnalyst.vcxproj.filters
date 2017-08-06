@@ -10,10 +10,10 @@
     <ClCompile Include="..\ZerGreenAI v.0\Source\CombatLearningAnalyst.cpp">
       <Filter>CombatLearningAnalyst</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZerGreenAI v.0\Source\ZerGreenAI.cpp">
+    <ClCompile Include="claMain.cpp">
       <Filter>CombatLearningAnalyst</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZerGreenAI v.0\Source\Dll.cpp">
+    <ClCompile Include="claDll.cpp">
       <Filter>CombatLearningAnalyst</Filter>
     </ClCompile>
   </ItemGroup>
@@ -21,7 +21,7 @@
     <ClInclude Include="..\ZerGreenAI v.0\Source\CombatLearningAnalyst.h">
       <Filter>CombatLearningAnalyst</Filter>
     </ClInclude>
-    <ClInclude Include="..\ZerGreenAI v.0\Source\ZerGreenAI.h">
+    <ClInclude Include="claMain.h">
       <Filter>CombatLearningAnalyst</Filter>
     </ClInclude>
   </ItemGroup>

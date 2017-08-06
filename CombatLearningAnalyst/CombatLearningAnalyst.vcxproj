@@ -123,12 +123,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\ZerGreenAI v.0\Source\CombatLearningAnalyst.h" />
-    <ClInclude Include="..\ZerGreenAI v.0\Source\ZerGreenAI.h" />
+    <ClInclude Include="claMain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ZerGreenAI v.0\Source\CombatLearningAnalyst.cpp" />
-    <ClCompile Include="..\ZerGreenAI v.0\Source\Dll.cpp" />
-    <ClCompile Include="..\ZerGreenAI v.0\Source\ZerGreenAI.cpp" />
+    <ClCompile Include="claDll.cpp" />
+    <ClCompile Include="claMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

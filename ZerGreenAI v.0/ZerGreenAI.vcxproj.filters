@@ -142,7 +142,7 @@
     <ClCompile Include="Source\Memory.cpp">
       <Filter>ZerGreenAI\Scouting</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractManagement.cpp">
+    <ClCompile Include="Source\GeneralManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
   </ItemGroup>
@@ -306,7 +306,7 @@
     <ClInclude Include="Source\Memory.h">
       <Filter>ZerGreenAI\Scouting</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractManagement.h">
+    <ClInclude Include="Source\GeneralManagement.h">
       <Filter>ZerGreenAI\Management</Filter>
     </ClInclude>
   </ItemGroup>
