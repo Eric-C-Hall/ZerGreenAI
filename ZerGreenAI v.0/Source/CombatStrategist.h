@@ -5,11 +5,11 @@
 
 class CombatStrategist : public JuniorManager
 {
+	void onStart();
 	void onAssignment(Unit u);
 public:
 	inline virtual std::string name() { return "Combat Strategist"; }
 	void onFrame();
 };
 
-void initializeCombatStrategist();
-CombatStrategist* getCombatStrategist();
+CombatStrategist * getCombatStrategist();

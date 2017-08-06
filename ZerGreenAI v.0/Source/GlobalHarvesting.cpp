@@ -6,13 +6,11 @@
 
 std::unordered_set<LocalHarvestManager *> childManagers;
 std::unordered_set<TilePosition> unclaimedBases;
-
-GlobalHarvestManager* LocalGlobalHarvester;
+GlobalHarvestManager  LocalGlobalHarvester;
 
 void addHarvestManager(LocalHarvestManager * mgr)
 {
 	childManagers.insert(mgr);
-	addManager(mgr);
 }
 
 void GlobalHarvestManager::assignWorker(Unit u)
@@ -167,9 +165,6 @@ TilePosition GlobalHarvestManager::getBasePosition()
 
 void initializeGlobalHarvester()
 {
-	LocalGlobalHarvester = new GlobalHarvestManager;
-	addManager(LocalGlobalHarvester);
-
 	for (auto const &a : theMap.Areas())
 	{
 		for (auto const &b : a.Bases())
@@ -181,5 +176,5 @@ void initializeGlobalHarvester()
 
 GlobalHarvestManager* getGlobalHarvester()
 {
-	return LocalGlobalHarvester;
+	return &LocalGlobalHarvester;
 }

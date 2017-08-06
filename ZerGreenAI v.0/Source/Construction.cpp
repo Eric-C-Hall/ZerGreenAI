@@ -5,13 +5,13 @@
 #include "Debug.h"
 #include "Timer.h"
 
+ConstructionManager LocalConstructionManager;
+
 std::unordered_map<Unit, UnitType> buildType;
 std::unordered_map<Unit, TilePosition> buildPosition;
 std::unordered_map<Unit, int> newWorkerLeeway;
 
 std::unordered_map<UnitType, bool> typeConstructionImminent;
-
-ConstructionManager* LocalConstructionManager;
 
 bool ConstructionManager::acceptRequest(Unit u)
 {
@@ -112,13 +112,7 @@ bool ConstructionManager::constructBuilding(UnitType type)
 	return true;
 }
 
-void initializeConstructionManager()
-{
-	LocalConstructionManager = new ConstructionManager;
-	addManager(LocalConstructionManager);
-}
-
 ConstructionManager * getConstructionManager()
 {
-	return LocalConstructionManager;
+	return &LocalConstructionManager;
 }

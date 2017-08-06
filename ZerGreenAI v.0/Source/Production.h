@@ -21,5 +21,4 @@ public:
 	Unitset getProductionBuildings();
 };
 
-void initializeProductionManager();
-ProductionManager* getProductionManager();
+ProductionManager * getProductionManager();

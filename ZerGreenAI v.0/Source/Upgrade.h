@@ -17,5 +17,4 @@ public:
 	void ChooseUpgrade(UpgradeType upgrade);
 };
 
-void initializeUpgradeManager();
-UpgradeManager* getUpgradeManager();
+UpgradeManager * getUpgradeManager();

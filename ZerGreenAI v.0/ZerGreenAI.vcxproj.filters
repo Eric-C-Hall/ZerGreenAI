@@ -145,6 +145,9 @@
     <ClCompile Include="Source\GeneralManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Events.cpp">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ZerGreenAI.h">
@@ -309,6 +312,9 @@
     <ClInclude Include="Source\GeneralManagement.h">
       <Filter>ZerGreenAI\Management</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Events.h">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="BWEM">
@@ -349,6 +355,9 @@
     </Filter>
     <Filter Include="ZerGreenAI\Scouting">
       <UniqueIdentifier>{5973e7af-041b-436f-9799-0986dd2e6b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\BWAPI Extended">
+      <UniqueIdentifier>{949639f4-7355-48c0-b1a3-c876581506af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

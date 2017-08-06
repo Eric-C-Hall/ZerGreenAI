@@ -2,7 +2,7 @@
 #include "Construction.h"
 #include "Debug.h"
 
-ProductionManager* LocalProductionManager;
+ProductionManager LocalProductionManager;
 
 inline void ProductionManager::cycleQueue(UnitType prod)
 {
@@ -103,35 +103,12 @@ void ProductionManager::SetUnitWeight(UnitType unit, int Weight)
 	UnitWeights[unit] = Weight;
 }
 
-ProductionManager * getProductionManager()
-{
-	return LocalProductionManager;
-}
-
 Unitset ProductionManager::getProductionBuildings()
 {
 	return assignedUnits;
 }
 
-inline void lpmSuw(UnitType type, int weight)
+ProductionManager * getProductionManager()
 {
-	LocalProductionManager->SetUnitWeight(type, weight);
-}
-
-void initializeProductionManager()
-{
-	LocalProductionManager = new ProductionManager;
-	addManager(LocalProductionManager);
-
-	/*lpmSuw(UnitTypes::Protoss_Probe, 1);
-	lpmSuw(UnitTypes::Protoss_Zealot, 1);
-	lpmSuw(UnitTypes::Protoss_Observer, 1);
-	lpmSuw(UnitTypes::Protoss_Reaver, 1);
-	lpmSuw(UnitTypes::Protoss_Shuttle, 1);
-	lpmSuw(UnitTypes::Protoss_Scout, 1);
-	lpmSuw(UnitTypes::Protoss_Corsair, 1);
-	lpmSuw(UnitTypes::Protoss_Arbiter, 1);
-	lpmSuw(UnitTypes::Protoss_Carrier, 1);*/
-
-	LocalProductionManager->UpdateWeightLists();
+	return &LocalProductionManager;
 }

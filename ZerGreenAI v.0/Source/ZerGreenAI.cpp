@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "bwemL.h"
+#include "GeneralManagement.h"
 #include "LocalHarvesting.h"
 #include "Namespaces.h"
 #include "Debug.h"
@@ -72,13 +73,11 @@ void ZerGreenAI::onStart()
 		initializeMapAnalyser();
 		onStartTimerEnd("Map Analyser");
 
-		onStartTimerStart("Management");
-		initializeManagement();
-		onStartTimerEnd("Management");
-
 		onStartTimerStart("Build Order");
 		initializeBuildOrder();
 		onStartTimerEnd("Build Order");
+
+		Manager::globalOnStart();
 
 		onStartTimerEnd("Total");
 	}
@@ -90,7 +89,7 @@ void ZerGreenAI::onStart()
 
 void ZerGreenAI::onEnd(bool isWinner)
 {
-
+	Manager::globalOnEnd(isWinner);
 }
 
 void ZerGreenAI::onFrame()
@@ -119,7 +118,7 @@ void ZerGreenAI::onFrame()
 		startTimer("Control");
 		onFrameControl();
 		endTimer("Control");
-		onFrameSeniorManager();
+		Manager::globalOnFrame();
 		startTimer("Build Order");
 		buildOrderOnFrame();
 		endTimer("Build Order");
@@ -150,6 +149,8 @@ void ZerGreenAI::onSendText(std::string text)
 
 		// Make sure to use %s and pass the text as a parameter,
 		// otherwise you may run into problems when you use the %(percent) character!
+
+		Manager::globalOnSendText(text);
 	}
 	catch (const std::exception & e)
 	{
@@ -160,6 +161,7 @@ void ZerGreenAI::onSendText(std::string text)
 
 void ZerGreenAI::onReceiveText(BWAPI::Player player, std::string text)
 {
+	Manager::globalOnReceiveText(player, text);
 	if (standardMessages(text))
 	{
 		return;
@@ -168,12 +170,12 @@ void ZerGreenAI::onReceiveText(BWAPI::Player player, std::string text)
 
 void ZerGreenAI::onPlayerLeft(BWAPI::Player player)
 {
-
+	Manager::globalOnPlayerLeft(player);
 }
 
 void ZerGreenAI::onNukeDetect(BWAPI::Position target)
 {
-
+	Manager::globalOnNukeDetect(target);
 }
 
 void ZerGreenAI::onUnitDiscover(BWAPI::Unit unit)
@@ -183,20 +185,22 @@ void ZerGreenAI::onUnitDiscover(BWAPI::Unit unit)
 	{
 		ProbeScoutManager::foundBase(unit->getTilePosition());
 	}
-	//new debugText(CoordinateType::Map, unit->getPosition(), unit->getType().c_str(), 240);
+	Manager::globalOnUnitDiscover(unit);
 }
 
 void ZerGreenAI::onUnitEvade(BWAPI::Unit unit)
 {
+	Manager::globalOnUnitEvade(unit);
 }
 
 void ZerGreenAI::onUnitShow(BWAPI::Unit unit)
 {
-
+	Manager::globalOnUnitShow(unit);
 }
 
 void ZerGreenAI::onUnitHide(BWAPI::Unit unit)
 {
+	Manager::globalOnUnitHide(unit);
 }
 
 void ZerGreenAI::onUnitCreate(BWAPI::Unit unit)
@@ -207,6 +211,8 @@ void ZerGreenAI::onUnitCreate(BWAPI::Unit unit)
 	}
 
 	buildOrderOnCreate(unit);
+
+	Manager::globalOnUnitCreate(unit);
 }
 
 void ZerGreenAI::onUnitDestroy(BWAPI::Unit unit)
@@ -220,6 +226,7 @@ void ZerGreenAI::onUnitDestroy(BWAPI::Unit unit)
 		{
 			recycleUnitSenior(unit);
 		}
+		Manager::globalOnUnitDestroy(unit);
 	}
 	catch (const std::exception & e)
 	{
@@ -233,6 +240,7 @@ void ZerGreenAI::onUnitMorph(BWAPI::Unit unit)
 	{
 		buildOrderOnCreate(unit);
 	}
+	Manager::globalOnUnitMorph(unit);
 }
 
 void ZerGreenAI::onUnitRenegade(BWAPI::Unit unit)
@@ -241,13 +249,15 @@ void ZerGreenAI::onUnitRenegade(BWAPI::Unit unit)
 	{
 		recycleUnitSenior(unit);
 	}
+	Manager::globalOnUnitRenegade(unit);
 }
 
 void ZerGreenAI::onSaveGame(std::string gameName)
 {
-
+	Manager::globalOnSaveGame(gameName);
 }
 
 void ZerGreenAI::onUnitComplete(BWAPI::Unit unit)
 {
+	Manager::globalOnUnitComplete(unit);
 }

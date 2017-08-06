@@ -62,7 +62,7 @@ void LocalHarvestManager::recycleUnit(Unit u)
 {
 	if (u == base)
 	{
-		deleteManager(this);
+		delete this;
 	}
 	else
 	{

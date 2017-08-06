@@ -8,6 +8,7 @@
 #include "Debug.h"
 #include "GlobalHarvesting.h"
 
+LayoutPlanner LocalLayoutPlanner;
 LayoutNode mainNode;
 
 std::unordered_set<TilePosition> pathPositions;
@@ -34,8 +35,6 @@ namespace std
 		return a.node == b.node && a.children == b.children;
 	}
 }
-
-LayoutPlanner* LocalLayoutPlanner;
 
 std::unordered_set<LockedPosition> lockedPositions;
 
@@ -291,11 +290,8 @@ const BWEM::ChokePoint * getMainChokePoint(const BWEM::Area * area)
 	return area->ChokePoints().front();
 }
 
-void initializeLayoutPlanner()
+void LayoutPlanner::onStart()
 {
-	LocalLayoutPlanner = new LayoutPlanner;
-	addManager(LocalLayoutPlanner);
-
 	mainNode.node = Broodwar->self()->getStartLocation();
 	mainNode.nodeType = LayoutNode::LayoutNodeType::main;
 	mainNode.children = getNodesAroundBuilding(mainNode.node, UnitTypes::Protoss_Nexus);
@@ -335,7 +331,7 @@ void initializeLayoutPlanner()
 
 }
 
-LayoutPlanner* getLayoutPlanner()
+LayoutPlanner * getLayoutPlanner()
 {
-	return LocalLayoutPlanner;
+	return &LocalLayoutPlanner;
 }

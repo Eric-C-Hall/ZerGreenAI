@@ -4,6 +4,7 @@
 
 class LayoutPlanner : public JuniorManager
 {
+	void onStart();
 	void recycleUnit(Unit u);
 	bool isPositionAvailable(TilePosition pos, UnitType type);
 
@@ -53,5 +54,4 @@ void unlockLayout(UnitType, TilePosition); // Called when a building is destroye
 
 void drawHighLevelLayout();
 
-void initializeLayoutPlanner();
-LayoutPlanner* getLayoutPlanner();
+LayoutPlanner * getLayoutPlanner();

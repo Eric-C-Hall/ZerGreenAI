@@ -10,8 +10,7 @@
 #include "CombatStrategist.h"
 
 std::unordered_map<Unit, JuniorManager*> Unit2Manager;
-std::unordered_set<JuniorManager*> Managers;
-JuniorManager* LocalResourceAllocator;
+ResourceAllocator LocalResourceAllocator;
 
 
 
@@ -20,7 +19,7 @@ JuniorManager::~JuniorManager()
 	for (auto const &u : assignedUnits)
 	{
 		Unit2Manager.erase(u);
-		giveUnitManagement(u, LocalResourceAllocator);
+		giveUnitManagement(u, &LocalResourceAllocator);
 	}
 }
 
@@ -73,24 +72,6 @@ void JuniorManager::recycleUnitJunior(Unit u)
 	assignedUnits.erase(u);
 }
 
-void addManager(JuniorManager * mgr)
-{
-	Managers.insert(mgr);
-}
-
-void deleteManager(JuniorManager * mgr)
-{	
-	Managers.erase(mgr);
-	delete mgr;
-}
-
-std::unordered_set<JuniorManager *> managersToBeDeleted;
-
-void deleteManagerWhenPossible(JuniorManager * mgr)
-{
-	managersToBeDeleted.insert(mgr);
-}
-
 JuniorManager* getUnitManager(Unit u)
 {
 	return Unit2Manager[u];
@@ -98,20 +79,8 @@ JuniorManager* getUnitManager(Unit u)
 
 #define SHOW_OWNER 0
 
-void onFrameSeniorManager()
+void JuniorManager::onFrame()
 {
-	for (auto const &m : managersToBeDeleted)
-	{
-		deleteManager(m);
-	}
-	managersToBeDeleted.clear();
-
-	for (auto const &m : Managers)
-	{
-		startTimer(m->name());
-		m->onFrame();
-		endTimer(m->name());
-	}
 
 #if SHOW_OWNER && _DEBUG
 	for (auto const &u : Broodwar->getAllUnits())
@@ -147,19 +116,5 @@ void recycleUnitSenior(Unit u)
 
 JuniorManager* getResourceAllocator()
 {
-	return LocalResourceAllocator;
-}
-
-
-
-void initializeManagement()
-{
-	LocalResourceAllocator = new ResourceAllocator;
-	addManager(LocalResourceAllocator);
-	initializeGlobalHarvester();
-	initializeProductionManager();
-	initializeUpgradeManager();
-	initializeConstructionManager();
-	initializeLayoutPlanner();
-	initializeCombatStrategist();
+	return &LocalResourceAllocator;
 }

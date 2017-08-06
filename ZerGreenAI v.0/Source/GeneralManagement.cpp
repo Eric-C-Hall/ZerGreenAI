@@ -1,4 +1,5 @@
 #include "GeneralManagement.h"
+#include "Timer.h"
 
 std::unordered_set<Manager *> Manager::managers;
 
@@ -7,11 +8,18 @@ Manager::Manager()
 	managers.insert(this);
 }
 
+Manager::~Manager()
+{
+	managers.erase(this);
+}
+
 void Manager::globalOnStart()
 {
 	for (auto const &m : managers)
 	{
+		onStartTimerStart(m->name());
 		m->onStart();
+		onStartTimerEnd(m->name());
 	}
 }
 
@@ -27,7 +35,9 @@ void Manager::globalOnFrame()
 {
 	for (auto const &m : managers)
 	{
+		startTimer(m->name());
 		m->onFrame();
+		endTimer(m->name());
 	}
 }
 

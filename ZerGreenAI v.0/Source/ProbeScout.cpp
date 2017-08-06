@@ -8,7 +8,8 @@ Unit probe;
 
 void ProbeScoutManager::recycleUnit(Unit u)
 {
-	deleteManagerWhenPossible(this);
+	// was deleteManagerWhenPossible, may be buggy.
+	delete this;
 }
 
 TilePosition ProbeScoutManager::enemyBase = TilePositions::Unknown;
@@ -69,7 +70,7 @@ void ProbeScoutManager::onFrame()
 
 void startProbeScout()
 {
-	addManager(new ProbeScoutManager(getGlobalHarvester()->nearbyAvailableHarvester(Position(Broodwar->getStartLocations().front()))));
+	new ProbeScoutManager(getGlobalHarvester()->nearbyAvailableHarvester(Position(Broodwar->getStartLocations().front())));
 }
 
 void ProbeScoutManager::foundBase(TilePosition t)

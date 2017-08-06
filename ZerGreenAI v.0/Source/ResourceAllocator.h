@@ -9,4 +9,3 @@ public:
 	inline std::string name() { return "Resource Allocator"; }
 	void onFrame();
 };
-

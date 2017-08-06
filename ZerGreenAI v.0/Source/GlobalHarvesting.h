@@ -22,5 +22,4 @@ public:
 	TilePosition getBasePosition();
 };
 
-void initializeGlobalHarvester();
 GlobalHarvestManager* getGlobalHarvester();

@@ -99,6 +99,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Events.cpp" />
     <ClCompile Include="Source\GeneralManagement.cpp" />
     <ClCompile Include="Source\Memory.cpp" />
     <ClCompile Include="Source\Control.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="Source\ZealotScout.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Events.h" />
     <ClInclude Include="Source\GeneralManagement.h" />
     <ClInclude Include="Source\Memory.h" />
     <ClInclude Include="Source\Control.h" />

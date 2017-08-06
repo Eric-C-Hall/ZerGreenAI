@@ -28,6 +28,7 @@ class Manager
 public:
 
 	Manager();
+	~Manager();
 
 	static void globalOnStart();
 	static void globalOnEnd(bool isWinner);

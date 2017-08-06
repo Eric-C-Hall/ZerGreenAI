@@ -1,7 +1,6 @@
 #include "Upgrade.h"
 
-UpgradeManager* LocalUpgradeManager;
-
+UpgradeManager LocalUpgradeManager;
 
 void UpgradeManager::onFrame()
 {
@@ -46,11 +45,5 @@ void UpgradeManager::ChooseUpgrade(UpgradeType upgrade)
 
 UpgradeManager * getUpgradeManager()
 {
-	return LocalUpgradeManager;
-}
-
-void initializeUpgradeManager()
-{
-	LocalUpgradeManager = new UpgradeManager;
-	addManager(LocalUpgradeManager);
+	return &LocalUpgradeManager;
 }

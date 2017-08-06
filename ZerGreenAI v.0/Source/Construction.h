@@ -14,5 +14,4 @@ public:
 	bool constructBuilding(UnitType type);
 };
 
-void initializeConstructionManager();
 ConstructionManager * getConstructionManager();

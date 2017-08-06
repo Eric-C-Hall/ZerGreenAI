@@ -1,7 +1,7 @@
 #include "CombatStrategist.h"
 #include "Deathball.h"
 
-CombatStrategist* LocalCombatStrategist;
+CombatStrategist LocalCombatStrategist;
 DeathballManager* MainDeathball;
 
 void CombatStrategist::onAssignment(Unit u)
@@ -17,15 +17,12 @@ void CombatStrategist::onFrame()
 	}
 }
 
-void initializeCombatStrategist()
+void CombatStrategist::onStart()
 {
-	LocalCombatStrategist = new CombatStrategist;
-	addManager(LocalCombatStrategist);
 	MainDeathball = new DeathballManager;
-	addManager(MainDeathball);
 }
 
 CombatStrategist* getCombatStrategist()
 {
-	return LocalCombatStrategist;
+	return &LocalCombatStrategist;
 }
