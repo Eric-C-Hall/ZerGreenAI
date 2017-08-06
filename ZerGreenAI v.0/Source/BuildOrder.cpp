@@ -90,6 +90,7 @@ void saveBuildOrder(std::string filePath)
 		}
 	}
 	saveFile << 'X';
+	saveFile << '0';
 	saveFile.close();
 }
 

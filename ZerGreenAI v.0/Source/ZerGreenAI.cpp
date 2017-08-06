@@ -15,6 +15,7 @@
 #include "ProbeScout.h"
 #include "ScoutAnalysis.h"
 #include "CombatStrategist.h"
+#include "Control.h"
 
 // ------------
 // ZerGreenAI
@@ -115,6 +116,9 @@ void ZerGreenAI::onFrame()
 		drawHighLevelLayout();
 
 		endTimer("BWEM drawing");
+		startTimer("Control");
+		onFrameControl();
+		endTimer("Control");
 		onFrameSeniorManager();
 		startTimer("Build Order");
 		buildOrderOnFrame();

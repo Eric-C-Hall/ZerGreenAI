@@ -96,6 +96,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Control.cpp" />
+    <ClCompile Include="Source\CombatLearningDeathball.cpp" />
     <ClCompile Include="Source\CombatLearningAnalyst.cpp" />
     <ClCompile Include="Source\CombatAnalyst.cpp" />
     <ClCompile Include="Source\CombatStrategist.cpp" />
@@ -143,6 +145,8 @@
     <ClCompile Include="Source\ZealotScout.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Control.h" />
+    <ClInclude Include="Source\CombatLearningDeathball.h" />
     <ClInclude Include="Source\CombatLearningAnalyst.h" />
     <ClInclude Include="Source\CombatAnalyst.h" />
     <ClInclude Include="Source\CombatStrategist.h" />

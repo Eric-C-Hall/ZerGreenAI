@@ -136,6 +136,12 @@
     <ClCompile Include="Source\ZealotScout.cpp">
       <Filter>ZerGreenAI\Scouting</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CombatLearningDeathball.cpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Control.cpp">
+      <Filter>ZerGreenAI\Scouting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ZerGreenAI.h">
@@ -289,6 +295,12 @@
       <Filter>ZerGreenAI\Combat</Filter>
     </ClInclude>
     <ClInclude Include="Source\ZealotScout.h">
+      <Filter>ZerGreenAI\Scouting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CombatLearningDeathball.h">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Control.h">
       <Filter>ZerGreenAI\Scouting</Filter>
     </ClInclude>
   </ItemGroup>

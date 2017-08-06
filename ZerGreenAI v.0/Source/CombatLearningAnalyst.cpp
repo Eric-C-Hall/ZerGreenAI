@@ -1,7 +1,6 @@
 #include "CombatLearningAnalyst.h"
 #include "Hashes.h"
 #include <fstream>
-#include <vector>
 using namespace combatLearning;
 
 // private
@@ -69,7 +68,41 @@ double BattleRepresentation::distanceTo(BattleRepresentation rep)
 
 BattleRepresentation::BattleRepresentation(std::string s)
 {
+	std::stringstream stream;
+	stream.str(s);
+	char currentChar = '\0';
+	int convertEnum;
+	bool isAttacker = true;
 
+	while (currentChar != 'X')
+	{
+		stream >> currentChar;
+		stream >> convertEnum;
+
+		switch (currentChar)
+		{
+		case 'A':
+			isAttacker = true;
+			break;
+		case 'D':
+			isAttacker = false;
+			break;
+		case 'T':
+			UnitType tempType;
+			tempType = (UnitType)convertEnum;
+			stream >> currentChar;
+			stream >> convertEnum;
+			if (isAttacker)
+			{
+				attackerTypes[tempType] = convertEnum;
+			}
+			else
+			{
+				defenderTypes[tempType] = convertEnum;
+			}
+			break;
+		}
+	}
 }
 
 std::string writeMap(std::unordered_map<UnitType, int> map)
@@ -89,11 +122,14 @@ std::string BattleRepresentation::write()
 {
 	std::string output = "";
 	output.append('A',1);
+	output.append('0', 1);
 	output.append(writeMap(attackerTypes));
 	output.append('D',1);
+	output.append('0', 1);
 	output.append(writeMap(defenderTypes));
+	output.append('X', 1);
+	output.append('0', 1);
 	return output;
-
 }
 
 void onStart()
@@ -113,12 +149,50 @@ void appendData()
 
 void saveData()
 {
+	std::ofstream saveFile;
+	saveFile.open("bwapi-data/write/CombatLearning.txt");
 
+	if (!saveFile.is_open()) {
+		Broodwar << "File could not be opened" << std::endl;
+		return;
+	}
+
+	for (auto const &r : data)
+	{
+		saveFile << 'R' << r.first->write() << ' ' << r.second;
+	}
+	saveFile << 'X' << "X 0";
 }
 
 void loadData()
 {
+	std::ifstream loadFile;
+	loadFile.open("bwapi-data/write/CombatLearning.txt");
 
+	if (!loadFile.is_open()) {
+		Broodwar << "File could not be opened" << std::endl;
+		return;
+	}
+
+	char isEnd = '\0';
+	std::string rep;
+	bool didWin;
+
+	while (!loadFile.bad() && isEnd != 'X')
+	{
+		loadFile >> isEnd;
+		loadFile >> rep;
+		loadFile >> didWin;
+
+		switch (isEnd)
+		{
+		case 'R':
+			data[new BattleRepresentation(rep)] = didWin;
+			break;
+		case 'X':
+			break;
+		}
+	}
 }
 
 bool guessIfWin(Unitset attackers, Unitset defenders);
