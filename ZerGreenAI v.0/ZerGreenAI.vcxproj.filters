@@ -130,9 +130,6 @@
     <ClCompile Include="Source\Upgrade.cpp">
       <Filter>ZerGreenAI\Production</Filter>
     </ClCompile>
-    <ClCompile Include="Source\CombatLearningAnalyst.cpp">
-      <Filter>ZerGreenAI\Combat</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ZealotScout.cpp">
       <Filter>ZerGreenAI\Scouting</Filter>
     </ClCompile>
@@ -141,6 +138,12 @@
     </ClCompile>
     <ClCompile Include="Source\Control.cpp">
       <Filter>ZerGreenAI\Scouting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Memory.cpp">
+      <Filter>ZerGreenAI\Scouting</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractManagement.cpp">
+      <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -291,9 +294,6 @@
     <ClInclude Include="Source\Upgrade.h">
       <Filter>ZerGreenAI\Production</Filter>
     </ClInclude>
-    <ClInclude Include="Source\CombatLearningAnalyst.h">
-      <Filter>ZerGreenAI\Combat</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ZealotScout.h">
       <Filter>ZerGreenAI\Scouting</Filter>
     </ClInclude>
@@ -302,6 +302,12 @@
     </ClInclude>
     <ClInclude Include="Source\Control.h">
       <Filter>ZerGreenAI\Scouting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Memory.h">
+      <Filter>ZerGreenAI\Scouting</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractManagement.h">
+      <Filter>ZerGreenAI\Management</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -335,14 +341,14 @@
     <Filter Include="ZerGreenAI\Other">
       <UniqueIdentifier>{959ebf47-3697-4e35-a2d7-4610fb330e5f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZerGreenAI\Scouting">
-      <UniqueIdentifier>{5973e7af-041b-436f-9799-0986dd2e6b6e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ZerGreenAI\Combat">
       <UniqueIdentifier>{899011b2-0b82-4690-8b0c-8b7b944a80be}</UniqueIdentifier>
     </Filter>
     <Filter Include="ZerGreenAI\Production">
       <UniqueIdentifier>{32fbcc41-fb01-4262-9eb6-a0a6d0d706d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Scouting">
+      <UniqueIdentifier>{5973e7af-041b-436f-9799-0986dd2e6b6e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
