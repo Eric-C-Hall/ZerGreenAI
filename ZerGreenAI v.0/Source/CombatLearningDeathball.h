@@ -20,9 +20,9 @@
 //
 
 #include "Namespaces.h"
-#include "Management.h"
+#include "UnitManagement.h"
 
-class DeathballManager : public JuniorManager
+class DeathballManager : public UnitManager
 {
 	Position goal;
 	Position start;

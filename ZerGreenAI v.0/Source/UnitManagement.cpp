@@ -1,4 +1,4 @@
-#include "Management.h"
+#include "UnitManagement.h"
 #include "ResourceAllocator.h"
 #include "GlobalHarvesting.h"
 #include "Production.h"
@@ -9,12 +9,12 @@
 #include "BuildOrder.h"
 #include "CombatStrategist.h"
 
-std::unordered_map<Unit, JuniorManager*> Unit2Manager;
+std::unordered_map<Unit, UnitManager*> Unit2Manager;
 ResourceAllocator LocalResourceAllocator;
 
 
 
-JuniorManager::~JuniorManager()
+UnitManager::~UnitManager()
 {
 	for (auto const &u : assignedUnits)
 	{
@@ -23,9 +23,9 @@ JuniorManager::~JuniorManager()
 	}
 }
 
-bool JuniorManager::requestUnitManagement(Unit u)
+bool UnitManager::requestUnitManagement(Unit u)
 {
-	JuniorManager * uMgr = getUnitManager(u);
+	UnitManager * uMgr = getUnitManager(u);
 	if (uMgr == nullptr)
 	{
 		giveOrphanUnit(u);
@@ -44,7 +44,7 @@ bool JuniorManager::requestUnitManagement(Unit u)
 	}
 }
 
-void JuniorManager::giveUnitManagement(Unit u, JuniorManager * mgr)
+void UnitManager::giveUnitManagement(Unit u, UnitManager * mgr)
 {
 	acceptRequest(u); // Called in order to have side effects, result ignored.
 
@@ -53,7 +53,7 @@ void JuniorManager::giveUnitManagement(Unit u, JuniorManager * mgr)
 	mgr->giveOrphanUnit(u);
 }
 
-bool JuniorManager::giveOrphanUnit(Unit u)
+bool UnitManager::giveOrphanUnit(Unit u)
 {
 	if (Unit2Manager[u] == nullptr)
 	{
@@ -65,21 +65,21 @@ bool JuniorManager::giveOrphanUnit(Unit u)
 	return false;
 }
 
-void JuniorManager::recycleUnitJunior(Unit u)
+void UnitManager::recycleUnitJunior(Unit u)
 {
 	recycleUnit(u);
 	Unit2Manager.erase(u);
 	assignedUnits.erase(u);
 }
 
-JuniorManager* getUnitManager(Unit u)
+UnitManager* getUnitManager(Unit u)
 {
 	return Unit2Manager[u];
 }
 
 #define SHOW_OWNER 0
 
-void JuniorManager::onFrame()
+void UnitManager::onFrame()
 {
 
 #if SHOW_OWNER && _DEBUG
@@ -114,7 +114,7 @@ void recycleUnitSenior(Unit u)
 	buildOrderOnRecycle(u);
 }
 
-JuniorManager* getResourceAllocator()
+UnitManager* getResourceAllocator()
 {
 	return &LocalResourceAllocator;
 }

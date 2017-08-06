@@ -22,9 +22,6 @@
     <ClCompile Include="Source\ResourceAllocator.cpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Management.cpp">
-      <Filter>ZerGreenAI\Management</Filter>
-    </ClCompile>
     <ClCompile Include="Source\BM.cpp">
       <Filter>ZerGreenAI\Chat</Filter>
     </ClCompile>
@@ -148,6 +145,9 @@
     <ClCompile Include="Source\Events.cpp">
       <Filter>ZerGreenAI\BWAPI Extended</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UnitManagement.cpp">
+      <Filter>ZerGreenAI\Management</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ZerGreenAI.h">
@@ -175,9 +175,6 @@
       <Filter>ZerGreenAI\Production</Filter>
     </ClInclude>
     <ClInclude Include="Source\ResourceAllocator.h">
-      <Filter>ZerGreenAI\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Management.h">
       <Filter>ZerGreenAI\Management</Filter>
     </ClInclude>
     <ClInclude Include="Source\Namespaces.h">
@@ -314,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="Source\Events.h">
       <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitManagement.h">
+      <Filter>ZerGreenAI\Management</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

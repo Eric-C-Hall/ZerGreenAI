@@ -1,10 +1,9 @@
 #pragma once
 #include "Namespaces.h"
-#include "Management.h"
+#include "UnitManagement.h"
 
-class ProbeScoutManager : public JuniorManager
+class ProbeScoutManager : public UnitManager
 {
-
 	static TilePosition enemyBase;
 	void recycleUnit(Unit u);
 public:

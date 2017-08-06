@@ -8,8 +8,7 @@ Unit probe;
 
 void ProbeScoutManager::recycleUnit(Unit u)
 {
-	// was deleteManagerWhenPossible, may be buggy.
-	delete this;
+	this->cleanMeUp = true;
 }
 
 TilePosition ProbeScoutManager::enemyBase = TilePositions::Unknown;

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Namespaces.h"
-#include "Management.h"
+#include "UnitManagement.h"
 
-class ResourceAllocator : public JuniorManager
+class ResourceAllocator : public UnitManager
 {
 public:
 	inline std::string name() { return "Resource Allocator"; }

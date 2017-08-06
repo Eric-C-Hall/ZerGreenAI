@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Namespaces.h"
-#include "Management.h"
+#include "UnitManagement.h"
 
-class ConstructionManager : public JuniorManager
+class ConstructionManager : public UnitManager
 {
 	bool acceptRequest(Unit u); // Preferably should blacklist rather than whitelist
 	void recycleUnit(Unit u);

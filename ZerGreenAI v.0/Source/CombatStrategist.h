@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Namespaces.h"
-#include "Management.h"
+#include "UnitManagement.h"
 
-class CombatStrategist : public JuniorManager
+class CombatStrategist : public UnitManager
 {
 	void onStart();
 	void onAssignment(Unit u);

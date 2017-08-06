@@ -1,8 +1,8 @@
 #pragma once
 #include "Namespaces.h"
-#include "Management.h"
+#include "UnitManagement.h"
 
-class LayoutPlanner : public JuniorManager
+class LayoutPlanner : public UnitManager
 {
 	void onStart();
 	void recycleUnit(Unit u);

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Management.h"
+#include "UnitManagement.h"
 #include "queue"
 #include "Hashes.h"
 
-class ProductionManager : public JuniorManager
+class ProductionManager : public UnitManager
 {
 	std::unordered_map<UnitType, int> UnitWeights;
 	std::unordered_map<UnitType, std::queue<UnitType>> ProduceLists;

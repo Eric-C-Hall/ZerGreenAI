@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Namespaces.h"
-#include "Management.h"
+#include "UnitManagement.h"
 #include <queue>
 
-class DeathballManager : public JuniorManager
+class DeathballManager : public UnitManager
 {
 	Position currentBallPosition;
 	Position goal;

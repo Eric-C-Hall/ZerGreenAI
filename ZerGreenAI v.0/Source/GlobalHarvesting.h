@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Namespaces.h"
-#include "Management.h"
+#include "UnitManagement.h"
 
-class GlobalHarvestManager : public JuniorManager
+class GlobalHarvestManager : public UnitManager
 {
 	void onAssignment(Unit u);
 	void assignWorker(Unit u);

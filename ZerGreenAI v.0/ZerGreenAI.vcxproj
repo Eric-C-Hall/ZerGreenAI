@@ -143,7 +143,7 @@
     <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
     <ClCompile Include="Source\LocalHarvesting.cpp" />
-    <ClCompile Include="Source\Management.cpp" />
+    <ClCompile Include="Source\UnitManagement.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\ZerGreenAI.cpp" />
     <ClCompile Include="Source\Upgrade.cpp" />
@@ -199,7 +199,7 @@
     <ClInclude Include="Source\BM.h" />
     <ClInclude Include="Source\Debug.h" />
     <ClInclude Include="Source\LocalHarvesting.h" />
-    <ClInclude Include="Source\Management.h" />
+    <ClInclude Include="Source\UnitManagement.h" />
     <ClInclude Include="Source\Namespaces.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\ZerGreenAI.h" />

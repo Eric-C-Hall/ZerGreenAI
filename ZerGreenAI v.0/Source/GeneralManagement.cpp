@@ -33,11 +33,20 @@ void Manager::globalOnEnd(bool isWinner)
 
 void Manager::globalOnFrame()
 {
+	std::unordered_set<Manager *> cleanUpManagers;
 	for (auto const &m : managers)
 	{
 		startTimer(m->name());
 		m->onFrame();
 		endTimer(m->name());
+		if (m->cleanMeUp)
+		{
+			cleanUpManagers.insert(m);
+		}
+	}
+	for (auto const &m : cleanUpManagers)
+	{
+		delete m;
 	}
 }
 

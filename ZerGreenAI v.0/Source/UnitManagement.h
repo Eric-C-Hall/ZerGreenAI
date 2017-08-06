@@ -3,7 +3,7 @@
 #include "Namespaces.h"
 #include "GeneralManagement.h"
 
-class JuniorManager : Manager
+class UnitManager : public Manager
 {
 	virtual void onAssignment(Unit u) {};
 	virtual bool acceptRequest(Unit u) { return true; }; // Preferably should blacklist rather than whitelist
@@ -13,18 +13,18 @@ class JuniorManager : Manager
 protected:
 
 	Unitset assignedUnits;
-	void giveUnitManagement(Unit u, JuniorManager * mgr);
+	void giveUnitManagement(Unit u, UnitManager * mgr);
 	bool requestUnitManagement(Unit u);
 
 public:
-	virtual ~JuniorManager();
+	virtual ~UnitManager();
 
 	bool giveOrphanUnit(Unit u);
 	void recycleUnitJunior(Unit u);
 };
 
-JuniorManager* getUnitManager(Unit u);
+UnitManager* getUnitManager(Unit u);
 void recycleUnitSenior(Unit u);
 
 void initializeManagement();
-JuniorManager* getResourceAllocator();
+UnitManager* getResourceAllocator();

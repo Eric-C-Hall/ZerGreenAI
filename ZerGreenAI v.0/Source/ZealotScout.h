@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Namespaces.h"
-#include "Management.h"
+#include "UnitManagement.h"
 
-class ZealotScoutManager : public JuniorManager
+class ZealotScoutManager : public UnitManager
 {
 	void recycleUnit(Unit u);
 public:

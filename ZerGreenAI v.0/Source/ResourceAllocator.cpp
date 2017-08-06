@@ -6,7 +6,7 @@
 #include "LayoutPlanner.h"
 #include "CombatStrategist.h"
 
-JuniorManager * whoToGive(Unit u)
+UnitManager * whoToGive(Unit u)
 {
 	if ((IsWorker || IsResourceDepot)(u))
 	{
@@ -45,7 +45,7 @@ JuniorManager * whoToGive(Unit u)
 
 void ResourceAllocator::onFrame()
 {
-	std::map<Unit, JuniorManager *> intermediateStorage;
+	std::map<Unit, UnitManager *> intermediateStorage;
 
 	for (auto const &u : assignedUnits)
 	{

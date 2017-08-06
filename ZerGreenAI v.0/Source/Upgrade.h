@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Namespaces.h"
-#include "Management.h"
+#include "UnitManagement.h"
 #include "Hashes.h"
 
-class UpgradeManager : public JuniorManager
+class UpgradeManager : public UnitManager
 {
 	std::unordered_set<UpgradeType> ChosenUpgrades;
 	std::unordered_set<TechType> ChosenTechTypes;

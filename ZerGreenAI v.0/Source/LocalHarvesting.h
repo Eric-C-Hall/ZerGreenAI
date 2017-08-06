@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Namespaces.h"
-#include "Management.h"
+#include "UnitManagement.h"
 
-class LocalHarvestManager : public JuniorManager
+class LocalHarvestManager : public UnitManager
 {
 	Unit base;
 	Unitset nearbyMinerals;
