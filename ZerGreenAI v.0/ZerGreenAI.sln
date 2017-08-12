@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZerGreenAI", "ZerGreenAI.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CombatLearningAnalyst", "..\CombatLearningAnalyst\CombatLearningAnalyst.vcxproj", "{3A0D3499-06B0-4BA4-8160-B30D2DC98091}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DeathballTest", "..\DeathballTest\DeathballTest.vcxproj", "{E5DA439A-1A67-4385-A5B2-7E2653F1DF07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -29,6 +31,14 @@ Global
 		{3A0D3499-06B0-4BA4-8160-B30D2DC98091}.Release|Win32.Build.0 = Release|Win32
 		{3A0D3499-06B0-4BA4-8160-B30D2DC98091}.Release|x64.ActiveCfg = Release|x64
 		{3A0D3499-06B0-4BA4-8160-B30D2DC98091}.Release|x64.Build.0 = Release|x64
+		{E5DA439A-1A67-4385-A5B2-7E2653F1DF07}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E5DA439A-1A67-4385-A5B2-7E2653F1DF07}.Debug|Win32.Build.0 = Debug|Win32
+		{E5DA439A-1A67-4385-A5B2-7E2653F1DF07}.Debug|x64.ActiveCfg = Debug|x64
+		{E5DA439A-1A67-4385-A5B2-7E2653F1DF07}.Debug|x64.Build.0 = Debug|x64
+		{E5DA439A-1A67-4385-A5B2-7E2653F1DF07}.Release|Win32.ActiveCfg = Release|Win32
+		{E5DA439A-1A67-4385-A5B2-7E2653F1DF07}.Release|Win32.Build.0 = Release|Win32
+		{E5DA439A-1A67-4385-A5B2-7E2653F1DF07}.Release|x64.ActiveCfg = Release|x64
+		{E5DA439A-1A67-4385-A5B2-7E2653F1DF07}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

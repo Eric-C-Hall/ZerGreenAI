@@ -110,13 +110,13 @@
       <Filter>ZerGreenAI\Chat</Filter>
     </ClCompile>
     <ClCompile Include="Source\ProbeScout.cpp">
-      <Filter>ZerGreenAI\Scouting</Filter>
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
     </ClCompile>
     <ClCompile Include="Source\Deathball.cpp">
       <Filter>ZerGreenAI\Combat</Filter>
     </ClCompile>
     <ClCompile Include="Source\ScoutAnalysis.cpp">
-      <Filter>ZerGreenAI\Scouting</Filter>
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
     </ClCompile>
     <ClCompile Include="Source\CombatStrategist.cpp">
       <Filter>ZerGreenAI\Combat</Filter>
@@ -128,25 +128,25 @@
       <Filter>ZerGreenAI\Production</Filter>
     </ClCompile>
     <ClCompile Include="Source\ZealotScout.cpp">
-      <Filter>ZerGreenAI\Scouting</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CombatLearningDeathball.cpp">
-      <Filter>ZerGreenAI\Combat</Filter>
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
     </ClCompile>
     <ClCompile Include="Source\Control.cpp">
-      <Filter>ZerGreenAI\Scouting</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Memory.cpp">
-      <Filter>ZerGreenAI\Scouting</Filter>
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
     </ClCompile>
     <ClCompile Include="Source\GeneralManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Events.cpp">
-      <Filter>ZerGreenAI\BWAPI Extended</Filter>
-    </ClCompile>
     <ClCompile Include="Source\UnitManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\bwStrings.cpp">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EnemyMovement.cpp">
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EventExt.cpp">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,13 +277,13 @@
       <Filter>ZerGreenAI\Chat</Filter>
     </ClInclude>
     <ClInclude Include="Source\ProbeScout.h">
-      <Filter>ZerGreenAI\Scouting</Filter>
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
     </ClInclude>
     <ClInclude Include="Source\Deathball.h">
       <Filter>ZerGreenAI\Combat</Filter>
     </ClInclude>
     <ClInclude Include="Source\ScoutAnalysis.h">
-      <Filter>ZerGreenAI\Scouting</Filter>
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
     </ClInclude>
     <ClInclude Include="Source\CombatStrategist.h">
       <Filter>ZerGreenAI\Combat</Filter>
@@ -295,25 +295,25 @@
       <Filter>ZerGreenAI\Production</Filter>
     </ClInclude>
     <ClInclude Include="Source\ZealotScout.h">
-      <Filter>ZerGreenAI\Scouting</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CombatLearningDeathball.h">
-      <Filter>ZerGreenAI\Combat</Filter>
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
     </ClInclude>
     <ClInclude Include="Source\Control.h">
-      <Filter>ZerGreenAI\Scouting</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Memory.h">
-      <Filter>ZerGreenAI\Scouting</Filter>
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
     </ClInclude>
     <ClInclude Include="Source\GeneralManagement.h">
       <Filter>ZerGreenAI\Management</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Events.h">
-      <Filter>ZerGreenAI\BWAPI Extended</Filter>
-    </ClInclude>
     <ClInclude Include="Source\UnitManagement.h">
       <Filter>ZerGreenAI\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\bwStrings.h">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnemyMovement.h">
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EventExt.h">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -325,9 +325,6 @@
     </Filter>
     <Filter Include="EasyBMP">
       <UniqueIdentifier>{f26e8db2-bd8f-4ff2-98aa-92a7bf525247}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ZerGreenAI\Harvesting">
-      <UniqueIdentifier>{75ba9922-40b1-4c31-b986-79eea56063d2}</UniqueIdentifier>
     </Filter>
     <Filter Include="ZerGreenAI\Management">
       <UniqueIdentifier>{dc1b34d6-d4c9-4782-a0b4-ea07ff111557}</UniqueIdentifier>
@@ -353,11 +350,14 @@
     <Filter Include="ZerGreenAI\Production">
       <UniqueIdentifier>{32fbcc41-fb01-4262-9eb6-a0a6d0d706d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZerGreenAI\Scouting">
-      <UniqueIdentifier>{5973e7af-041b-436f-9799-0986dd2e6b6e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ZerGreenAI\BWAPI Extended">
       <UniqueIdentifier>{949639f4-7355-48c0-b1a3-c876581506af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Scouting/Intelligence">
+      <UniqueIdentifier>{5973e7af-041b-436f-9799-0986dd2e6b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Harvesting">
+      <UniqueIdentifier>{75ba9922-40b1-4c31-b986-79eea56063d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

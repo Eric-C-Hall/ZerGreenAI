@@ -16,12 +16,18 @@
     <ClCompile Include="claDll.cpp">
       <Filter>CombatLearningAnalyst</Filter>
     </ClCompile>
+    <ClCompile Include="..\ZerGreenAI v.0\Source\CombatLearningDeathball.cpp">
+      <Filter>CombatLearningAnalyst</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ZerGreenAI v.0\Source\CombatLearningAnalyst.h">
       <Filter>CombatLearningAnalyst</Filter>
     </ClInclude>
     <ClInclude Include="claMain.h">
+      <Filter>CombatLearningAnalyst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZerGreenAI v.0\Source\CombatLearningDeathball.h">
       <Filter>CombatLearningAnalyst</Filter>
     </ClInclude>
   </ItemGroup>

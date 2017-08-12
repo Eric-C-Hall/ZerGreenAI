@@ -3,7 +3,7 @@
 #include "Namespaces.h"
 #include "GeneralManagement.h"
 
-class UnitManager : public Manager
+class UnitManager : protected Manager
 {
 	virtual void onAssignment(Unit u) {};
 	virtual bool acceptRequest(Unit u) { return true; }; // Preferably should blacklist rather than whitelist

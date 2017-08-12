@@ -97,13 +97,16 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalDependencies>../lib/BWAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>move /y "$(OutDir)ZerGreenAI.dll" "$(OutDir)..\..\..\StarCraft\bwapi-data\AI"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Events.cpp" />
+    <ClCompile Include="Source\bwStrings.cpp" />
+    <ClCompile Include="Source\EventExt.cpp" />
     <ClCompile Include="Source\GeneralManagement.cpp" />
-    <ClCompile Include="Source\Memory.cpp" />
+    <ClCompile Include="Source\EnemyMovement.cpp" />
     <ClCompile Include="Source\Control.cpp" />
-    <ClCompile Include="Source\CombatLearningDeathball.cpp" />
     <ClCompile Include="Source\CombatAnalyst.cpp" />
     <ClCompile Include="Source\CombatStrategist.cpp" />
     <ClCompile Include="Source\ScoutAnalysis.cpp" />
@@ -150,11 +153,11 @@
     <ClCompile Include="Source\ZealotScout.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Events.h" />
+    <ClInclude Include="Source\bwStrings.h" />
+    <ClInclude Include="Source\EventExt.h" />
     <ClInclude Include="Source\GeneralManagement.h" />
-    <ClInclude Include="Source\Memory.h" />
+    <ClInclude Include="Source\EnemyMovement.h" />
     <ClInclude Include="Source\Control.h" />
-    <ClInclude Include="Source\CombatLearningDeathball.h" />
     <ClInclude Include="Source\CombatAnalyst.h" />
     <ClInclude Include="Source\CombatStrategist.h" />
     <ClInclude Include="Source\ScoutAnalysis.h" />

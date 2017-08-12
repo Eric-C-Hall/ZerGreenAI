@@ -11,9 +11,8 @@
 
 #define BASE_DEFENCE_DISTANCE 1000
 
-#define NUM_SKIP_FRAME 15
 #define TEXT_VISIBLE_LENGTH 15
-#define NUM_UNITS_AT_ONCE 10
+#define NUM_UNITS_AT_ONCE 1
 
 void DeathballManager::onAssignment(Unit u)
 {
@@ -87,7 +86,7 @@ bool doSpecialStuff(Unit u)
 	{
 		if (u->getTrainingQueue().size() > 0 || u->getScarabCount() > ( Broodwar->self()->getUpgradeLevel(UpgradeTypes::Reaver_Capacity) == 1 ?9:4)) return false;
 
-		new debugText(u->getPosition(), "Baby's Coming", TEXT_VISIBLE_LENGTH);
+		debugUnitText(u, "Baby's Coming");
 		u->train(UnitTypes::Protoss_Scarab);
 		return true;
 	}
@@ -95,12 +94,12 @@ bool doSpecialStuff(Unit u)
 	{
 		if (isTemplarLowEnergy(u))
 		{
-			new debugText(u->getPosition() + Position(0,10), "Looking for a buddy.", TEXT_VISIBLE_LENGTH);
+			debugUnitText(u, "Looking for a buddy.");
 
 			Unit mergeBuddy = u->getClosestUnit(isTemplarLowEnergy);
 			if (mergeBuddy != nullptr)
 			{
-				new debugText(u->getPosition(), "Super Saiyan mode Engage!", TEXT_VISIBLE_LENGTH);
+				debugUnitText(u, "Super Saiyan mode Engage!");
 				u->useTech(TechTypes::Archon_Warp, mergeBuddy);
 				return true;
 			}
@@ -110,7 +109,7 @@ bool doSpecialStuff(Unit u)
 		if (stormLocation == Positions::None || !u->canUseTech(TechTypes::Psionic_Storm,stormLocation) || u->getEnergy() < TechTypes::Psionic_Storm.energyCost()) return false;
 
 		new debugCircle(stormLocation, STORM_RADIUS, Colors::Blue, 120);
-		new debugText(u->getPosition(), "Feel the Wrath of a Templar!", TEXT_VISIBLE_LENGTH);
+		debugUnitText(u, "Feel the Wrath of a Templar!");
 		u->useTech(TechTypes::Psionic_Storm, stormLocation);
 		return true;
 	}
@@ -129,7 +128,7 @@ void DeathballManager::goDirect(Unit u)
 
 	if (u->getDistance(currentBallPosition) > TOGETHER_DISTANCE)
 	{
-		new debugText(u->getPosition(), "Wait for me!", TEXT_VISIBLE_LENGTH);
+		debugUnitText(u, "Wait for me!");
 		u->move(currentBallPosition);
 	}
 	else if (wouldWinConfrontation || isNearBase)
@@ -140,28 +139,28 @@ void DeathballManager::goDirect(Unit u)
 		{
 			if (isNearBase)
 			{
-				new debugText(u->getPosition(), "My back is to a wall here...", TEXT_VISIBLE_LENGTH);
+				debugUnitText(u, "Defend in the name of the Khala!");
 			}
 			else
 			{
-				new debugText(u->getPosition(), "You're going down!", TEXT_VISIBLE_LENGTH);
+				debugUnitText(u, "RAWR!!!!");
 			}
 			u->attack(enemy);
 		}
 		else if (passiveEnemy != nullptr)
 		{
 			u->attack(passiveEnemy);
-			new debugText(u->getPosition(), "You shall be Cleansed.", TEXT_VISIBLE_LENGTH);
+			debugUnitText(u,"You shall be Cleansed.");
 		}
 		else
 		{
-			new debugText(u->getPosition(), "Let's Get 'Em!", TEXT_VISIBLE_LENGTH);
+			debugUnitText(u, "Let's Get 'Em!");
 			u->attack(goal);
 		}
 	}
 	else
 	{
-		new debugText(u->getPosition(), "Damn Coward", TEXT_VISIBLE_LENGTH);
+		debugUnitText(u, "Damn Coward");
 		u->move(Position(Broodwar->self()->getStartLocation()));
 	}
 }
@@ -204,8 +203,8 @@ void DeathballManager::unitDecide(Unit u)
 	Position finalPosition = averageWeightedPosition(positionWeights);
 
 #if SHOW_FINAL && _DEBUG
-	new debugLine(u->getPosition(), finalPosition, Colors::Green, NUM_SKIP_FRAME);
-	new debugCircle(finalPosition, 2, Colors::Green, NUM_SKIP_FRAME, true);
+	new debugLine(u->getPosition(), finalPosition, Colors::Green, 100);
+	new debugCircle(finalPosition, 2, Colors::Green, 100, true);
 #endif
 
 	if (true)
@@ -306,10 +305,6 @@ void DeathballManager::onFrame()
 	Broodwar->drawCircleMap(currentBallPosition, 6, Colors::Purple, true);
 	Broodwar->drawCircleMap(currentBallPosition, TOGETHER_DISTANCE, Colors::Purple, false);
 #endif
-	if (Broodwar->getFrameCount() % NUM_SKIP_FRAME != 0)
-	{
-		return;
-	}
 
 	if (!unitDecideQueue.empty())
 	{

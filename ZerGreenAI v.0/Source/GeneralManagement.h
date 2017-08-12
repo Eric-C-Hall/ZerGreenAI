@@ -26,6 +26,13 @@ class Manager
 	inline virtual std::string name() { return "Name not Found"; }
 	static std::unordered_set<Manager *> managers;
 
+protected:
+	bool cleanMeUp = false;
+public:
+
+	Manager();
+	~Manager();
+
 	static void globalOnStart();
 	static void globalOnEnd(bool isWinner);
 	static void globalOnFrame();
@@ -43,31 +50,6 @@ class Manager
 	static void globalOnUnitRenegade(Unit unit);
 	static void globalOnSaveGame(std::string gameName);
 	static void globalOnUnitComplete(Unit unit);
-
-protected:
-	bool cleanMeUp = false;
-public:
-
-	Manager();
-	~Manager();
-
-	friend void ZerGreenAI::onStart();
-	friend void ZerGreenAI::onEnd(bool isWinner);
-	friend void ZerGreenAI::onFrame();
-	friend void ZerGreenAI::onSendText(std::string text);
-	friend void ZerGreenAI::onReceiveText(Player player, std::string text);
-	friend void ZerGreenAI::onPlayerLeft(Player player);
-	friend void ZerGreenAI::onNukeDetect(Position target);
-	friend void ZerGreenAI::onUnitDiscover(Unit unit);
-	friend void ZerGreenAI::onUnitEvade(Unit unit);
-	friend void ZerGreenAI::onUnitShow(Unit unit);
-	friend void ZerGreenAI::onUnitHide(Unit unit);
-	friend void ZerGreenAI::onUnitCreate(Unit unit);
-	friend void ZerGreenAI::onUnitDestroy(Unit unit);
-	friend void ZerGreenAI::onUnitMorph(Unit unit);
-	friend void ZerGreenAI::onUnitRenegade(Unit unit);
-	friend void ZerGreenAI::onSaveGame(std::string gameName);
-	friend void ZerGreenAI::onUnitComplete(Unit unit);
 
 
 };

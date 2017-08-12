@@ -22,7 +22,7 @@
 #include "Namespaces.h"
 #include "UnitManagement.h"
 
-class DeathballManager : public UnitManager
+class LearningDeathballManager : public UnitManager
 {
 	Position goal;
 	Position start;

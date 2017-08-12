@@ -2,7 +2,10 @@
 
 #include "Namespaces.h"
 
+#define NUM_UNIT_DEBUG_TEXT_FRAMES 24
+
 void debugOnFrame();
+void debugUnitText(Unit u, std::string text);
 
 class debugDrawing
 {

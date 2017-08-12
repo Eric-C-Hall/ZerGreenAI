@@ -1,10 +1,28 @@
 #include "Debug.h"
 
+std::unordered_map<Unit, std::string> unit2DebugText;
+std::unordered_map<Unit, int> debugTextFrames;
 std::unordered_set<debugDrawing *> drawings;
 std::unordered_set<debugDrawing *> removedDrawings;
 
+
+
 void debugOnFrame()
 {
+	Unitset eraseDebugTextUnits;
+	for (auto const &d : unit2DebugText)
+	{
+		if (debugTextFrames[d.first] <= 1) eraseDebugTextUnits.insert(d.first);
+		else debugTextFrames[d.first]--;
+
+		Broodwar->drawTextMap(d.first->getPosition(), d.second.c_str());
+	}
+	for (auto const &u : eraseDebugTextUnits)
+	{
+		unit2DebugText.erase(u);
+		debugTextFrames.erase(u);
+	}
+
 	// Important: Debug objects should be created using the 'new' keyword.
 	removedDrawings.clear();
 	for (auto const &d : drawings)
@@ -22,6 +40,12 @@ void debugOnFrame()
 		Unit selectedUnit = *Broodwar->getSelectedUnits().begin();
 		Broodwar->drawTextMap(selectedUnit->getPosition() + Position(0, 20), selectedUnit->getOrder().c_str());
 	}
+}
+
+void debugUnitText(Unit u, std::string text)
+{
+	unit2DebugText[u] = text;
+	debugTextFrames[u] = NUM_UNIT_DEBUG_TEXT_FRAMES;
 }
 
 debugDrawing::debugDrawing()
