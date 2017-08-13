@@ -18,6 +18,7 @@ protected:
 
 public:
 	virtual ~UnitManager();
+	inline virtual std::string name() { return "Unnamed Unit Manager"; }
 
 	bool giveOrphanUnit(Unit u);
 	void recycleUnitJunior(Unit u);
@@ -26,5 +27,4 @@ public:
 UnitManager* getUnitManager(Unit u);
 void recycleUnitSenior(Unit u);
 
-void initializeManagement();
 UnitManager* getResourceAllocator();

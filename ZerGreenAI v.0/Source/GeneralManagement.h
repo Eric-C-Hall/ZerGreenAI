@@ -23,7 +23,7 @@ class Manager
 	virtual void onSaveGame(std::string gameName) {};
 	virtual void onUnitComplete(Unit unit) {};
 
-	inline virtual std::string name() { return "Name not Found"; }
+	inline virtual std::string name() { return "Unnamed Manager"; }
 	static std::unordered_set<Manager *> managers;
 
 protected:

@@ -148,6 +148,9 @@
     <ClCompile Include="Source\EventExt.cpp">
       <Filter>ZerGreenAI\BWAPI Extended</Filter>
     </ClCompile>
+    <ClCompile Include="Source\QueueUnitManagement.cpp">
+      <Filter>ZerGreenAI\Management</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ZerGreenAI.h">
@@ -314,6 +317,9 @@
     </ClInclude>
     <ClInclude Include="Source\EventExt.h">
       <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\QueueUnitManagement.h">
+      <Filter>ZerGreenAI\Management</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

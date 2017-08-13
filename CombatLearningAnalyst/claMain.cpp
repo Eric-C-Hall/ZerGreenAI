@@ -1,4 +1,5 @@
 #include "claMain.h"
+#include "../ZerGreenAI v.0/Source/GeneralManagement.h"
 
 void claMain::onStart()
 {
@@ -12,7 +13,7 @@ void claMain::onEnd(bool isWinner)
 
 void claMain::onFrame()
 {
-	
+	Manager::globalOnFrame();
 }
 
 void claMain::onSendText(std::string text)

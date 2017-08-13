@@ -20,13 +20,11 @@
 //
 
 #include "Namespaces.h"
-#include "UnitManagement.h"
+#include "QueueUnitManagement.h"
 
-class LearningDeathballManager : public UnitManager
+class LearningDeathballManager : public QueueUnitManager
 {
-	Position goal;
-	Position start;
+	void onUnitTurn(Unit u);
 public:
-	void onFrame();
 	inline virtual std::string name() { return "Deathball Manager Mk 2"; }
 };
