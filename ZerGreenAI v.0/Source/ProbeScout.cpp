@@ -2,16 +2,14 @@
 #include "GlobalHarvesting.h"
 #include "Hashes.h"
 #include "ScoutAnalysis.h"
+#include "IMPScoutManager.h"
 
-std::unordered_set<TilePosition> seenLocations;
 Unit probe;
 
 void ProbeScoutManager::recycleUnit(Unit u)
 {
 	this->cleanMeUp = true;
 }
-
-TilePosition ProbeScoutManager::enemyBase = TilePositions::Unknown;
 
 ProbeScoutManager::ProbeScoutManager(Unit u)
 {
@@ -22,57 +20,15 @@ ProbeScoutManager::ProbeScoutManager(Unit u)
 	}
 }
 
-Unit gasToSteal;
-
-void stealGas(Unit u)
-{
-	gasToSteal = u;
-}
-
 void ProbeScoutManager::onFrame()
 {
-	if (enemyBase != TilePositions::Unknown)
+	if (Broodwar->isVisible((TilePosition)probe->getTargetPosition()))
 	{
-		if (gasToSteal != nullptr)
-		{
-			if (!Broodwar->isVisible(gasToSteal->getTilePosition()))
-			{
-				probe->move(gasToSteal->getPosition());
-			}
-			else if (!probe->isConstructing())
-			{
-				probe->build(UnitTypes::Protoss_Assimilator, gasToSteal->getTilePosition());
-			}
-		}
-		else
-		{
-			
-		}
-	}
-	else
-	{
-		for (auto const &b : Broodwar->getStartLocations())
-		{
-
-			if (!Broodwar->isVisible(b) && seenLocations.count(b) < 1)
-			{
-				probe->move(Position(b));
-				break;
-			}
-			else
-			{
-				seenLocations.insert(b);
-			}
-		}
+		probe->move((Position)getIMPScoutManager()->getColdest());
 	}
 }
 
 void startProbeScout()
 {
 	new ProbeScoutManager(getGlobalHarvester()->nearbyAvailableHarvester(Position(Broodwar->getStartLocations().front())));
-}
-
-void ProbeScoutManager::foundBase(TilePosition t)
-{
-	enemyBase = t;
 }

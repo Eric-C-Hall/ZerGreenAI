@@ -53,6 +53,7 @@ void ZerGreenAI::onStart()
 		Broodwar << "------------" << std::endl;
 		Broodwar << "Written by ZerGreenOne" << std::endl;
 		Broodwar << "Uses the BWEM library" << std::endl;
+		Broodwar << "Uses imp42's scouting algorithm's concept" << std::endl;
 
 		if (Broodwar->self()->getRace() != Races::Protoss)
 		{
@@ -115,9 +116,6 @@ void ZerGreenAI::onFrame()
 		drawHighLevelLayout();
 
 		endTimer("BWEM drawing");
-		startTimer("Control");
-		onFrameControl();
-		endTimer("Control");
 		Manager::globalOnFrame();
 		startTimer("Build Order");
 		buildOrderOnFrame();
@@ -181,10 +179,6 @@ void ZerGreenAI::onNukeDetect(BWAPI::Position target)
 void ZerGreenAI::onUnitDiscover(BWAPI::Unit unit)
 {
 	scoutAnalysisOnDiscover(unit);
-	if ((IsEnemy && IsResourceDepot)(unit))
-	{
-		ProbeScoutManager::foundBase(unit->getTilePosition());
-	}
 	Manager::globalOnUnitDiscover(unit);
 }
 

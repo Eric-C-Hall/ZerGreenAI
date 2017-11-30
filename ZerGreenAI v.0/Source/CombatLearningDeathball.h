@@ -25,6 +25,8 @@
 class LearningDeathballManager : public QueueUnitManager
 {
 	void onUnitTurn(Unit u);
+	void onAssignmentQ(Unit u);
+	void recycleUnit(Unit u);
 public:
 	inline virtual std::string name() { return "Deathball Manager Mk 2"; }
 };

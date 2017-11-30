@@ -13,3 +13,9 @@ It also requires that the files required for BWAPI be placed in the files ../inc
 Also, the read directory should be placed in bwapi-data in the Starcraft directory
 
 If someone other than me wants to try to compile this AI they should expect to have to put in a little work.
+
+-----------------------------
+
+Sources:
+
+IMP scouting based on imp42's post here: http://www.teamliquid.net/blogs/514487-towards-a-good-sc-bot-p3-scouting

@@ -3,6 +3,7 @@
 void QueueUnitManager::onAssignment(Unit u)
 {
 	unitDecideQueue.push(u);
+	onAssignmentQ(u);
 }
 
 void QueueUnitManager::onFrame()

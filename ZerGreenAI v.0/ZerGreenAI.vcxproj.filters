@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\Dll.cpp">
-      <Filter>ZerGreenAI</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ZerGreenAI.cpp">
-      <Filter>ZerGreenAI</Filter>
-    </ClCompile>
     <ClCompile Include="Source\EasyBMP_1.06\EasyBMP.cpp">
       <Filter>EasyBMP</Filter>
     </ClCompile>
@@ -127,12 +121,6 @@
     <ClCompile Include="Source\Upgrade.cpp">
       <Filter>ZerGreenAI\Production</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ZealotScout.cpp">
-      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Control.cpp">
-      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
-    </ClCompile>
     <ClCompile Include="Source\GeneralManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
@@ -151,11 +139,26 @@
     <ClCompile Include="Source\QueueUnitManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Dll.cpp">
+      <Filter>ZerGreenAI\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ZerGreenAI.cpp">
+      <Filter>ZerGreenAI\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IMPScoutManager.cpp">
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MicroCombatGroup.cpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MacroCombatGroup.cpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ManagerManagement.cpp">
+      <Filter>ZerGreenAI\Management</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\ZerGreenAI.h">
-      <Filter>ZerGreenAI</Filter>
-    </ClInclude>
     <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_VariousBMPutilities.h">
       <Filter>EasyBMP</Filter>
     </ClInclude>
@@ -297,12 +300,6 @@
     <ClInclude Include="Source\Upgrade.h">
       <Filter>ZerGreenAI\Production</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ZealotScout.h">
-      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Control.h">
-      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
-    </ClInclude>
     <ClInclude Include="Source\GeneralManagement.h">
       <Filter>ZerGreenAI\Management</Filter>
     </ClInclude>
@@ -319,6 +316,21 @@
       <Filter>ZerGreenAI\BWAPI Extended</Filter>
     </ClInclude>
     <ClInclude Include="Source\QueueUnitManagement.h">
+      <Filter>ZerGreenAI\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ZerGreenAI.h">
+      <Filter>ZerGreenAI\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IMPScoutManager.h">
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MicroCombatGroup.hpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MacroCombatGroup.hpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ManagerManagement.hpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClInclude>
   </ItemGroup>
@@ -365,10 +377,13 @@
     <Filter Include="ZerGreenAI\Harvesting">
       <UniqueIdentifier>{75ba9922-40b1-4c31-b986-79eea56063d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ZerGreenAI\Main">
+      <UniqueIdentifier>{25607a34-c4e3-4e06-b416-407e5720df7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt">
-      <Filter>ZerGreenAI</Filter>
+      <Filter>ZerGreenAI\Main</Filter>
     </Text>
   </ItemGroup>
 </Project>

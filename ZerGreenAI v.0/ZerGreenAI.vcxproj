@@ -102,12 +102,15 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\MacroCombatGroup.cpp" />
+    <ClCompile Include="Source\ManagerManagement.cpp" />
+    <ClCompile Include="Source\MicroCombatGroup.cpp" />
     <ClCompile Include="Source\QueueUnitManagement.cpp" />
     <ClCompile Include="Source\bwStrings.cpp" />
     <ClCompile Include="Source\EventExt.cpp" />
     <ClCompile Include="Source\GeneralManagement.cpp" />
     <ClCompile Include="Source\EnemyMovement.cpp" />
-    <ClCompile Include="Source\Control.cpp" />
+    <ClCompile Include="Source\IMPScoutManager.cpp" />
     <ClCompile Include="Source\CombatAnalyst.cpp" />
     <ClCompile Include="Source\CombatStrategist.cpp" />
     <ClCompile Include="Source\ScoutAnalysis.cpp" />
@@ -151,15 +154,17 @@
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\ZerGreenAI.cpp" />
     <ClCompile Include="Source\Upgrade.cpp" />
-    <ClCompile Include="Source\ZealotScout.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\MacroCombatGroup.hpp" />
+    <ClInclude Include="Source\ManagerManagement.hpp" />
+    <ClInclude Include="Source\MicroCombatGroup.hpp" />
     <ClInclude Include="Source\QueueUnitManagement.h" />
     <ClInclude Include="Source\bwStrings.h" />
     <ClInclude Include="Source\EventExt.h" />
     <ClInclude Include="Source\GeneralManagement.h" />
     <ClInclude Include="Source\EnemyMovement.h" />
-    <ClInclude Include="Source\Control.h" />
+    <ClInclude Include="Source\IMPScoutManager.h" />
     <ClInclude Include="Source\CombatAnalyst.h" />
     <ClInclude Include="Source\CombatStrategist.h" />
     <ClInclude Include="Source\ScoutAnalysis.h" />
@@ -209,7 +214,6 @@
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\ZerGreenAI.h" />
     <ClInclude Include="Source\Upgrade.h" />
-    <ClInclude Include="Source\ZealotScout.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt" />
