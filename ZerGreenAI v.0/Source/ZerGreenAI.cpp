@@ -1,22 +1,21 @@
-#include "ZerGreenAI.h"
+#include "ZerGreenAI.hpp"
 #include <iostream>
 
-#include "bwemL.h"
-#include "GeneralManagement.h"
-#include "LocalHarvesting.h"
-#include "Namespaces.h"
-#include "Debug.h"
-#include "Cheats.h"
-#include "Timer.h"
-#include "MapAnalyser.h"
-#include "BuildOrder.h"
-#include "LayoutPlanner.h"
-#include "BM.h"
-#include "Easter.h"
-#include "ProbeScout.h"
-#include "ScoutAnalysis.h"
-#include "CombatStrategist.h"
-#include "Control.h"
+#include "bwemL.hpp"
+#include "GeneralManagement.hpp"
+#include "LocalHarvesting.hpp"
+#include "Namespaces.hpp"
+#include "Debug.hpp"
+#include "Cheats.hpp"
+#include "Timer.hpp"
+#include "MapAnalyser.hpp"
+#include "BuildOrder.hpp"
+#include "LayoutPlanner.hpp"
+#include "BM.hpp"
+#include "Easter.hpp"
+#include "ProbeScout.hpp"
+#include "ScoutAnalysis.hpp"
+#include "CombatStrategist.hpp"
 
 // ------------
 // ZerGreenAI
@@ -26,7 +25,7 @@
 //
 // Uses the BWAPI & BWEM libraries
 
-void ZerGreenAI::onStart()
+void ZerGreenAIObj::onStart()
 {
 
 	try
@@ -88,12 +87,12 @@ void ZerGreenAI::onStart()
 	}
 }
 
-void ZerGreenAI::onEnd(bool isWinner)
+void ZerGreenAIObj::onEnd(bool isWinner)
 {
 	Manager::globalOnEnd(isWinner);
 }
 
-void ZerGreenAI::onFrame()
+void ZerGreenAIObj::onFrame()
 {
 	try
 	{
@@ -135,7 +134,7 @@ void ZerGreenAI::onFrame()
 	}
 }
 
-void ZerGreenAI::onSendText(std::string text)
+void ZerGreenAIObj::onSendText(std::string text)
 {
 	try
 	{
@@ -157,7 +156,7 @@ void ZerGreenAI::onSendText(std::string text)
 
 }
 
-void ZerGreenAI::onReceiveText(BWAPI::Player player, std::string text)
+void ZerGreenAIObj::onReceiveText(BWAPI::Player player, std::string text)
 {
 	Manager::globalOnReceiveText(player, text);
 	if (standardMessages(text))
@@ -166,38 +165,38 @@ void ZerGreenAI::onReceiveText(BWAPI::Player player, std::string text)
 	}
 }
 
-void ZerGreenAI::onPlayerLeft(BWAPI::Player player)
+void ZerGreenAIObj::onPlayerLeft(BWAPI::Player player)
 {
 	Manager::globalOnPlayerLeft(player);
 }
 
-void ZerGreenAI::onNukeDetect(BWAPI::Position target)
+void ZerGreenAIObj::onNukeDetect(BWAPI::Position target)
 {
 	Manager::globalOnNukeDetect(target);
 }
 
-void ZerGreenAI::onUnitDiscover(BWAPI::Unit unit)
+void ZerGreenAIObj::onUnitDiscover(BWAPI::Unit unit)
 {
 	scoutAnalysisOnDiscover(unit);
 	Manager::globalOnUnitDiscover(unit);
 }
 
-void ZerGreenAI::onUnitEvade(BWAPI::Unit unit)
+void ZerGreenAIObj::onUnitEvade(BWAPI::Unit unit)
 {
 	Manager::globalOnUnitEvade(unit);
 }
 
-void ZerGreenAI::onUnitShow(BWAPI::Unit unit)
+void ZerGreenAIObj::onUnitShow(BWAPI::Unit unit)
 {
 	Manager::globalOnUnitShow(unit);
 }
 
-void ZerGreenAI::onUnitHide(BWAPI::Unit unit)
+void ZerGreenAIObj::onUnitHide(BWAPI::Unit unit)
 {
 	Manager::globalOnUnitHide(unit);
 }
 
-void ZerGreenAI::onUnitCreate(BWAPI::Unit unit)
+void ZerGreenAIObj::onUnitCreate(BWAPI::Unit unit)
 {
 	if (unit->getPlayer() == Broodwar->self())
 	{
@@ -209,7 +208,7 @@ void ZerGreenAI::onUnitCreate(BWAPI::Unit unit)
 	Manager::globalOnUnitCreate(unit);
 }
 
-void ZerGreenAI::onUnitDestroy(BWAPI::Unit unit)
+void ZerGreenAIObj::onUnitDestroy(BWAPI::Unit unit)
 {
 	try
 	{
@@ -228,7 +227,7 @@ void ZerGreenAI::onUnitDestroy(BWAPI::Unit unit)
 	}
 }
 
-void ZerGreenAI::onUnitMorph(BWAPI::Unit unit)
+void ZerGreenAIObj::onUnitMorph(BWAPI::Unit unit)
 {
 	if (IsRefinery(unit))
 	{
@@ -237,7 +236,7 @@ void ZerGreenAI::onUnitMorph(BWAPI::Unit unit)
 	Manager::globalOnUnitMorph(unit);
 }
 
-void ZerGreenAI::onUnitRenegade(BWAPI::Unit unit)
+void ZerGreenAIObj::onUnitRenegade(BWAPI::Unit unit)
 {
 	if (unit->getPlayer() != Broodwar->self())
 	{
@@ -246,12 +245,12 @@ void ZerGreenAI::onUnitRenegade(BWAPI::Unit unit)
 	Manager::globalOnUnitRenegade(unit);
 }
 
-void ZerGreenAI::onSaveGame(std::string gameName)
+void ZerGreenAIObj::onSaveGame(std::string gameName)
 {
 	Manager::globalOnSaveGame(gameName);
 }
 
-void ZerGreenAI::onUnitComplete(BWAPI::Unit unit)
+void ZerGreenAIObj::onUnitComplete(BWAPI::Unit unit)
 {
 	Manager::globalOnUnitComplete(unit);
 }

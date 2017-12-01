@@ -1,25 +1,27 @@
-#include "UnitManagement.h"
-#include "ResourceAllocator.h"
-#include "GlobalHarvesting.h"
-#include "Production.h"
-#include "Upgrade.h"
-#include "Construction.h"
-#include "Timer.h"
-#include "LayoutPlanner.h"
-#include "BuildOrder.h"
-#include "CombatStrategist.h"
+#include "UnitManagement.hpp"
+#include "ResourceAllocator.hpp"
+#include "GlobalHarvesting.hpp"
+#include "Production.hpp"
+#include "Upgrade.hpp"
+#include "Construction.hpp"
+#include "Timer.hpp"
+#include "LayoutPlanner.hpp"
+#include "BuildOrder.hpp"
+#include "CombatStrategist.hpp"
+#include "Namespaces.hpp"
 
 std::unordered_map<Unit, UnitManager*> Unit2Manager;
 ResourceAllocator LocalResourceAllocator;
 
-
-
 UnitManager::~UnitManager()
 {
-	for (auto const &u : assignedUnits)
+	if (Broodwar->isInGame())
 	{
-		Unit2Manager.erase(u);
-		giveUnitManagement(u, &LocalResourceAllocator);
+		for (auto const &u : assignedUnits)
+		{
+			Unit2Manager.erase(u);
+			giveUnitManagement(u, &LocalResourceAllocator);
+		}
 	}
 }
 
@@ -67,12 +69,12 @@ bool UnitManager::giveOrphanUnit(Unit u)
 
 void UnitManager::recycleUnitJunior(Unit u)
 {
-	recycleUnit(u);
 	Unit2Manager.erase(u);
 	assignedUnits.erase(u);
+	recycleUnit(u);
 }
 
-UnitManager* getUnitManager(Unit u)
+UnitManager* ZerGreenAI::getUnitManager(Unit u)
 {
 	return Unit2Manager[u];
 }
@@ -100,7 +102,7 @@ void UnitManager::onFrame()
 #endif
 }
 
-void recycleUnitSenior(Unit u)
+void ZerGreenAI::recycleUnitSenior(Unit u)
 {
 	if (Unit2Manager[u] != nullptr)
 	{
@@ -114,7 +116,7 @@ void recycleUnitSenior(Unit u)
 	buildOrderOnRecycle(u);
 }
 
-UnitManager* getResourceAllocator()
+UnitManager* ZerGreenAI::getResourceAllocator()
 {
 	return &LocalResourceAllocator;
 }

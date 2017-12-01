@@ -1,19 +1,21 @@
-#include "ResourceAllocator.h"
-#include "LocalHarvesting.h"
-#include "GlobalHarvesting.h"
-#include "Production.h"
-#include "Upgrade.h"
-#include "LayoutPlanner.h"
-#include "CombatStrategist.h"
+#include "ResourceAllocator.hpp"
+#include "LocalHarvesting.hpp"
+#include "GlobalHarvesting.hpp"
+#include "Production.hpp"
+#include "Upgrade.hpp"
+#include "LayoutPlanner.hpp"
+#include "CombatStrategist.hpp"
+#include "Namespaces.hpp"
 
 UnitManager * whoToGive(Unit u)
 {
+	if (!IsCompleted(u))
+	{
+		return nullptr;
+	}
+
 	if ((IsWorker || IsResourceDepot)(u))
 	{
-		if (!IsCompleted(u))
-		{
-			return nullptr;
-		}
 		return getGlobalHarvester();
 	}
 	else if (IsBuilding(u))

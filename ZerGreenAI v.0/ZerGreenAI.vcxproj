@@ -102,13 +102,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Load.cpp" />
+    <ClCompile Include="Source\GeneralManagement.cpp" />
     <ClCompile Include="Source\MacroCombatGroup.cpp" />
-    <ClCompile Include="Source\ManagerManagement.cpp" />
     <ClCompile Include="Source\MicroCombatGroup.cpp" />
     <ClCompile Include="Source\QueueUnitManagement.cpp" />
     <ClCompile Include="Source\bwStrings.cpp" />
     <ClCompile Include="Source\EventExt.cpp" />
-    <ClCompile Include="Source\GeneralManagement.cpp" />
     <ClCompile Include="Source\EnemyMovement.cpp" />
     <ClCompile Include="Source\IMPScoutManager.cpp" />
     <ClCompile Include="Source\CombatAnalyst.cpp" />
@@ -156,31 +156,31 @@
     <ClCompile Include="Source\Upgrade.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Load.hpp" />
+    <ClInclude Include="Source\GeneralManagement.hpp" />
     <ClInclude Include="Source\MacroCombatGroup.hpp" />
-    <ClInclude Include="Source\ManagerManagement.hpp" />
     <ClInclude Include="Source\MicroCombatGroup.hpp" />
-    <ClInclude Include="Source\QueueUnitManagement.h" />
-    <ClInclude Include="Source\bwStrings.h" />
-    <ClInclude Include="Source\EventExt.h" />
-    <ClInclude Include="Source\GeneralManagement.h" />
-    <ClInclude Include="Source\EnemyMovement.h" />
-    <ClInclude Include="Source\IMPScoutManager.h" />
-    <ClInclude Include="Source\CombatAnalyst.h" />
-    <ClInclude Include="Source\CombatStrategist.h" />
-    <ClInclude Include="Source\ScoutAnalysis.h" />
-    <ClInclude Include="Source\Deathball.h" />
-    <ClInclude Include="Source\ProbeScout.h" />
-    <ClInclude Include="Source\BWEMHashes.h" />
-    <ClInclude Include="Source\bwemL.h" />
-    <ClInclude Include="Source\BuildOrder.h" />
-    <ClInclude Include="Source\Achievements.h" />
-    <ClInclude Include="Source\Easter.h" />
-    <ClInclude Include="Source\MapAnalyser.h" />
-    <ClInclude Include="Source\LayoutPlanner.h" />
-    <ClInclude Include="Source\Hashes.h" />
-    <ClInclude Include="Source\Minimum.h" />
-    <ClInclude Include="Source\Production.h" />
-    <ClInclude Include="Source\Cheats.h" />
+    <ClInclude Include="Source\QueueUnitManagement.hpp" />
+    <ClInclude Include="Source\bwStrings.hpp" />
+    <ClInclude Include="Source\EventExt.hpp" />
+    <ClInclude Include="Source\EnemyMovement.hpp" />
+    <ClInclude Include="Source\IMPScoutManager.hpp" />
+    <ClInclude Include="Source\CombatAnalyst.hpp" />
+    <ClInclude Include="Source\CombatStrategist.hpp" />
+    <ClInclude Include="Source\ScoutAnalysis.hpp" />
+    <ClInclude Include="Source\Deathball.hpp" />
+    <ClInclude Include="Source\ProbeScout.hpp" />
+    <ClInclude Include="Source\BWEMHashes.hpp" />
+    <ClInclude Include="Source\bwemL.hpp" />
+    <ClInclude Include="Source\BuildOrder.hpp" />
+    <ClInclude Include="Source\Achievements.hpp" />
+    <ClInclude Include="Source\Easter.hpp" />
+    <ClInclude Include="Source\MapAnalyser.hpp" />
+    <ClInclude Include="Source\LayoutPlanner.hpp" />
+    <ClInclude Include="Source\Hashes.hpp" />
+    <ClInclude Include="Source\Minimum.hpp" />
+    <ClInclude Include="Source\Production.hpp" />
+    <ClInclude Include="Source\Cheats.hpp" />
     <ClInclude Include="Source\BWEM\area.h" />
     <ClInclude Include="Source\BWEM\base.h" />
     <ClInclude Include="Source\BWEM\bwapiExt.h" />
@@ -199,21 +199,22 @@
     <ClInclude Include="Source\BWEM\tiles.h" />
     <ClInclude Include="Source\BWEM\utils.h" />
     <ClInclude Include="Source\BWEM\winutils.h" />
-    <ClInclude Include="Source\Construction.h" />
+    <ClInclude Include="Source\Construction.hpp" />
     <ClInclude Include="Source\EasyBMP_1.06\EasyBMP.h" />
     <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_BMP.h" />
     <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_DataStructures.h" />
     <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_VariousBMPutilities.h" />
-    <ClInclude Include="Source\GlobalHarvesting.h" />
-    <ClInclude Include="Source\ResourceAllocator.h" />
-    <ClInclude Include="Source\BM.h" />
-    <ClInclude Include="Source\Debug.h" />
-    <ClInclude Include="Source\LocalHarvesting.h" />
-    <ClInclude Include="Source\UnitManagement.h" />
-    <ClInclude Include="Source\Namespaces.h" />
-    <ClInclude Include="Source\Timer.h" />
-    <ClInclude Include="Source\ZerGreenAI.h" />
-    <ClInclude Include="Source\Upgrade.h" />
+    <ClInclude Include="Source\GlobalHarvesting.hpp" />
+    <ClInclude Include="Source\ResourceAllocator.hpp" />
+    <ClInclude Include="Source\BM.hpp" />
+    <ClInclude Include="Source\Debug.hpp" />
+    <ClInclude Include="Source\LocalHarvesting.hpp" />
+    <ClInclude Include="Source\UnitManagement.hpp" />
+    <ClInclude Include="Source\Namespaces.hpp" />
+    <ClInclude Include="Source\Timer.hpp" />
+    <ClInclude Include="Source\ZerGreenAI.hpp" />
+    <ClInclude Include="Source\Upgrade.hpp" />
+    <ClInclude Include="Source\Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt" />

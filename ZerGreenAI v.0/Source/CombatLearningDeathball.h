@@ -19,8 +19,7 @@
 // 
 //
 
-#include "Namespaces.h"
-#include "QueueUnitManagement.h"
+#include "QueueUnitManagement.hpp"
 
 class LearningDeathballManager : public QueueUnitManager
 {

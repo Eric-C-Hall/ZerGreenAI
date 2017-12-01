@@ -1,8 +1,9 @@
-#include "GlobalHarvesting.h"
-#include "LocalHarvesting.h"
-#include "Timer.h"
-#include "Hashes.h"
-#include "bwemL.h"
+#include "GlobalHarvesting.hpp"
+#include "LocalHarvesting.hpp"
+#include "Timer.hpp"
+#include "Hashes.hpp"
+#include "bwemL.hpp"
+#include "Namespaces.hpp"
 
 std::unordered_set<LocalHarvestManager *> childManagers;
 std::unordered_set<TilePosition> unclaimedBases;
@@ -174,7 +175,7 @@ void initializeGlobalHarvester()
 	}
 }
 
-GlobalHarvestManager* getGlobalHarvester()
+GlobalHarvestManager* ZerGreenAI::getGlobalHarvester()
 {
 	return &LocalGlobalHarvester;
 }

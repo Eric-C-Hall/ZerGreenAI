@@ -1,6 +1,7 @@
 #include "CombatLearningDeathball.h"
 
 #include "rl.hpp"
+#include "Namespaces.hpp"
 #include "Hashes.h"
 
 namespace cld

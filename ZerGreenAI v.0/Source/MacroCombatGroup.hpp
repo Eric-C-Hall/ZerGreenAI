@@ -1,11 +1,22 @@
 #pragma once
 
-#include "ManagerManagement.hpp"
-#include "UnitManagement.h"
+#include "MicroCombatGroup.hpp"
+#include "UnitManagement.hpp"
 
-class MacroCombatManager : protected virtual ManagerManager, protected virtual UnitManager
+namespace ZerGreenAI
 {
-	void onFrame();
-public:
-	inline virtual std::string name() { return "Macro Combat Manager"; }
-};
+
+	class MacroCombatManager : public UnitManager
+	{
+		std::unordered_set<MicroCombatManager *> childManagers;
+
+		void newManager(BWAPI::Unit u);
+
+		void onAssignment(BWAPI::Unit u);
+	public:
+		inline std::string name() { return "Macro Combat Manager"; }
+	};
+
+	MacroCombatManager* getMacroCombatManager();
+
+}

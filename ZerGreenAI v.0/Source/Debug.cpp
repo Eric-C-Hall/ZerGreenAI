@@ -1,4 +1,5 @@
-#include "Debug.h"
+#include "Debug.hpp"
+#include "Namespaces.hpp"
 
 std::unordered_map<Unit, std::string> unit2DebugText;
 std::unordered_map<Unit, int> debugTextFrames;
@@ -7,7 +8,7 @@ std::unordered_set<debugDrawing *> removedDrawings;
 
 
 
-void debugOnFrame()
+void ZerGreenAI::debugOnFrame()
 {
 	Unitset eraseDebugTextUnits;
 	for (auto const &d : unit2DebugText)
@@ -42,7 +43,7 @@ void debugOnFrame()
 	}
 }
 
-void debugUnitText(Unit u, std::string text)
+void ZerGreenAI::debugUnitText(Unit u, std::string text)
 {
 	unit2DebugText[u] = text;
 	debugTextFrames[u] = NUM_UNIT_DEBUG_TEXT_FRAMES;

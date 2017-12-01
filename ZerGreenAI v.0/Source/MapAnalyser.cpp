@@ -1,5 +1,6 @@
-#include "MapAnalyser.h"
-#include "BWEMHashes.h"
+#include "MapAnalyser.hpp"
+#include "BWEMHashes.hpp"
+#include "Namespaces.hpp"
 
 std::unordered_map<const BWEM::Base *, LineSegment> mineralLines;
 
@@ -107,14 +108,14 @@ void calculateMineralLines()
 	}
 }
 
-void initializeMapAnalyser()
+void ZerGreenAI::initializeMapAnalyser()
 {
 	isInit = true;
 	calculateMineralLines();
 	Broodwar->self()->getStartLocation();
 }
 
-LineSegment mineralLine(const BWEM::Base * b)
+LineSegment ZerGreenAI::mineralLine(const BWEM::Base * b)
 {
 	assert(isInit);
 	return mineralLines[b];
@@ -131,7 +132,7 @@ int manhattenDistance(TilePosition p1, TilePosition p2);
 
 #define MAX_ITERATIONS 200
 
-std::vector<TilePosition> pathToTilePosition(TilePosition begin, TilePosition end)
+std::vector<TilePosition> ZerGreenAI::pathToTilePosition(TilePosition begin, TilePosition end)
 {
 	std::unordered_set<TilePosition> openSet;
 	std::unordered_set<TilePosition> openSetErase;
@@ -231,12 +232,12 @@ int manhattenDistance(TilePosition p1, TilePosition p2)
 
 
 
-TilePosition areaCenter(const BWEM::Area * area)
+TilePosition ZerGreenAI::areaCenter(const BWEM::Area * area)
 {
 	return (area->TopLeft() + area->BottomRight()) / 2;
 }
 
-Position averageWeightedPosition(std::unordered_map<Position,double> weights)
+Position ZerGreenAI::averageWeightedPosition(std::unordered_map<Position,double> weights)
 {
 	
 	double outputX = 0;

@@ -1,6 +1,7 @@
-#include "IMPScoutManager.h"
-#include "bwemL.h"
-#include "Debug.h"
+#include "IMPScoutManager.hpp"
+#include "bwemL.hpp"
+#include "Debug.hpp"
+#include "Namespaces.hpp"
 
 IMPScoutManager localIMPScoutManager;
 
@@ -65,7 +66,7 @@ TilePosition IMPScoutManager::getColdest()
 	return bestPos;
 }
 
-IMPScoutManager * getIMPScoutManager()
+IMPScoutManager * ZerGreenAI::getIMPScoutManager()
 {
 	return &localIMPScoutManager;
 }

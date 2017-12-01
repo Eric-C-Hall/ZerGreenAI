@@ -1,4 +1,5 @@
-#include "CombatAnalyst.h"
+#include "CombatAnalyst.hpp"
+#include "Namespaces.hpp"
 
 namespace std
 {
@@ -20,7 +21,7 @@ namespace std
 typedef std::vector<SimulatedUnit> SimUnitvector;
 
 template <class UnaryPredicate>
-void eraseRemoveIdiom(SimUnitvector &vector, UnaryPredicate pred)
+void ZerGreenAI::eraseRemoveIdiom(SimUnitvector &vector, UnaryPredicate pred)
 {
 	auto firstValid = std::remove_if(vector.begin(), vector.end(), pred);
 	if (firstValid == vector.end())
@@ -123,7 +124,7 @@ void removeGarbage(SimUnitvector &force)
 	eraseRemoveIdiom(force, isNotGarbage);
 }
 
-SimulationResults simulateAttack(Unitset attackers, Unitset defenders)
+SimulationResults ZerGreenAI::simulateAttack(Unitset attackers, Unitset defenders)
 {
 	SimUnitvector simAttackers;
 	SimUnitvector simDefenders;

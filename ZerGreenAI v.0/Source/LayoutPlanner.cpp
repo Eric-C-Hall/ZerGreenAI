@@ -1,12 +1,14 @@
-#include "MapAnalyser.h"
-#include "LayoutPlanner.h"
-#include "bweml.h"
-#include "Timer.h"
-#include "Hashes.h"
 #include <math.h>
 #include <algorithm>
-#include "Debug.h"
-#include "GlobalHarvesting.h"
+
+#include "MapAnalyser.hpp"
+#include "LayoutPlanner.hpp"
+#include "bweml.hpp"
+#include "Timer.hpp"
+#include "Hashes.hpp"
+#include "Debug.hpp"
+#include "GlobalHarvesting.hpp"
+#include "Namespaces.hpp"
 
 LayoutPlanner LocalLayoutPlanner;
 LayoutNode mainNode;
@@ -33,6 +35,11 @@ namespace std
 	bool operator==(const LayoutNode &a, const LayoutNode &b)
 	{
 		return a.node == b.node && a.children == b.children;
+	}
+
+	bool operator==(const LockedPosition &a, const LockedPosition &b)
+	{
+		return (a.pos == b.pos) && (a.type == b.type);
 	}
 }
 
@@ -78,11 +85,6 @@ bool LayoutPlanner::isPositionAvailable(TilePosition pos, UnitType type)
 	}
 
 	return true;
-}
-
-bool operator==(const LockedPosition &a, const LockedPosition &b)
-{
-	return (a.pos == b.pos) && (a.type == b.type);
 }
 
 void LayoutNode::draw()
@@ -260,7 +262,7 @@ std::unordered_set<LayoutNode> getNodesAroundBuilding(TilePosition buildPosition
 	return returnValue;
 }
 
-void drawHighLevelLayout()
+void ZerGreenAI::drawHighLevelLayout()
 {
 	//mainNode.draw();
 
@@ -331,7 +333,7 @@ void LayoutPlanner::onStart()
 
 }
 
-LayoutPlanner * getLayoutPlanner()
+LayoutPlanner * ZerGreenAI::getLayoutPlanner()
 {
 	return &LocalLayoutPlanner;
 }

@@ -1,10 +1,11 @@
-#include "ScoutAnalysis.h"
-#include "MapAnalyser.h"
-#include "Debug.h"
+#include "ScoutAnalysis.hpp"
+#include "MapAnalyser.hpp"
+#include "Debug.hpp"
+#include "Namespaces.hpp"
 
 std::map<const BWEM::Area *, int> targets;
 
-void scoutAnalysisOnDiscover(Unit u)
+void ZerGreenAI::scoutAnalysisOnDiscover(Unit u)
 {
 	const BWEM::Area * closestArea;
 	closestArea = theMap.GetNearestArea(u->getTilePosition());
@@ -24,12 +25,12 @@ void scoutAnalysisOnDiscover(Unit u)
 	}
 }
 
-std::map<const BWEM::Area *, int> getTargets()
+std::map<const BWEM::Area *, int> ZerGreenAI::getTargets()
 {
 	return targets;
 }
 
-const BWEM::Area * getHighestPriorityTarget()
+const BWEM::Area * ZerGreenAI::getHighestPriorityTarget()
 {
 	int bestScore = INT_MIN;
 	const BWEM::Area * bestArea = nullptr;

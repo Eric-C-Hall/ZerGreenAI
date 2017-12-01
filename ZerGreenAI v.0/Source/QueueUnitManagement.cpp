@@ -1,23 +1,38 @@
-#include "QueueUnitManagement.h"
+#include "QueueUnitManagement.hpp"
+#include "Namespaces.hpp"
 
 void QueueUnitManager::onAssignment(Unit u)
 {
-	unitDecideQueue.push(u);
-	onAssignmentQ(u);
+	unitDecideQueue.push_back(u);
+}
+
+void QueueUnitManager::recycleUnit(Unit u)
+{
+	std::remove(unitDecideQueue.begin(), unitDecideQueue.end(), u);
 }
 
 void QueueUnitManager::onFrame()
 {
-	onUnitTurn(rotateQueue());
+	if (!unitDecideQueue.empty())
+		onUnitTurn(rotateQueue());
 }
 
 Unit QueueUnitManager::rotateQueue()
 {
-	Unit returnValue = unitDecideQueue.front();
-	unitDecideQueue.pop();
-	if (returnValue->exists())
+	Unit returnValue;
+	do
 	{
-		unitDecideQueue.push(returnValue);
+		returnValue = unitDecideQueue.front();
+		unitDecideQueue.pop_front();
+	} while (!returnValue->exists() && !unitDecideQueue.empty());
+
+	if (unitDecideQueue.empty())
+	{
+		return nullptr;
 	}
-	return returnValue;
+	else
+	{
+		unitDecideQueue.push_back(returnValue);
+		return returnValue;
+	}
 }

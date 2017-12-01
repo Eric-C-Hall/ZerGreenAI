@@ -1,5 +1,6 @@
-#include "EnemyMovement.h"
-#include "bwStrings.h"
+#include "EnemyMovement.hpp"
+#include "Namespaces.hpp"
+#include "bwStrings.hpp"
 
 EnemyMovementManager enemyMovementManager;
 
@@ -63,7 +64,7 @@ void EnemyMovementManager::onUnitDestroy(Unit u)
 	trackedUnits.erase(u->getID());
 }
 
-EnemyMovementManager * getEnemyMovementManager()
+EnemyMovementManager * ZerGreenAI::getEnemyMovementManager()
 {
 	return &enemyMovementManager;
 }

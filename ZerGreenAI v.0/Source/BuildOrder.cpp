@@ -1,10 +1,11 @@
-#include "BuildOrder.h"
-#include "Hashes.h"
-#include "Production.h"
-#include "Upgrade.h"
-#include "ProbeScout.h"
-
 #include <fstream>
+
+#include "BuildOrder.hpp"
+#include "Hashes.hpp"
+#include "Production.hpp"
+#include "Upgrade.hpp"
+#include "ProbeScout.hpp"
+#include "Namespaces.hpp"
 
 struct BuildOrderFile;
 template <>
@@ -169,7 +170,7 @@ bool pylonNeccessary()
 	return (expectedCap < expectedAmount);
 }
 
-void buildOrderOnCreate(Unit unit)
+void ZerGreenAI::buildOrderOnCreate(Unit unit)
 {
 	numOfType[unit->getType()]++;
 	if (buildOrderIterator != buildOrder.end() && unit->getType() == buildOrderIterator->unit)
@@ -178,12 +179,12 @@ void buildOrderOnCreate(Unit unit)
 	}
 }
 
-void buildOrderOnRecycle(Unit unit)
+void ZerGreenAI::buildOrderOnRecycle(Unit unit)
 {
 	numOfType[unit->getType()]--;
 }
 
-void buildOrderOnFrame()
+void ZerGreenAI::buildOrderOnFrame()
 {
 	if (Broodwar->getFrameCount() % 20 == 0)
 	{
@@ -291,7 +292,7 @@ std::string chooseBuildOrder()
 	return buildVector[rand() % buildVector.size()].filePath;
 }
 
-void initializeBuildOrder()
+void ZerGreenAI::initializeBuildOrder()
 {
 	readBuildOrderManager();
 	loadBuildOrder(chooseBuildOrder());

@@ -121,9 +121,6 @@
     <ClCompile Include="Source\Upgrade.cpp">
       <Filter>ZerGreenAI\Production</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GeneralManagement.cpp">
-      <Filter>ZerGreenAI\Management</Filter>
-    </ClCompile>
     <ClCompile Include="Source\UnitManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
@@ -154,8 +151,11 @@
     <ClCompile Include="Source\MacroCombatGroup.cpp">
       <Filter>ZerGreenAI\Combat</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ManagerManagement.cpp">
+    <ClCompile Include="Source\GeneralManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Load.cpp">
+      <Filter>ZerGreenAI\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,45 +170,6 @@
     </ClInclude>
     <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_DataStructures.h">
       <Filter>EasyBMP</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GlobalHarvesting.h">
-      <Filter>ZerGreenAI\Harvesting</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LocalHarvesting.h">
-      <Filter>ZerGreenAI\Harvesting</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Construction.h">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ResourceAllocator.h">
-      <Filter>ZerGreenAI\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Namespaces.h">
-      <Filter>ZerGreenAI\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BM.h">
-      <Filter>ZerGreenAI\Chat</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Cheats.h">
-      <Filter>ZerGreenAI\Chat</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Production.h">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Hashes.h">
-      <Filter>ZerGreenAI\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LayoutPlanner.h">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Debug.h">
-      <Filter>ZerGreenAI\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Timer.h">
-      <Filter>ZerGreenAI\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Minimum.h">
-      <Filter>ZerGreenAI\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Source\BWEM\area.h">
       <Filter>BWEM</Filter>
@@ -264,74 +225,116 @@
     <ClInclude Include="Source\BWEM\winutils.h">
       <Filter>BWEM</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MapAnalyser.h">
-      <Filter>ZerGreenAI\Map Analysis</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Achievements.h">
-      <Filter>ZerGreenAI\Chat</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BuildOrder.h">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\bwemL.h">
-      <Filter>ZerGreenAI\Map Analysis</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BWEMHashes.h">
-      <Filter>ZerGreenAI\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Easter.h">
-      <Filter>ZerGreenAI\Chat</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ProbeScout.h">
-      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Deathball.h">
-      <Filter>ZerGreenAI\Combat</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ScoutAnalysis.h">
-      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CombatStrategist.h">
-      <Filter>ZerGreenAI\Combat</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CombatAnalyst.h">
-      <Filter>ZerGreenAI\Combat</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Upgrade.h">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GeneralManagement.h">
-      <Filter>ZerGreenAI\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UnitManagement.h">
-      <Filter>ZerGreenAI\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\bwStrings.h">
-      <Filter>ZerGreenAI\BWAPI Extended</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\EnemyMovement.h">
-      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\EventExt.h">
-      <Filter>ZerGreenAI\BWAPI Extended</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\QueueUnitManagement.h">
-      <Filter>ZerGreenAI\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ZerGreenAI.h">
-      <Filter>ZerGreenAI\Main</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\IMPScoutManager.h">
-      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MicroCombatGroup.hpp">
       <Filter>ZerGreenAI\Combat</Filter>
     </ClInclude>
     <ClInclude Include="Source\MacroCombatGroup.hpp">
       <Filter>ZerGreenAI\Combat</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ManagerManagement.hpp">
+    <ClInclude Include="Source\Vector.hpp">
+      <Filter>ZerGreenAI\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Timer.hpp">
+      <Filter>ZerGreenAI\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Debug.hpp">
+      <Filter>ZerGreenAI\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Load.hpp">
+      <Filter>ZerGreenAI\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Achievements.hpp">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BM.hpp">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BuildOrder.hpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWEMHashes.hpp">
+      <Filter>ZerGreenAI\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\bwemL.hpp">
+      <Filter>ZerGreenAI\Map Analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\bwStrings.hpp">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Cheats.hpp">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CombatAnalyst.hpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CombatStrategist.hpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Construction.hpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Deathball.hpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Easter.hpp">
+      <Filter>ZerGreenAI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnemyMovement.hpp">
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EventExt.hpp">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GeneralManagement.hpp">
       <Filter>ZerGreenAI\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GlobalHarvesting.hpp">
+      <Filter>ZerGreenAI\Harvesting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Hashes.hpp">
+      <Filter>ZerGreenAI\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IMPScoutManager.hpp">
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LayoutPlanner.hpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LocalHarvesting.hpp">
+      <Filter>ZerGreenAI\Harvesting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MapAnalyser.hpp">
+      <Filter>ZerGreenAI\Map Analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Minimum.hpp">
+      <Filter>ZerGreenAI\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Namespaces.hpp">
+      <Filter>ZerGreenAI\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ProbeScout.hpp">
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Production.hpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\QueueUnitManagement.hpp">
+      <Filter>ZerGreenAI\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceAllocator.hpp">
+      <Filter>ZerGreenAI\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScoutAnalysis.hpp">
+      <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitManagement.hpp">
+      <Filter>ZerGreenAI\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Upgrade.hpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ZerGreenAI.hpp">
+      <Filter>ZerGreenAI\Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

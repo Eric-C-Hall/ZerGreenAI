@@ -1,9 +1,11 @@
-#include "Construction.h"
-#include "GlobalHarvesting.h"
-#include "LayoutPlanner.h"
-#include "Hashes.h"
-#include "Debug.h"
-#include "Timer.h"
+#include <BWAPI.h>
+#include "Construction.hpp"
+#include "GlobalHarvesting.hpp"
+#include "LayoutPlanner.hpp"
+#include "Hashes.hpp"
+#include "Debug.hpp"
+#include "Timer.hpp"
+#include "Namespaces.hpp"
 
 ConstructionManager LocalConstructionManager;
 
@@ -112,7 +114,7 @@ bool ConstructionManager::constructBuilding(UnitType type)
 	return true;
 }
 
-ConstructionManager * getConstructionManager()
+ConstructionManager * ZerGreenAI::getConstructionManager()
 {
 	return &LocalConstructionManager;
 }

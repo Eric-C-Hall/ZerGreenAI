@@ -1,6 +1,9 @@
+#include <fstream>
+
 #include "CombatLearningAnalyst.h"
 #include "Hashes.h"
-#include <fstream>
+#include "Namespaces.hpp"
+
 using namespace combatLearning;
 
 // private

@@ -1,11 +1,12 @@
-#include "Cheats.h"
+#include "Cheats.hpp"
+#include "Namespaces.hpp"
 
 int timeGatheringFrames = -1;
 int timeGatheringInitMin;
 
 #define NUM_TIME_GATHERING_FRAMES 1000
 
-bool executeCheat(std::string text)
+bool ZerGreenAI::executeCheat(std::string text)
 {
 	if (text == "timeGathering")
 	{
@@ -23,7 +24,7 @@ bool executeCheat(std::string text)
 	return false;
 }
 
-void cheatOnFrame()
+void ZerGreenAI::cheatOnFrame()
 {
 	if (timeGatheringFrames >= 0)
 	{

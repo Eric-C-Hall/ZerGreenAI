@@ -1,6 +1,7 @@
-#include "Production.h"
-#include "Construction.h"
-#include "Debug.h"
+#include "Production.hpp"
+#include "Construction.hpp"
+#include "Debug.hpp"
+#include "Namespaces.hpp"
 
 ProductionManager LocalProductionManager;
 
@@ -108,7 +109,7 @@ Unitset ProductionManager::getProductionBuildings()
 	return assignedUnits;
 }
 
-ProductionManager * getProductionManager()
+ProductionManager * ZerGreenAI::getProductionManager()
 {
 	return &LocalProductionManager;
 }

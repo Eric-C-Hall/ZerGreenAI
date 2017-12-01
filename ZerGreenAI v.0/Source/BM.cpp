@@ -1,5 +1,9 @@
-#include "BM.h"
 #include <string>
+
+#include "BM.hpp"
+
+#include "Namespaces.hpp"
+
 
 bool doneGlhf = false;
 bool doneGG = false;
@@ -11,7 +15,7 @@ bool thereIs(std::string a, std::string b)
 	return a.find(b) != std::string::npos;
 }
 
-bool standardMessages(std::string text)
+bool ZerGreenAI::standardMessages(std::string text)
 {
 	// https://stackoverflow.com/questions/313970/how-to-convert-stdstring-to-lower-case
 	std::transform(text.begin(), text.end(), text.begin(), ::tolower);

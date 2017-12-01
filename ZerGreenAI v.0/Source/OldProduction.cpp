@@ -1,5 +1,6 @@
 #include "OldProduction.h"
 #include "OldBuildOrder.h"
+#include "Namespaces.h"
 
 ProductionManager* LocalProductionManager;
 

@@ -1,7 +1,8 @@
-#include "LocalHarvesting.h"
-#include "GlobalHarvesting.h"
-#include "Debug.h"
-#include "bwemL.h"
+#include "LocalHarvesting.hpp"
+#include "GlobalHarvesting.hpp"
+#include "Debug.hpp"
+#include "bwemL.hpp"
+#include "Namespaces.hpp"
 
 void LocalHarvestManager::createPair(Unit gath, Unit min)
 {

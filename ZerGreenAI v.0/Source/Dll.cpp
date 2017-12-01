@@ -1,6 +1,6 @@
 #include <BWAPI.h>
 
-#include "ZerGreenAI.h"
+#include "ZerGreenAI.hpp"
 #include "windows.h"
 
 // Note, I manually imported windows.h in order to fix compatability issues moving from visual studio 2013 to visual studio 2017
@@ -20,5 +20,5 @@ BOOL APIENTRY DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 
 extern "C" __declspec(dllexport) BWAPI::AIModule* newAIModule()
 {
-  return new ZerGreenAI();
+  return new ZerGreenAI::ZerGreenAIObj();
 }

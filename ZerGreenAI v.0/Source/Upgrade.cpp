@@ -1,4 +1,5 @@
-#include "Upgrade.h"
+#include "Upgrade.hpp"
+#include "Namespaces.hpp"
 
 UpgradeManager LocalUpgradeManager;
 
@@ -43,7 +44,7 @@ void UpgradeManager::ChooseUpgrade(UpgradeType upgrade)
 	ChosenUpgrades.insert(upgrade);
 }
 
-UpgradeManager * getUpgradeManager()
+UpgradeManager * ZerGreenAI::getUpgradeManager()
 {
 	return &LocalUpgradeManager;
 }

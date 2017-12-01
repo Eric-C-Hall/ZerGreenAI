@@ -1,5 +1,6 @@
-#include "GeneralManagement.h"
-#include "Timer.h"
+#include "GeneralManagement.hpp"
+#include "Timer.hpp"
+#include "Namespaces.hpp"
 
 std::unordered_set<Manager *> Manager::managers;
 
@@ -44,7 +45,7 @@ void Manager::globalOnFrame()
 			cleanUpManagers.insert(m);
 		}
 	}
-	for (auto const &m : cleanUpManagers)
+	for (Manager * m : cleanUpManagers)
 	{
 		delete m;
 	}

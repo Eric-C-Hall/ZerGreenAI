@@ -14,6 +14,8 @@ Also, the read directory should be placed in bwapi-data in the Starcraft directo
 
 If someone other than me wants to try to compile this AI they should expect to have to put in a little work.
 
+Honestly, it isn't written particularly robustly, so it might be broken if you try on your setup if is different to mine.
+
 -----------------------------
 
 Sources:

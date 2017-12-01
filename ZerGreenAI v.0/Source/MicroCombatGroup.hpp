@@ -1,10 +1,23 @@
 #pragma once
 
-#include "QueueUnitManagement.h"
+#include "QueueUnitManagement.hpp"
 
-class MicroCombatManager : public QueueUnitManager
+namespace ZerGreenAI
 {
-	void onUnitTurn(Unit u);
-public:
-	inline virtual std::string name() { return "Micro Combat Manager"; }
-};
+
+#define MCG_LEASH 500
+#define MCG_PUSH_RADIUS 100
+
+	class MicroCombatManager : public QueueUnitManager
+	{
+		BWAPI::Position center;
+		void onUnitTurn(BWAPI::Unit u);
+	public:
+		inline MicroCombatManager(BWAPI::Position center, BWAPI::Position target) : center(center), target(target) {};
+		BWAPI::Position target;
+		inline BWAPI::Position getCenter() { return center; }
+		inline std::string name() { return "Micro Combat Manager"; }
+		void onFrame();
+	};
+
+}

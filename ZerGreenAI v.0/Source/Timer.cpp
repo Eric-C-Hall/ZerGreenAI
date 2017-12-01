@@ -1,6 +1,6 @@
-#include "Namespaces.h"
-#include "Timer.h"
-#include "Debug.h"
+#include "Namespaces.hpp"
+#include "Timer.hpp"
+#include "Debug.hpp"
 
 #include <chrono>
 
@@ -10,17 +10,17 @@ int currentLine = 0;
 
 std::unordered_map<std::string, std::chrono::milliseconds> string2Time;
 
-void carriageReturn()
+void ZerGreenAI::carriageReturn()
 {
 	currentLine = 0;
 }
 
-void startTimer(std::string timer)
+void ZerGreenAI::startTimer(std::string timer)
 {
 	string2Time[timer] = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
 }
 
-void endTimer(std::string timer)
+void ZerGreenAI::endTimer(std::string timer)
 {
 	milliseconds currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
 	Broodwar->drawTextScreen(Position(5, 10 * currentLine), "%s: %d", timer.c_str(), currentTime - string2Time[timer]);
@@ -31,12 +31,12 @@ void endTimer(std::string timer)
 	}
 }
 
-void onStartTimerStart(std::string timer)
+void ZerGreenAI::onStartTimerStart(std::string timer)
 {
 	string2Time[timer] = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
 }
 
-void onStartTimerEnd(std::string timer)
+void ZerGreenAI::onStartTimerEnd(std::string timer)
 {
 	milliseconds currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
 	std::string output = timer;

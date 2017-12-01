@@ -1,6 +1,8 @@
 #include "OldBuildOrder.h"
 #include "GlobalHarvesting.h"
 #include "OldProduction.h"
+#include "Namespaces.h"
+
 double mineralRatePerHarvester()
 {
 	return 0.04533333333; // experimental rate

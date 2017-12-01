@@ -1,9 +1,10 @@
-#include "Deathball.h"
-#include "ScoutAnalysis.h"
-#include "Debug.h"
-#include "MapAnalyser.h"
-#include "Hashes.h"
-#include "CombatAnalyst.h"
+#include "Deathball.hpp"
+#include "ScoutAnalysis.hpp"
+#include "Debug.hpp"
+#include "MapAnalyser.hpp"
+#include "Hashes.hpp"
+#include "CombatAnalyst.hpp"
+#include "Namespaces.hpp"
 
 #define ENEMY_NEAR_DISTANCE 1000
 #define TOGETHER_DISTANCE 200

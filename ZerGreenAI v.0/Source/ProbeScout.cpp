@@ -1,14 +1,15 @@
-#include "ProbeScout.h"
-#include "GlobalHarvesting.h"
-#include "Hashes.h"
-#include "ScoutAnalysis.h"
-#include "IMPScoutManager.h"
+#include "ProbeScout.hpp"
+#include "GlobalHarvesting.hpp"
+#include "Hashes.hpp"
+#include "ScoutAnalysis.hpp"
+#include "IMPScoutManager.hpp"
+#include "Namespaces.hpp"
 
 Unit probe;
 
 void ProbeScoutManager::recycleUnit(Unit u)
 {
-	this->cleanMeUp = true;
+	delete this;
 }
 
 ProbeScoutManager::ProbeScoutManager(Unit u)
@@ -28,7 +29,7 @@ void ProbeScoutManager::onFrame()
 	}
 }
 
-void startProbeScout()
+void ZerGreenAI::startProbeScout()
 {
 	new ProbeScoutManager(getGlobalHarvester()->nearbyAvailableHarvester(Position(Broodwar->getStartLocations().front())));
 }
