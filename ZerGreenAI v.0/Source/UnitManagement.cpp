@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "UnitManagement.hpp"
 #include "ResourceAllocator.hpp"
 #include "GlobalHarvesting.hpp"
@@ -69,6 +71,8 @@ bool UnitManager::giveOrphanUnit(Unit u)
 
 void UnitManager::recycleUnitJunior(Unit u)
 {
+	if (cleanUpList.count(this) > 0)
+		return;
 	Unit2Manager.erase(u);
 	assignedUnits.erase(u);
 	recycleUnit(u);

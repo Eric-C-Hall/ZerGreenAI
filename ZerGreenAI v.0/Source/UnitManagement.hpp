@@ -5,7 +5,7 @@
 namespace ZerGreenAI
 {
 
-	class UnitManager : protected virtual Manager
+	class UnitManager : public Manager
 	{
 		virtual void onAssignment(BWAPI::Unit u) {};
 		virtual bool acceptRequest(BWAPI::Unit u) { return true; }; // Preferably should blacklist rather than whitelist

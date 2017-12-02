@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Deathball.hpp"
 #include "ScoutAnalysis.hpp"
 #include "Debug.hpp"

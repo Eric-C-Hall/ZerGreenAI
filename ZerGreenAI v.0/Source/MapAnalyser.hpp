@@ -1,6 +1,8 @@
 #pragma once
+#include <BWAPI.h>
 
 #include "bwemL.hpp"
+#include "Hashes.hpp"
 
 namespace ZerGreenAI
 {
@@ -20,5 +22,4 @@ namespace ZerGreenAI
 	std::vector<BWAPI::TilePosition> pathToTilePosition(BWAPI::TilePosition begin, BWAPI::TilePosition end);
 	BWAPI::TilePosition areaCenter(const BWEM::Area *);
 	BWAPI::Position averageWeightedPosition(std::unordered_map<BWAPI::Position, double> weights);
-
 }

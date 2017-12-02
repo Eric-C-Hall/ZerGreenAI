@@ -27,9 +27,10 @@ namespace ZerGreenAI
 
 		inline virtual std::string name() { return "Unnamed Manager"; }
 		static std::unordered_set<Manager *> managers;
-
+		static std::unordered_set<Manager *> &ensureManagersCleanedUp();
 	protected:
-		bool cleanMeUp = false;
+
+		static std::unordered_set<Manager *> cleanUpList;
 	public:
 
 		Manager();

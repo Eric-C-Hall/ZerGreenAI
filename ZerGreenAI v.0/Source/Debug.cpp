@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Debug.hpp"
 #include "Namespaces.hpp"
 

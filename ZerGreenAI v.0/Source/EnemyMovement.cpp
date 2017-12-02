@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "EnemyMovement.hpp"
 #include "Namespaces.hpp"
 #include "bwStrings.hpp"

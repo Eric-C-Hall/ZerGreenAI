@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "EventExt.hpp"
 #include "GeneralManagement.hpp"
 #include "Namespaces.hpp"

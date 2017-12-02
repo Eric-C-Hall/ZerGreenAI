@@ -7,7 +7,7 @@
 namespace ZerGreenAI
 {
 
-	class QueueUnitManager : public virtual UnitManager
+	class QueueUnitManager : public UnitManager
 	{
 		std::deque<BWAPI::Unit> unitDecideQueue;	// There should be no reason to need unitDecideQueue outside of QueueUnitManagement: Use assignedUnits instead
 		BWAPI::Unit rotateQueue();

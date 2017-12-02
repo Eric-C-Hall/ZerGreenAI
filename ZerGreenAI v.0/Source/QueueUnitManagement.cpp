@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "QueueUnitManagement.hpp"
 #include "Namespaces.hpp"
 

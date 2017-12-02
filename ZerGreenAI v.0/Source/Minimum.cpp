@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Minimum.hpp"
 /*
 template <class a2b, class a, class b>

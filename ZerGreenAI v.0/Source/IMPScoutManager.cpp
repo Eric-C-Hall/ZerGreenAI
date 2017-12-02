@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "IMPScoutManager.hpp"
 #include "bwemL.hpp"
 #include "Debug.hpp"
@@ -12,7 +14,7 @@ void IMPScoutManager::onStart()
 		for (int y = 0; y < Broodwar->mapHeight(); y+= IMP_NUM_TILEPOS_SKIPPED)
 		{
 			TilePosition currentPos(x, y);
-			if (Broodwar->isWalkable((WalkPosition)currentPos))
+			if (Broodwar->hasPath((Position)Broodwar->self()->getStartLocation(),(Position)currentPos))
 			{
 				heatMap[currentPos] = 0;
 			}
@@ -21,7 +23,7 @@ void IMPScoutManager::onStart()
 
 	for (const TilePosition &currentPos : Broodwar->getStartLocations())
 	{
-		heatMap[currentPos] = 1000;
+		heatMap[currentPos] = IMP_INITIAL_STARTLOCATION_SIZE;
 	}
 }
 
@@ -44,7 +46,8 @@ void IMPScoutManager::onFrame()
 	{
 		for (const BWEM::Base &b : a.Bases())
 		{
-			heatMap[(TilePosition)b.Center()] += 5;
+			if (Broodwar->hasPath((Position)Broodwar->self()->getStartLocation(), b.Center()))
+				heatMap[(TilePosition)b.Center()] += IMP_EXPANSION_INCREMENT;
 		}
 	}
 

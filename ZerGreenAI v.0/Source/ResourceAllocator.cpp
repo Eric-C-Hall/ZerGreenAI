@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "ResourceAllocator.hpp"
 #include "LocalHarvesting.hpp"
 #include "GlobalHarvesting.hpp"

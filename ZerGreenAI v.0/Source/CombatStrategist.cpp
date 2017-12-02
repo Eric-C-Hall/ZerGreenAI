@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "CombatStrategist.hpp"
 #include "Deathball.hpp"
 #include "MacroCombatGroup.hpp"

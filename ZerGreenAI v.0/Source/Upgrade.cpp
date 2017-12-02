@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Upgrade.hpp"
 #include "Namespaces.hpp"
 

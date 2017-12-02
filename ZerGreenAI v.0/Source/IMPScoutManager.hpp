@@ -9,6 +9,8 @@ namespace ZerGreenAI
 #define IMP_NUM_TILEPOS_SKIPPED 5
 #define IMP_FRAMES_PER_UPDATE 20
 #define IMP_INDICATOR_SIZE_MODIFIER 50
+#define IMP_INITIAL_STARTLOCATION_SIZE 2000
+#define IMP_EXPANSION_INCREMENT 5
 
 	class IMPScoutManager : protected Manager
 	{

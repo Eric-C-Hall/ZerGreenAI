@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "MacroCombatGroup.hpp"
 #include "MicroCombatGroup.hpp"
 #include "Production.hpp"
@@ -10,6 +12,30 @@ void MacroCombatManager::newManager(Unit u)
 	MicroCombatManager * newManager = new MicroCombatManager(u->getPosition(), u->getPosition());
 	childManagers.insert(newManager);
 	giveUnitManagement(u, newManager);
+}
+
+void ZerGreenAI::MacroCombatManager::onFrame()
+{
+	static bool hasOccurred = false;
+	for (MicroCombatManager * c1 : childManagers)
+	{
+		for (MicroCombatManager * c2 : childManagers)
+		{
+			
+			if (c1 == c2 || cleanUpList.count(c2) != 0)
+			{
+				continue;
+			}
+			if (c1->getCenter().getApproxDistance(c2->getCenter()) < MCG_LEASH)
+			{
+				hasOccurred = true;
+				c1->absorb(c2);
+				return;
+			}
+		}
+	}
+
+
 }
 
 void MacroCombatManager::onAssignment(Unit u)
@@ -28,7 +54,6 @@ void MacroCombatManager::onAssignment(Unit u)
 			}
 		}
 
-		std::cout << bestDistance << std::endl;
 		if (bestDistance < MCG_LEASH)
 		{
 			giveUnitManagement(u, bestManager);

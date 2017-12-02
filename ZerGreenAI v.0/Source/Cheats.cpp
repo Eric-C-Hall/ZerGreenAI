@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Cheats.hpp"
 #include "Namespaces.hpp"
 

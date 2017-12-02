@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Easter.hpp"
 #include "Namespaces.hpp"
 #include <queue>

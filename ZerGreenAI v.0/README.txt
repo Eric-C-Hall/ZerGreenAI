@@ -20,4 +20,8 @@ Honestly, it isn't written particularly robustly, so it might be broken if you t
 
 Sources:
 
+BWAPI and BWEM (standard)
+
+justinhj's AStar implementation (https://github.com/justinhj/astar-algorithm-cpp)
+
 IMP scouting based on imp42's post here: http://www.teamliquid.net/blogs/514487-towards-a-good-sc-bot-p3-scouting

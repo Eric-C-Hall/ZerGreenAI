@@ -11,6 +11,7 @@ namespace ZerGreenAI
 		std::unordered_set<MicroCombatManager *> childManagers;
 
 		void newManager(BWAPI::Unit u);
+		void onFrame() override;
 
 		void onAssignment(BWAPI::Unit u);
 	public:

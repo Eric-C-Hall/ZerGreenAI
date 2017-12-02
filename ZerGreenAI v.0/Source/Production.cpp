@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Production.hpp"
 #include "Construction.hpp"
 #include "Debug.hpp"

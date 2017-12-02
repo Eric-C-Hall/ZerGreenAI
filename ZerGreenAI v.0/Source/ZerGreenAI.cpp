@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "ZerGreenAI.hpp"
 #include <iostream>
 
@@ -16,6 +18,9 @@
 #include "ProbeScout.hpp"
 #include "ScoutAnalysis.hpp"
 #include "CombatStrategist.hpp"
+#include "Vector.hpp"
+#include "TriangularGrid.hpp"
+
 
 // ------------
 // ZerGreenAI
@@ -27,7 +32,6 @@
 
 void ZerGreenAIObj::onStart()
 {
-
 	try
 	{
 		onStartTimerStart("Total");
@@ -72,6 +76,11 @@ void ZerGreenAIObj::onStart()
 		onStartTimerStart("Map Analyser");
 		initializeMapAnalyser();
 		onStartTimerEnd("Map Analyser");
+
+		onStartTimerStart("Triangular Grid");
+		grid = new TriangularGrid<ZGA_TRIANGULAR_GRID_SIZE>();
+		onStartTimerEnd("Triangular Grid");
+
 
 		onStartTimerStart("Build Order");
 		initializeBuildOrder();
@@ -125,6 +134,16 @@ void ZerGreenAIObj::onFrame()
 		startTimer("Happy Easter!");
 		onFrameEaster();
 		endTimer("Happy Easter!");
+		startTimer("TriangularGrid");
+		grid->draw(Colors::Yellow);
+		endTimer("TriangularGrid");
+
+		Broodwar->drawCircleMap(grid->snapToGrid(Broodwar->getMousePosition() + Broodwar->getScreenPosition()), 7, Colors::Red, true);
+		if (Broodwar->getSelectedUnits().size() > 0)
+		{
+			Broodwar->drawCircleMap(grid->snapToGrid((*Broodwar->getSelectedUnits().begin())->getPosition()), 9, Colors::Green, true);
+		}
+
 		cheatOnFrame();
 		endTimer("Total");
 	}

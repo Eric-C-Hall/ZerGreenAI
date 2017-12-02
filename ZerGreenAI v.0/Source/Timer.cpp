@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Namespaces.hpp"
 #include "Timer.hpp"
 #include "Debug.hpp"

@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "ProbeScout.hpp"
 #include "GlobalHarvesting.hpp"
 #include "Hashes.hpp"

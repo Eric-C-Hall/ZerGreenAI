@@ -1,6 +1,10 @@
+#include "stdafx.h"
+
 #include "MapAnalyser.hpp"
+#include "Hashes.hpp"
 #include "BWEMHashes.hpp"
 #include "Namespaces.hpp"
+#include "Vector.hpp"
 
 std::unordered_map<const BWEM::Base *, LineSegment> mineralLines;
 

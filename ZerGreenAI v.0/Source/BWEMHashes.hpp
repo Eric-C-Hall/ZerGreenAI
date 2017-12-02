@@ -5,7 +5,7 @@
 
 namespace std
 {
-	bool operator==(const BWEM::Base &a, const BWEM::Base &b)
+	inline bool operator==(const BWEM::Base &a, const BWEM::Base &b)
 	{
 		return a.Location() == b.Location();
 	}

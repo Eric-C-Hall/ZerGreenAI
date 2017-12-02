@@ -55,9 +55,6 @@
     <ClCompile Include="Source\BWEM\cp.cpp">
       <Filter>BWEM</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BWEM\examples.cpp">
-      <Filter>BWEM</Filter>
-    </ClCompile>
     <ClCompile Include="Source\BWEM\exampleWall.cpp">
       <Filter>BWEM</Filter>
     </ClCompile>
@@ -74,9 +71,6 @@
       <Filter>BWEM</Filter>
     </ClCompile>
     <ClCompile Include="Source\BWEM\mapImpl.cpp">
-      <Filter>BWEM</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BWEM\mapPrinter.cpp">
       <Filter>BWEM</Filter>
     </ClCompile>
     <ClCompile Include="Source\BWEM\neutral.cpp">
@@ -154,9 +148,6 @@
     <ClCompile Include="Source\GeneralManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Load.cpp">
-      <Filter>ZerGreenAI\Debug</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_VariousBMPutilities.h">
@@ -189,9 +180,6 @@
     <ClInclude Include="Source\BWEM\defs.h">
       <Filter>BWEM</Filter>
     </ClInclude>
-    <ClInclude Include="Source\BWEM\examples.h">
-      <Filter>BWEM</Filter>
-    </ClInclude>
     <ClInclude Include="Source\BWEM\exampleWall.h">
       <Filter>BWEM</Filter>
     </ClInclude>
@@ -208,9 +196,6 @@
       <Filter>BWEM</Filter>
     </ClInclude>
     <ClInclude Include="Source\BWEM\mapImpl.h">
-      <Filter>BWEM</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BWEM\mapPrinter.h">
       <Filter>BWEM</Filter>
     </ClInclude>
     <ClInclude Include="Source\BWEM\neutral.h">
@@ -238,9 +223,6 @@
       <Filter>ZerGreenAI\Debug</Filter>
     </ClInclude>
     <ClInclude Include="Source\Debug.hpp">
-      <Filter>ZerGreenAI\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Load.hpp">
       <Filter>ZerGreenAI\Debug</Filter>
     </ClInclude>
     <ClInclude Include="Source\Achievements.hpp">
@@ -303,9 +285,6 @@
     <ClInclude Include="Source\LocalHarvesting.hpp">
       <Filter>ZerGreenAI\Harvesting</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MapAnalyser.hpp">
-      <Filter>ZerGreenAI\Map Analysis</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Minimum.hpp">
       <Filter>ZerGreenAI\Utility</Filter>
     </ClInclude>
@@ -334,6 +313,15 @@
       <Filter>ZerGreenAI\Production</Filter>
     </ClInclude>
     <ClInclude Include="Source\ZerGreenAI.hpp">
+      <Filter>ZerGreenAI\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MapAnalyser.hpp">
+      <Filter>ZerGreenAI\Map Analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TriangularGrid.hpp">
+      <Filter>ZerGreenAI\Map Analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\stdafx.h">
       <Filter>ZerGreenAI\Main</Filter>
     </ClInclude>
   </ItemGroup>
@@ -388,5 +376,10 @@
     <Text Include="README.txt">
       <Filter>ZerGreenAI\Main</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\TriangularGrid.tpp">
+      <Filter>ZerGreenAI\Map Analysis</Filter>
+    </None>
   </ItemGroup>
 </Project>

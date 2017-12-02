@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "GlobalHarvesting.hpp"
 #include "LocalHarvesting.hpp"
 #include "Timer.hpp"

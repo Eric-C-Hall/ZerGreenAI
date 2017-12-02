@@ -1,8 +1,21 @@
+#include "stdafx.h"
+
 #include "GeneralManagement.hpp"
 #include "Timer.hpp"
 #include "Namespaces.hpp"
+#include "Hashes.hpp"
 
 std::unordered_set<Manager *> Manager::managers;
+std::unordered_set<Manager *> Manager::cleanUpList;
+
+std::unordered_set<Manager*> &ZerGreenAI::Manager::ensureManagersCleanedUp()
+{
+	for (Manager * m : cleanUpList)
+	{
+		managers.erase(m);
+	}
+	return managers;
+}
 
 Manager::Manager()
 {
@@ -11,12 +24,12 @@ Manager::Manager()
 
 Manager::~Manager()
 {
-	managers.erase(this);
+	cleanUpList.insert(this);
 }
 
 void Manager::globalOnStart()
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		onStartTimerStart(m->name());
 		m->onStart();
@@ -26,7 +39,7 @@ void Manager::globalOnStart()
 
 void Manager::globalOnEnd(bool isWinner)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onEnd(isWinner);
 	}
@@ -34,26 +47,21 @@ void Manager::globalOnEnd(bool isWinner)
 
 void Manager::globalOnFrame()
 {
-	std::unordered_set<Manager *> cleanUpManagers;
-	for (auto const &m : managers)
+	for (Manager * m : ensureManagersCleanedUp())
 	{
-		startTimer(m->name());
-		m->onFrame();
-		endTimer(m->name());
-		if (m->cleanMeUp)
+		if (cleanUpList.count(m) == 0)
 		{
-			cleanUpManagers.insert(m);
+			startTimer(m->name());
+			m->onFrame();
+			if (cleanUpList.count(m) == 0)
+				endTimer(m->name());
 		}
-	}
-	for (Manager * m : cleanUpManagers)
-	{
-		delete m;
 	}
 }
 
 void Manager::globalOnSendText(std::string text)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onSendText(text);
 	}
@@ -61,7 +69,7 @@ void Manager::globalOnSendText(std::string text)
 
 void Manager::globalOnReceiveText(Player player, std::string text)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onReceiveText(player, text);
 	}
@@ -69,7 +77,7 @@ void Manager::globalOnReceiveText(Player player, std::string text)
 
 void Manager::globalOnPlayerLeft(Player player)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onPlayerLeft(player);
 	}
@@ -77,7 +85,7 @@ void Manager::globalOnPlayerLeft(Player player)
 
 void Manager::globalOnNukeDetect(Position target)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onNukeDetect(target);
 	}
@@ -85,7 +93,7 @@ void Manager::globalOnNukeDetect(Position target)
 
 void Manager::globalOnUnitDiscover(Unit unit)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onUnitDiscover(unit);
 	}
@@ -93,7 +101,7 @@ void Manager::globalOnUnitDiscover(Unit unit)
 
 void Manager::globalOnUnitEvade(Unit unit)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onUnitEvade(unit);
 	}
@@ -101,7 +109,7 @@ void Manager::globalOnUnitEvade(Unit unit)
 
 void Manager::globalOnUnitShow(Unit unit)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onUnitShow(unit);
 	}
@@ -109,7 +117,7 @@ void Manager::globalOnUnitShow(Unit unit)
 
 void Manager::globalOnUnitHide(Unit unit)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onUnitHide(unit);
 	}
@@ -117,7 +125,7 @@ void Manager::globalOnUnitHide(Unit unit)
 
 void Manager::globalOnUnitCreate(Unit unit)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onUnitCreate(unit);
 	}
@@ -125,7 +133,7 @@ void Manager::globalOnUnitCreate(Unit unit)
 
 void Manager::globalOnUnitDestroy(Unit unit)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onUnitDestroy(unit);
 	}
@@ -141,7 +149,7 @@ void Manager::globalOnUnitMorph(Unit unit)
 
 void Manager::globalOnUnitRenegade(Unit unit)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onUnitRenegade(unit);
 	}
@@ -149,7 +157,7 @@ void Manager::globalOnUnitRenegade(Unit unit)
 
 void Manager::globalOnSaveGame(std::string gameName)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onSaveGame(gameName);
 	}
@@ -157,7 +165,7 @@ void Manager::globalOnSaveGame(std::string gameName)
 
 void Manager::globalOnUnitComplete(Unit unit)
 {
-	for (auto const &m : managers)
+	for (auto const &m : ensureManagersCleanedUp())
 	{
 		m->onUnitComplete(unit);
 	}

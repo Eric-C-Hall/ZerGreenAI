@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "CombatAnalyst.hpp"
 #include "Namespaces.hpp"
 

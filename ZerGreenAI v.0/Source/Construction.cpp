@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include <BWAPI.h>
 #include "Construction.hpp"
 #include "GlobalHarvesting.hpp"

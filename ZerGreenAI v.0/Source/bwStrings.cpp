@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "bwStrings.hpp"
 #include "Namespaces.hpp"
 

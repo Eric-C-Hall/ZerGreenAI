@@ -3,11 +3,15 @@
 
 // Remember not to use "Broodwar" in any global class constructor!
 
+#define ZGA_TRIANGULAR_GRID_SIZE 75
+
 namespace ZerGreenAI
 {
-
+	template<int distance>
+	class TriangularGrid; // Defined here to prevent this header from requiring TriangularGrid.hpp, causing a cascading effect.
 	class ZerGreenAIObj : public BWAPI::AIModule
 	{
+		TriangularGrid<ZGA_TRIANGULAR_GRID_SIZE> * grid;
 	public:
 		// Virtual functions for callbacks, leave these as they are.
 		virtual void onStart();

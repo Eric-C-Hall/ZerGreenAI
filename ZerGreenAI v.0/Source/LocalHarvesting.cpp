@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "LocalHarvesting.hpp"
 #include "GlobalHarvesting.hpp"
 #include "Debug.hpp"

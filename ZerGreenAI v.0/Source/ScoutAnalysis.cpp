@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "ScoutAnalysis.hpp"
 #include "MapAnalyser.hpp"
 #include "Debug.hpp"
