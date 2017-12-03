@@ -5,8 +5,6 @@
 #include "Production.hpp"
 #include "Namespaces.hpp"
 
-MacroCombatManager localMacroCombatManager;
-
 void MacroCombatManager::newManager(Unit u)
 {
 	MicroCombatManager * newManager = new MicroCombatManager(u->getPosition(), u->getPosition());
@@ -14,7 +12,7 @@ void MacroCombatManager::newManager(Unit u)
 	giveUnitManagement(u, newManager);
 }
 
-void ZerGreenAI::MacroCombatManager::onFrame()
+void MacroCombatManager::onFrame()
 {
 	static bool hasOccurred = false;
 	for (MicroCombatManager * c1 : childManagers)
@@ -70,7 +68,10 @@ void MacroCombatManager::onAssignment(Unit u)
 	}
 }
 
-MacroCombatManager * ZerGreenAI::getMacroCombatManager()
+ZerGreenAI::MacroCombatManager::~MacroCombatManager()
 {
-	return &localMacroCombatManager;
+	for (MicroCombatManager * m : childManagers)
+	{
+		delete m;
+	}
 }

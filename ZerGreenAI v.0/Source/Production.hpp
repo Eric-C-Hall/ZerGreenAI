@@ -7,7 +7,6 @@
 
 namespace ZerGreenAI
 {
-
 	class ProductionManager : public UnitManager
 	{
 		std::unordered_map<BWAPI::UnitType, int> UnitWeights;
@@ -17,14 +16,11 @@ namespace ZerGreenAI
 		void attemptTrain(BWAPI::Unit u);
 
 	public:
-		inline std::string name() { return "Production Manager"; }
+		inline virtual std::string name() { return "Production Manager"; }
 		void onFrame();
 
 		void SetUnitWeight(BWAPI::UnitType unit, int Weight);
 		void UpdateWeightLists();
 		BWAPI::Unitset getProductionBuildings();
 	};
-
-	ProductionManager * getProductionManager();
-
 }

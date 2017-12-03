@@ -7,18 +7,9 @@
 #include "bwemL.hpp"
 #include "Namespaces.hpp"
 
-std::unordered_set<LocalHarvestManager *> childManagers;
-std::unordered_set<TilePosition> unclaimedBases;
-GlobalHarvestManager  LocalGlobalHarvester;
-
-void addHarvestManager(LocalHarvestManager * mgr)
-{
-	childManagers.insert(mgr);
-}
-
 void GlobalHarvestManager::assignWorker(Unit u)
 {
-	for (const auto &b : childManagers)
+	for (LocalHarvestManager * b : childManagers)
 	{
 		if (b->numHarvesters() < b->numSaturated())
 		{
@@ -166,7 +157,7 @@ TilePosition GlobalHarvestManager::getBasePosition()
 	return bestPosition;
 }
 
-void initializeGlobalHarvester()
+void GlobalHarvestManager::initializeGlobalHarvester()
 {
 	for (auto const &a : theMap.Areas())
 	{
@@ -177,7 +168,10 @@ void initializeGlobalHarvester()
 	}
 }
 
-GlobalHarvestManager* ZerGreenAI::getGlobalHarvester()
+ZerGreenAI::GlobalHarvestManager::~GlobalHarvestManager()
 {
-	return &LocalGlobalHarvester;
+	for (auto const &m : childManagers)
+	{
+		delete m;
+	}
 }

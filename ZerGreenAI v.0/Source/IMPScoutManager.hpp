@@ -20,11 +20,8 @@ namespace ZerGreenAI
 		void onFrame();
 
 	public:
-		inline std::string name() { return "IMP Scouting Manager"; }
+		inline virtual std::string name() { return "IMP Scouting Manager"; }
 		BWAPI::TilePosition getColdest();
 		BWAPI::TilePosition getColdestWeightingDistance(BWAPI::TilePosition startP, int weight);
 	};
-
-	IMPScoutManager * getIMPScoutManager();
-
 }

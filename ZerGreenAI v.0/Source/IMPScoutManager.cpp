@@ -5,8 +5,6 @@
 #include "Debug.hpp"
 #include "Namespaces.hpp"
 
-IMPScoutManager localIMPScoutManager;
-
 void IMPScoutManager::onStart()
 {
 	for (int x = 0; x < Broodwar->mapWidth(); x+=IMP_NUM_TILEPOS_SKIPPED)
@@ -67,9 +65,4 @@ TilePosition IMPScoutManager::getColdest()
 		}
 	}
 	return bestPos;
-}
-
-IMPScoutManager * ZerGreenAI::getIMPScoutManager()
-{
-	return &localIMPScoutManager;
 }

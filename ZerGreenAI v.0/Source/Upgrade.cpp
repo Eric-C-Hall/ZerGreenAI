@@ -3,8 +3,6 @@
 #include "Upgrade.hpp"
 #include "Namespaces.hpp"
 
-UpgradeManager LocalUpgradeManager;
-
 void UpgradeManager::onFrame()
 {
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
@@ -44,9 +42,4 @@ void UpgradeManager::ChooseTech(TechType tech)
 void UpgradeManager::ChooseUpgrade(UpgradeType upgrade)
 {
 	ChosenUpgrades.insert(upgrade);
-}
-
-UpgradeManager * ZerGreenAI::getUpgradeManager()
-{
-	return &LocalUpgradeManager;
 }

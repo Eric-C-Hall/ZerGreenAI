@@ -14,6 +14,8 @@ namespace ZerGreenAI
 		static const BWAPI::Position east;
 
 		void addNode(BWAPI::Position p);
+
+		class GridPositionAStar;
 	public:
 		std::vector<BWAPI::Position> findPath(BWAPI::Position a, BWAPI::Position b);
 		inline bool isOnGrid(const BWAPI::Position &p) { return grid.count(p); }

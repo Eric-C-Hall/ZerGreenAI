@@ -141,7 +141,6 @@
     <ClCompile Include="Source\BWEM\utils.cpp" />
     <ClCompile Include="Source\BWEM\winutils.cpp" />
     <ClCompile Include="Source\Construction.cpp" />
-    <ClCompile Include="Source\EasyBMP_1.06\EasyBMP.cpp" />
     <ClCompile Include="Source\GlobalHarvesting.cpp" />
     <ClCompile Include="Source\ResourceAllocator.cpp" />
     <ClCompile Include="Source\BM.cpp" />
@@ -154,6 +153,8 @@
     <ClCompile Include="Source\Upgrade.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\astar-algorithm-cpp-master\cpp\fsa.h" />
+    <ClInclude Include="Source\astar-algorithm-cpp-master\cpp\stlastar.h" />
     <ClInclude Include="Source\GeneralManagement.hpp" />
     <ClInclude Include="Source\MacroCombatGroup.hpp" />
     <ClInclude Include="Source\MicroCombatGroup.hpp" />
@@ -195,10 +196,6 @@
     <ClInclude Include="Source\BWEM\utils.h" />
     <ClInclude Include="Source\BWEM\winutils.h" />
     <ClInclude Include="Source\Construction.hpp" />
-    <ClInclude Include="Source\EasyBMP_1.06\EasyBMP.h" />
-    <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_BMP.h" />
-    <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_DataStructures.h" />
-    <ClInclude Include="Source\EasyBMP_1.06\EasyBMP_VariousBMPutilities.h" />
     <ClInclude Include="Source\GlobalHarvesting.hpp" />
     <ClInclude Include="Source\ResourceAllocator.hpp" />
     <ClInclude Include="Source\BM.hpp" />

@@ -4,7 +4,6 @@
 
 namespace ZerGreenAI
 {
-
 	class LocalHarvestManager : public UnitManager
 	{
 		BWAPI::Unit base;
@@ -24,7 +23,7 @@ namespace ZerGreenAI
 		void drawDebugResourceInfo();
 
 	public:
-		inline std::string name() { return "Local Harvester"; }
+		inline virtual std::string name() { return "Local Harvester"; }
 
 		unsigned int numSaturated();
 		unsigned int numHarvesters();

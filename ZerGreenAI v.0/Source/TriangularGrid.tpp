@@ -1,10 +1,41 @@
 #pragma once
 
+#include <BWAPI.h>
+
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 #include "Vector.hpp"
-#include "TriangularGrid.hpp"
+#include "astar-algorithm-cpp-master\cpp\stlastar.h"
+
+template <int distance>
+class TriangularGrid<distance>::GridPositionAStar
+{
+	BWAPI::Position pos;
+
+public:
+	inline GridPositionAStar() : pos(BWAPI::Positions::Unknown) {}
+	inline GridPositionAStar(BWAPI::Position pos) : pos(ZerGreenAIObj::mainInstance->grid->snapToGrid(pos)) {}
+	float GoalDistanceEstimate(GridPositionAStar &nodeGoal) { return (float)pos.getDistance(nodeGoal.pos); }
+	inline bool IsGoal(GridPositionAStar &nodeGoal) { return pos == nodeGoal.pos; }
+	inline bool GetSuccessors(AStarSearch<GridPositionAStar> *astarsearch, GridPositionAStar *parent_node)
+	{
+		if (ZerGreenAIObj::mainInstance->grid->grid.count(pos) == 0)
+		{
+			Broodwar << "in AStar GetSuccessors, Pos is not on grid" << std::endl;
+			return true;
+		}
+		for (const BWAPI::Position & successor : ZerGreenAIObj::mainInstance->grid->grid.at(pos))
+		{
+			astarsearch->AddSuccessor(GridPositionAStar(successor));
+			return true;
+		}
+		return false;
+	}
+	float GetCost(GridPositionAStar &successor) { return 1.0f; }
+	inline bool IsSameState(GridPositionAStar &rhs) { return pos == rhs.pos; }
+	inline BWAPI::Position getPos() { return pos; }
+};
 
 template<int distance>
 void ZerGreenAI::TriangularGrid<distance>::addNode(BWAPI::Position p)
@@ -33,19 +64,58 @@ void ZerGreenAI::TriangularGrid<distance>::addNode(BWAPI::Position p)
 template<int distance>
 std::vector<BWAPI::Position> ZerGreenAI::TriangularGrid<distance>::findPath(BWAPI::Position a, BWAPI::Position b)
 {
-	if (!isOnGrid(a))
-		a = snapToGrid(a);
-	if (!isOnGrid(b))
-		b = snapToGrid(b);
+	std::vector<BWAPI::Position> returnValue;
 
-	std::vector<>
+	a = snapToGrid(a);
+	b = snapToGrid(b);
 
-	return std::vector<BWAPI::Position>();
+	AStarSearch<GridPositionAStar> astarsearch;
+	astarsearch.SetStartAndGoalStates(GridPositionAStar(a), GridPositionAStar(b));
+	unsigned int SearchState;
+
+	do
+	{
+		SearchState = astarsearch.SearchStep();
+	}
+	while (SearchState == AStarSearch<GridPositionAStar>::SEARCH_STATE_SEARCHING);
+
+	if (SearchState == AStarSearch<GridPositionAStar>::SEARCH_STATE_SUCCEEDED)
+	{
+		GridPositionAStar *node = astarsearch.GetSolutionStart();
+
+		while (true)
+		{
+			node = astarsearch.GetSolutionNext();
+
+			if (!node)
+			{
+				break;
+			}
+			else
+			{
+				returnValue.insert(returnValue.end(), node->getPos());
+			}
+		};
+		astarsearch.FreeSolutionNodes();
+	}
+	else if (SearchState == AStarSearch<GridPositionAStar>::SEARCH_STATE_FAILED)
+	{
+		Broodwar << "Failed to find a path from " << a << " to " << b << std::endl;
+	}
+	else if (SearchState == AStarSearch<GridPositionAStar>::SEARCH_STATE_OUT_OF_MEMORY)
+	{
+		Broodwar << Text::BrightRed << "Astar search out of memory" << std::endl;
+	}
+
+	return returnValue;
 }
 
 template<int distance>
 BWAPI::Position ZerGreenAI::TriangularGrid<distance>::snapToGrid(const BWAPI::Position & p)
 {
+	if (isOnGrid(p))
+		return p;
+
 	BWAPI::Position relToStart = p - (Position)Broodwar->self()->getStartLocation();
 	int numSouthEastsToP = relToStart.y / southEast.y;
 	BWAPI::Position remainder = relToStart - (southEast * numSouthEastsToP);

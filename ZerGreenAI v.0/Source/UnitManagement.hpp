@@ -14,7 +14,7 @@ namespace ZerGreenAI
 
 	protected:
 		BWAPI::Unitset assignedUnits;
-		void giveUnitManagement(BWAPI::Unit u, UnitManager * mgr);
+		void giveUnitManagement(BWAPI::Unit u, UnitManager * const mgr);
 		bool requestUnitManagement(BWAPI::Unit u);
 
 	public:
@@ -27,7 +27,4 @@ namespace ZerGreenAI
 
 	UnitManager* getUnitManager(BWAPI::Unit u);
 	void recycleUnitSenior(BWAPI::Unit u);
-
-	UnitManager* getResourceAllocator();
-
 }

@@ -2,6 +2,7 @@
 
 #include "Debug.hpp"
 #include "Namespaces.hpp"
+#include "UnitManagement.hpp"
 
 std::unordered_map<Unit, std::string> unit2DebugText;
 std::unordered_map<Unit, int> debugTextFrames;
@@ -42,6 +43,8 @@ void ZerGreenAI::debugOnFrame()
 	{
 		Unit selectedUnit = *Broodwar->getSelectedUnits().begin();
 		Broodwar->drawTextMap(selectedUnit->getPosition() + Position(0, 20), selectedUnit->getOrder().c_str());
+		Broodwar->drawTextMap(selectedUnit->getPosition() + Position(0, 30), getUnitManager(selectedUnit)->name().c_str());
+
 	}
 }
 

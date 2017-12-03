@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "ZerGreenAI.hpp"
 #include "ResourceAllocator.hpp"
 #include "LocalHarvesting.hpp"
 #include "GlobalHarvesting.hpp"
@@ -18,7 +19,7 @@ UnitManager * whoToGive(Unit u)
 
 	if ((IsWorker || IsResourceDepot)(u))
 	{
-		return getGlobalHarvester();
+		return ZerGreenAIObj::mainInstance->globalHarvestManager;
 	}
 	else if (IsBuilding(u))
 	{
@@ -27,22 +28,22 @@ UnitManager * whoToGive(Unit u)
 		if (CanProduce(u))
 		{
 			assert(!canUpgrade);
-			return getProductionManager();
+			return ZerGreenAIObj::mainInstance->productionManager;
 		}
 		else if (canUpgrade)
 		{
-			return getUpgradeManager();
+			return ZerGreenAIObj::mainInstance->upgradeManager;
 		}
 		else if (u->getType() == UnitTypes::Protoss_Pylon)
 		{
-			return getLayoutPlanner();
+			return ZerGreenAIObj::mainInstance->layoutPlanner;
 		}
 		return nullptr;
 
 	}
 	else
 	{
-		return getCombatStrategist();
+		return ZerGreenAIObj::mainInstance->combatStrategist;
 	}
 	return nullptr;
 }

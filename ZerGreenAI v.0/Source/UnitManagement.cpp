@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "ZerGreenAI.hpp"
 #include "UnitManagement.hpp"
 #include "ResourceAllocator.hpp"
 #include "GlobalHarvesting.hpp"
@@ -13,7 +14,6 @@
 #include "Namespaces.hpp"
 
 std::unordered_map<Unit, UnitManager*> Unit2Manager;
-ResourceAllocator LocalResourceAllocator;
 
 UnitManager::~UnitManager()
 {
@@ -22,7 +22,7 @@ UnitManager::~UnitManager()
 		for (auto const &u : assignedUnits)
 		{
 			Unit2Manager.erase(u);
-			giveUnitManagement(u, &LocalResourceAllocator);
+			giveUnitManagement(u, ZerGreenAIObj::mainInstance->resourceAllocator);
 		}
 	}
 }
@@ -118,9 +118,4 @@ void ZerGreenAI::recycleUnitSenior(Unit u)
 	}
 
 	buildOrderOnRecycle(u);
-}
-
-UnitManager* ZerGreenAI::getResourceAllocator()
-{
-	return &LocalResourceAllocator;
 }

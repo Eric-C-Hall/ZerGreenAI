@@ -4,8 +4,6 @@
 #include "Namespaces.hpp"
 #include "bwStrings.hpp"
 
-EnemyMovementManager enemyMovementManager;
-
 UnitTracker::UnitTracker(Unit u)
 {
 	position = u->getPosition();
@@ -64,9 +62,4 @@ void EnemyMovementManager::onFrame()
 void EnemyMovementManager::onUnitDestroy(Unit u)
 {
 	trackedUnits.erase(u->getID());
-}
-
-EnemyMovementManager * ZerGreenAI::getEnemyMovementManager()
-{
-	return &enemyMovementManager;
 }

@@ -10,6 +10,8 @@ The AI requires that the files required for BWEM be placed in the folder Source/
 
 It also requires that the files required for BWAPI be placed in the files ../include and ../lib
 
+The AI requires that the files required for justinhj's AStar implementation be placed in the folder Source/astar-algorithm-cpp-master/
+
 Also, the read directory should be placed in bwapi-data in the Starcraft directory
 
 If someone other than me wants to try to compile this AI they should expect to have to put in a little work.

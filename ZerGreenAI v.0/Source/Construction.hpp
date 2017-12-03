@@ -10,12 +10,10 @@ namespace ZerGreenAI
 		bool acceptRequest(BWAPI::Unit u); // Preferably should blacklist rather than whitelist
 		void recycleUnit(BWAPI::Unit u);
 	public:
-		inline std::string name() { return "Construction Manager"; }
+		inline virtual std::string name() { return "Construction Manager"; }
 		void onFrame();
 
 		bool constructBuilding(BWAPI::UnitType type);
 	};
-
-	ConstructionManager * getConstructionManager();
 
 }

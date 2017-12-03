@@ -9,7 +9,7 @@ namespace ZerGreenAI
 	{
 		void recycleUnit(BWAPI::Unit u);
 	public:
-		inline std::string name() { return "Probe Scout Manager"; }
+		inline virtual std::string name() { return "Probe Scout Manager"; }
 		ProbeScoutManager(BWAPI::Unit u);
 		void onFrame();
 	};

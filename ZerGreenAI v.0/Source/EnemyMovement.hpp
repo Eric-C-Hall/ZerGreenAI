@@ -27,7 +27,4 @@ namespace ZerGreenAI
 		UnitTracker(BWAPI::Unit u);
 		friend EnemyMovementManager;
 	};
-
-	EnemyMovementManager * getEnemyMovementManager();
-
 }

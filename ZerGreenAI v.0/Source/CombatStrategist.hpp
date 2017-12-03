@@ -4,7 +4,6 @@
 
 namespace ZerGreenAI
 {
-
 	class CombatStrategist : public UnitManager
 	{
 		void onStart();
@@ -13,7 +12,4 @@ namespace ZerGreenAI
 		inline virtual std::string name() { return "Combat Strategist"; }
 		void onFrame();
 	};
-
-	CombatStrategist * getCombatStrategist();
-
 }

@@ -5,7 +5,6 @@
 
 namespace ZerGreenAI
 {
-
 	class DeathballManager : public UnitManager
 	{
 		BWAPI::Position currentBallPosition;
@@ -26,7 +25,7 @@ namespace ZerGreenAI
 
 	public:
 		void onFrame();
-		inline std::string name() { return "Deathball Manager"; }
+		inline virtual std::string name() { return "Deathball Manager"; }
 		DeathballManager();
 	};
 

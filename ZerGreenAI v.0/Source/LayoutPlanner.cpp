@@ -3,6 +3,7 @@
 #include <math.h>
 #include <algorithm>
 
+#include "ZerGreenAI.hpp"
 #include "MapAnalyser.hpp"
 #include "LayoutPlanner.hpp"
 #include "bweml.hpp"
@@ -12,7 +13,6 @@
 #include "GlobalHarvesting.hpp"
 #include "Namespaces.hpp"
 
-LayoutPlanner LocalLayoutPlanner;
 LayoutNode mainNode;
 
 std::unordered_set<TilePosition> pathPositions;
@@ -145,12 +145,12 @@ bool isProtected(TilePosition)
 
 TilePosition getAssimilatorPosition()
 {
-	return getGlobalHarvester()->getAssimilatorPosition();
+	return ZerGreenAIObj::mainInstance->globalHarvestManager->getAssimilatorPosition();
 }
 
 TilePosition getNexusPosition()
 {
-	return getGlobalHarvester()->getBasePosition();
+	return ZerGreenAIObj::mainInstance->globalHarvestManager->getBasePosition();
 }
 
 // APPROX_PYLON_RADIUS = 7.5 * 32
@@ -333,9 +333,4 @@ void LayoutPlanner::onStart()
 	mainNode.children.insert(LayoutNode(TilePosition(mineralLine(mainBase).end1), LayoutNode::LayoutNodeType::mineralEdge));
 	mainNode.children.insert(LayoutNode(TilePosition(mineralLine(mainBase).end2), LayoutNode::LayoutNodeType::mineralEdge));
 
-}
-
-LayoutPlanner * ZerGreenAI::getLayoutPlanner()
-{
-	return &LocalLayoutPlanner;
 }

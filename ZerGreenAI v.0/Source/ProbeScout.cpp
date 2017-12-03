@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "ZerGreenAI.hpp"
 #include "ProbeScout.hpp"
 #include "GlobalHarvesting.hpp"
 #include "Hashes.hpp"
@@ -27,11 +28,20 @@ void ProbeScoutManager::onFrame()
 {
 	if (Broodwar->isVisible((TilePosition)probe->getTargetPosition()))
 	{
-		probe->move((Position)getIMPScoutManager()->getColdest());
+		probe->move((Position)ZerGreenAIObj::mainInstance->impScoutManager->getColdest());
 	}
 }
 
 void ZerGreenAI::startProbeScout()
 {
-	new ProbeScoutManager(getGlobalHarvester()->nearbyAvailableHarvester(Position(Broodwar->getStartLocations().front())));
+	Unit probe = ZerGreenAIObj::mainInstance->globalHarvestManager->nearbyAvailableHarvester(Position(Broodwar->getStartLocations().front()));
+	if (probe == nullptr)
+	{
+		Broodwar << "Error: failed to find probe for scouting" << std::endl;
+		return;
+	}
+	else
+	{
+		new ProbeScoutManager(probe);
+	}
 }

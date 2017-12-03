@@ -1,16 +1,16 @@
 #include "stdafx.h"
 
+#include "ZerGreenAI.hpp"
 #include "CombatStrategist.hpp"
 #include "Deathball.hpp"
 #include "MacroCombatGroup.hpp"
 #include "Namespaces.hpp"
 
-CombatStrategist LocalCombatStrategist;
 //DeathballManager* MainDeathball;
 
 void CombatStrategist::onAssignment(Unit u)
 {
-	giveUnitManagement(u, getMacroCombatManager());
+	giveUnitManagement(u, ZerGreenAIObj::mainInstance->macroCombatManager);
 }
 
 void CombatStrategist::onFrame()
@@ -24,9 +24,4 @@ void CombatStrategist::onFrame()
 void CombatStrategist::onStart()
 {
 	//MainDeathball = new DeathballManager;
-}
-
-CombatStrategist* ZerGreenAI::getCombatStrategist()
-{
-	return &LocalCombatStrategist;
 }

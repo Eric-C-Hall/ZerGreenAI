@@ -2,6 +2,7 @@
 
 #include <fstream>
 
+#include "ZerGreenAI.hpp"
 #include "BuildOrder.hpp"
 #include "Hashes.hpp"
 #include "Production.hpp"
@@ -195,7 +196,7 @@ void ZerGreenAI::buildOrderOnFrame()
 
 	if (pylonNeccessary() && Broodwar->canMake(UnitTypes::Protoss_Pylon))
 	{
-		getConstructionManager()->constructBuilding(UnitTypes::Protoss_Pylon);
+		ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(UnitTypes::Protoss_Pylon);
 		return;
 	}
 
@@ -216,13 +217,13 @@ void ZerGreenAI::buildOrderOnFrame()
 		{
 			if (Broodwar->canMake(chosenType))
 			{
-				getConstructionManager()->constructBuilding(chosenType);
+				ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(chosenType);
 			}
 		}
 		else
 		{
-			getProductionManager()->SetUnitWeight(chosenType, ++unitTypeWeight[chosenType]);
-			getProductionManager()->UpdateWeightLists();
+			ZerGreenAIObj::mainInstance->productionManager->SetUnitWeight(chosenType, ++unitTypeWeight[chosenType]);
+			ZerGreenAIObj::mainInstance->productionManager->UpdateWeightLists();
 			buildOrderIterator++;
 
 		}
@@ -231,12 +232,12 @@ void ZerGreenAI::buildOrderOnFrame()
 	}
 	else if (buildOrderIterator->tech != TechTypes::None)
 	{
-		getUpgradeManager()->ChooseTech(buildOrderIterator->tech);
+		ZerGreenAIObj::mainInstance->upgradeManager->ChooseTech(buildOrderIterator->tech);
 		buildOrderIterator++;
 	}
 	else if (buildOrderIterator->upgrade != UpgradeTypes::None)
 	{
-		getUpgradeManager()->ChooseUpgrade(buildOrderIterator->upgrade);
+		ZerGreenAIObj::mainInstance->upgradeManager->ChooseUpgrade(buildOrderIterator->upgrade);
 		buildOrderIterator++;
 	}
 	else if (buildOrderIterator->command != none)

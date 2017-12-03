@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#include "ZerGreenAI.hpp"
+#include "ResourceAllocator.hpp"
 #include "LocalHarvesting.hpp"
 #include "GlobalHarvesting.hpp"
 #include "Debug.hpp"
@@ -50,7 +52,7 @@ void LocalHarvestManager::onAssignment(Unit u)
 	}
 	else
 	{
-		giveUnitManagement(u, getResourceAllocator());
+		giveUnitManagement(u, ZerGreenAIObj::mainInstance->resourceAllocator);
 	}
 
 }
@@ -141,7 +143,7 @@ void LocalHarvestManager::onFrame()
 		}
 	}
 
-	if (getGlobalHarvester()->needProbes())
+	if (ZerGreenAIObj::mainInstance->globalHarvestManager->needProbes())
 	{
 		if (base->getRemainingTrainTime() - 24 < 0)
 		{

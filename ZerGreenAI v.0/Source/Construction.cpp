@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include <BWAPI.h>
+#include "ZerGreenAI.hpp"
 #include "Construction.hpp"
 #include "GlobalHarvesting.hpp"
 #include "LayoutPlanner.hpp"
@@ -8,8 +9,7 @@
 #include "Debug.hpp"
 #include "Timer.hpp"
 #include "Namespaces.hpp"
-
-ConstructionManager LocalConstructionManager;
+#include "ResourceAllocator.hpp"
 
 std::unordered_map<Unit, UnitType> buildType;
 std::unordered_map<Unit, TilePosition> buildPosition;
@@ -72,7 +72,7 @@ void ConstructionManager::onFrame()
 
 	for (auto const &u : unAssignedUnits)
 	{
-		giveUnitManagement(u, getResourceAllocator());
+		giveUnitManagement(u, ZerGreenAIObj::mainInstance->resourceAllocator);
 	}
 }
 
@@ -83,13 +83,13 @@ bool ConstructionManager::constructBuilding(UnitType type)
 		return false;
 	}
 
-	TilePosition buildPos = getLayoutPlanner()->getAvailablePosition(type);
+	TilePosition buildPos = ZerGreenAIObj::mainInstance->layoutPlanner->getAvailablePosition(type);
 	if (buildPos == TilePositions::None)
 	{
 		return false;
 	}
 
-	Unit constructor = getGlobalHarvester()->nearbyAvailableHarvester(Position(buildPos));
+	Unit constructor = ZerGreenAIObj::mainInstance->globalHarvestManager->nearbyAvailableHarvester(Position(buildPos));
 
 	if (constructor == nullptr)
 	{
@@ -114,9 +114,4 @@ bool ConstructionManager::constructBuilding(UnitType type)
 	typeConstructionImminent[type] = true;
 
 	return true;
-}
-
-ConstructionManager * ZerGreenAI::getConstructionManager()
-{
-	return &LocalConstructionManager;
 }

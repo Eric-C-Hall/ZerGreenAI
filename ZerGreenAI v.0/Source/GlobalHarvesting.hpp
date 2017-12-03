@@ -4,13 +4,22 @@
 
 namespace ZerGreenAI
 {
+	class LocalHarvestManager;
 
 	class GlobalHarvestManager : public UnitManager
 	{
 		void onAssignment(BWAPI::Unit u);
 		void assignWorker(BWAPI::Unit u);
+
+		std::unordered_set<LocalHarvestManager *> childManagers;
+		std::unordered_set<TilePosition> unclaimedBases;
+
+		inline void addHarvestManager(LocalHarvestManager * mgr) { childManagers.insert(mgr); }
+		void initializeGlobalHarvester();
 	public:
-		inline std::string name() { return "Global Harvester"; }
+		~GlobalHarvestManager();
+
+		inline virtual std::string name() { return "Global Harvester"; }
 
 		void onFrame();
 
@@ -23,7 +32,5 @@ namespace ZerGreenAI
 		BWAPI::TilePosition getAssimilatorPosition();
 		BWAPI::TilePosition getBasePosition();
 	};
-
-	GlobalHarvestManager* getGlobalHarvester();
 
 }

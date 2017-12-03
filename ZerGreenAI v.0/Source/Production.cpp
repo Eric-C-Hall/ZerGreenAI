@@ -5,8 +5,6 @@
 #include "Debug.hpp"
 #include "Namespaces.hpp"
 
-ProductionManager LocalProductionManager;
-
 inline void ProductionManager::cycleQueue(UnitType prod)
 {
 	UnitType chosenType = ProduceLists[prod].front();
@@ -109,9 +107,4 @@ void ProductionManager::SetUnitWeight(UnitType unit, int Weight)
 Unitset ProductionManager::getProductionBuildings()
 {
 	return assignedUnits;
-}
-
-ProductionManager * ZerGreenAI::getProductionManager()
-{
-	return &LocalProductionManager;
 }

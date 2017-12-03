@@ -7,12 +7,41 @@
 
 namespace ZerGreenAI
 {
+	class ResourceAllocator;
+	class GlobalHarvestManager;
+	class LayoutPlanner;
+	class ConstructionManager;
+	class ProductionManager;
+	class UpgradeManager;
+	class EnemyMovementManager;
+	class IMPScoutManager;
+	class CombatStrategist;
+	class MacroCombatManager;
+	class MacroCombatManager;
+
 	template<int distance>
-	class TriangularGrid; // Defined here to prevent this header from requiring TriangularGrid.hpp, causing a cascading effect.
+	class TriangularGrid;
+
 	class ZerGreenAIObj : public BWAPI::AIModule
 	{
-		TriangularGrid<ZGA_TRIANGULAR_GRID_SIZE> * grid;
+		static int numInstances;
 	public:
+		static ZerGreenAIObj * mainInstance;
+
+		ResourceAllocator * resourceAllocator;
+		GlobalHarvestManager * globalHarvestManager;
+		LayoutPlanner * layoutPlanner;
+		ConstructionManager * constructionManager;
+		ProductionManager * productionManager;
+		UpgradeManager * upgradeManager;
+		EnemyMovementManager * enemyMovementManager;
+		IMPScoutManager * impScoutManager;
+		CombatStrategist * combatStrategist;
+		MacroCombatManager * macroCombatManager;
+
+		TriangularGrid<ZGA_TRIANGULAR_GRID_SIZE> * grid;
+		std::vector<BWAPI::Position> findPath(BWAPI::Position a, BWAPI::Position b);
+
 		// Virtual functions for callbacks, leave these as they are.
 		virtual void onStart();
 		virtual void onEnd(bool isWinner);
@@ -32,6 +61,9 @@ namespace ZerGreenAI
 		virtual void onSaveGame(std::string gameName);
 		virtual void onUnitComplete(BWAPI::Unit unit);
 		// Everything below this line is safe to modify.
+
+		ZerGreenAIObj();
+		~ZerGreenAIObj();
 
 	};
 

@@ -32,7 +32,7 @@ namespace ZerGreenAI
 
 	public:
 		BWAPI::TilePosition getAvailablePosition(BWAPI::UnitType type);
-		inline std::string name() { return "Layout Planner"; }
+		inline virtual std::string name() { return "Layout Planner"; }
 	};
 
 	class LayoutNode
@@ -60,7 +60,4 @@ namespace ZerGreenAI
 	void unlockLayout(BWAPI::UnitType, BWAPI::TilePosition); // Called when a building is destroyed
 
 	void drawHighLevelLayout();
-
-	LayoutPlanner * getLayoutPlanner();
-
 }

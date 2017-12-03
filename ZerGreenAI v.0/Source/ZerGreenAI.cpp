@@ -17,10 +17,16 @@
 #include "Easter.hpp"
 #include "ProbeScout.hpp"
 #include "ScoutAnalysis.hpp"
+#include "ResourceAllocator.hpp"
 #include "CombatStrategist.hpp"
 #include "Vector.hpp"
 #include "TriangularGrid.hpp"
-
+#include "MacroCombatGroup.hpp"
+#include "GlobalHarvesting.hpp"
+#include "Production.hpp"
+#include "Upgrade.hpp"
+#include "EnemyMovement.hpp"
+#include "IMPScoutManager.hpp"
 
 // ------------
 // ZerGreenAI
@@ -30,10 +36,20 @@
 //
 // Uses the BWAPI & BWEM libraries
 
+std::vector<BWAPI::Position> ZerGreenAI::ZerGreenAIObj::findPath(BWAPI::Position a, BWAPI::Position b)
+{
+	return grid->findPath(a, b);
+}
+
+int ZerGreenAIObj::numInstances = 0;
+ZerGreenAIObj * ZerGreenAIObj::mainInstance = nullptr;
+
 void ZerGreenAIObj::onStart()
 {
+#if !_DEBUG
 	try
 	{
+#endif
 		onStartTimerStart("Total");
 
 		// Enable the UserInput flag, which allows us to control the bot and type messages.
@@ -57,6 +73,7 @@ void ZerGreenAIObj::onStart()
 		Broodwar << "Written by ZerGreenOne" << std::endl;
 		Broodwar << "Uses the BWEM library" << std::endl;
 		Broodwar << "Uses imp42's scouting algorithm's concept" << std::endl;
+		Broodwar << "Uses justinhj's AStar implemenation" << std::endl;
 
 		if (Broodwar->self()->getRace() != Races::Protoss)
 		{
@@ -72,6 +89,19 @@ void ZerGreenAIObj::onStart()
 		bool startingLocationsOK = theMap.FindBasesForStartingLocations();
 		assert(startingLocationsOK);
 		onStartTimerEnd("BWEM Init");
+
+		onStartTimerStart("Create Managers");
+		macroCombatManager = new MacroCombatManager;
+		combatStrategist = new CombatStrategist;
+		globalHarvestManager = new GlobalHarvestManager;
+		resourceAllocator = new ResourceAllocator;
+		constructionManager = new ConstructionManager;
+		layoutPlanner = new LayoutPlanner;
+		productionManager = new ProductionManager;
+		upgradeManager = new UpgradeManager;
+		enemyMovementManager = new EnemyMovementManager;
+		impScoutManager = new IMPScoutManager;
+		onStartTimerEnd("Create Managers");
 
 		onStartTimerStart("Map Analyser");
 		initializeMapAnalyser();
@@ -89,11 +119,13 @@ void ZerGreenAIObj::onStart()
 		Manager::globalOnStart();
 
 		onStartTimerEnd("Total");
+#if !_DEBUG
 	}
 	catch (const std::exception & e)
 	{
 		Broodwar << "EXCEPTION: " << e.what() << std::endl;
 	}
+#endif
 }
 
 void ZerGreenAIObj::onEnd(bool isWinner)
@@ -103,10 +135,16 @@ void ZerGreenAIObj::onEnd(bool isWinner)
 
 void ZerGreenAIObj::onFrame()
 {
+#if !_DEBUG
 	try
 	{
+#endif
 		startTimer("Total");
 		carriageReturn();
+
+		startTimer("TriangularGrid");
+		grid->draw(Colors::Yellow);
+		endTimer("TriangularGrid");
 
 		startTimer("BWEM drawing");
 
@@ -134,29 +172,30 @@ void ZerGreenAIObj::onFrame()
 		startTimer("Happy Easter!");
 		onFrameEaster();
 		endTimer("Happy Easter!");
-		startTimer("TriangularGrid");
-		grid->draw(Colors::Yellow);
-		endTimer("TriangularGrid");
 
-		Broodwar->drawCircleMap(grid->snapToGrid(Broodwar->getMousePosition() + Broodwar->getScreenPosition()), 7, Colors::Red, true);
+		/*Broodwar->drawCircleMap(grid->snapToGrid(Broodwar->getMousePosition() + Broodwar->getScreenPosition()), 7, Colors::Red, true);
 		if (Broodwar->getSelectedUnits().size() > 0)
 		{
 			Broodwar->drawCircleMap(grid->snapToGrid((*Broodwar->getSelectedUnits().begin())->getPosition()), 9, Colors::Green, true);
-		}
+		}*/
 
 		cheatOnFrame();
 		endTimer("Total");
+#if !_DEBUG
 	}
 	catch (const std::exception & e)
 	{
 		Broodwar << "EXCEPTION: " << e.what() << std::endl;
 	}
+#endif
 }
 
 void ZerGreenAIObj::onSendText(std::string text)
 {
+#if !_DEBUG
 	try
 	{
+#endif
 		if (!executeCheat(text))
 		{
 			// Send the text to the game if it is not being processed.
@@ -167,12 +206,14 @@ void ZerGreenAIObj::onSendText(std::string text)
 		// otherwise you may run into problems when you use the %(percent) character!
 
 		Manager::globalOnSendText(text);
+#if !_DEBUG
+
 	}
 	catch (const std::exception & e)
 	{
 		Broodwar << "EXCEPTION: " << e.what() << std::endl;
 	}
-
+#endif
 }
 
 void ZerGreenAIObj::onReceiveText(BWAPI::Player player, std::string text)
@@ -219,7 +260,7 @@ void ZerGreenAIObj::onUnitCreate(BWAPI::Unit unit)
 {
 	if (unit->getPlayer() == Broodwar->self())
 	{
-		getResourceAllocator()->giveOrphanUnit(unit);
+		ZerGreenAIObj::mainInstance->resourceAllocator->giveOrphanUnit(unit);
 	}
 
 	buildOrderOnCreate(unit);
@@ -229,8 +270,10 @@ void ZerGreenAIObj::onUnitCreate(BWAPI::Unit unit)
 
 void ZerGreenAIObj::onUnitDestroy(BWAPI::Unit unit)
 {
+#if !_DEBUG
 	try
 	{
+#endif
 		if (unit->getType().isMineralField())    theMap.OnMineralDestroyed(unit);
 		else if (unit->getType().isSpecialBuilding()) theMap.OnStaticBuildingDestroyed(unit);
 
@@ -239,11 +282,13 @@ void ZerGreenAIObj::onUnitDestroy(BWAPI::Unit unit)
 			recycleUnitSenior(unit);
 		}
 		Manager::globalOnUnitDestroy(unit);
+#if !_DEBUG
 	}
 	catch (const std::exception & e)
 	{
 		Broodwar << "EXCEPTION: " << e.what() << std::endl;
 	}
+#endif
 }
 
 void ZerGreenAIObj::onUnitMorph(BWAPI::Unit unit)
@@ -272,4 +317,35 @@ void ZerGreenAIObj::onSaveGame(std::string gameName)
 void ZerGreenAIObj::onUnitComplete(BWAPI::Unit unit)
 {
 	Manager::globalOnUnitComplete(unit);
+}
+
+ZerGreenAI::ZerGreenAIObj::ZerGreenAIObj()
+{
+	numInstances++;
+
+	if (numInstances > 1)
+	{
+		Broodwar << BWAPI::Text::BrightRed << "Error: Two or more instances of ZerGreenAIObj have been created" << std::endl;
+		delete this;
+	}
+	else
+	{
+		mainInstance = this;
+	}
+	
+}
+
+ZerGreenAI::ZerGreenAIObj::~ZerGreenAIObj()
+{
+	numInstances--;
+	delete macroCombatManager;
+	delete combatStrategist;
+	delete globalHarvestManager;
+	delete resourceAllocator;
+	delete constructionManager;
+	delete layoutPlanner;
+	delete productionManager;
+	delete upgradeManager;
+	delete enemyMovementManager;
+	delete impScoutManager;
 }

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "MicroCombatGroup.hpp"
 #include "UnitManagement.hpp"
 
 namespace ZerGreenAI
 {
+	class MicroCombatManager;
 
 	class MacroCombatManager : public UnitManager
 	{
@@ -14,10 +14,10 @@ namespace ZerGreenAI
 		void onFrame() override;
 
 		void onAssignment(BWAPI::Unit u);
+
 	public:
-		inline std::string name() { return "Macro Combat Manager"; }
+		~MacroCombatManager();
+
+		inline virtual std::string name() { return "Macro Combat Manager"; }
 	};
-
-	MacroCombatManager* getMacroCombatManager();
-
 }

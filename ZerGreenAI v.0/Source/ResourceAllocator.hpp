@@ -8,8 +8,8 @@ namespace ZerGreenAI
 	class ResourceAllocator : public UnitManager
 	{
 	public:
-		inline std::string name() { return "Resource Allocator"; }
-		void onFrame();
+		inline virtual std::string name() { return "Resource Allocator"; }
+		void onFrame() override;
 	};
 
 }
