@@ -17,7 +17,8 @@ namespace ZerGreenAI
 
 	public:
 		inline virtual std::string name() { return "Production Manager"; }
-		void onFrame();
+		void onStart() override;
+		void onFrame() override;
 
 		void SetUnitWeight(BWAPI::UnitType unit, int Weight);
 		void UpdateWeightLists();

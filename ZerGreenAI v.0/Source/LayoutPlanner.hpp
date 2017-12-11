@@ -24,10 +24,9 @@ namespace std
 namespace ZerGreenAI
 {
 
-	class LayoutPlanner : public UnitManager
+	class LayoutPlanner : public Manager
 	{
 		void onStart();
-		void recycleUnit(BWAPI::Unit u);
 		bool isPositionAvailable(BWAPI::TilePosition pos, BWAPI::UnitType type);
 
 	public:

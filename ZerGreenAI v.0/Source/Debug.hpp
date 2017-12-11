@@ -34,7 +34,7 @@ namespace ZerGreenAI
 
 		void draw();
 	public:
-		debugBox(BWAPI::CoordinateType::Enum parCtype, int parLeft, int parRight, int parTop, int parBottom, BWAPI::Color parColor, int parFrames, bool parIsSolid = false);
+		debugBox(BWAPI::CoordinateType::Enum parCtype, int parLeft, int parTop, int parRight, int parBottom, BWAPI::Color parColor, int parFrames, bool parIsSolid = false);
 		debugBox(BWAPI::CoordinateType::Enum parCtype, BWAPI::Position topLeft, BWAPI::Position bottomRight, BWAPI::Color parColor, int parFrames, bool parIsSolid = false);
 
 	};

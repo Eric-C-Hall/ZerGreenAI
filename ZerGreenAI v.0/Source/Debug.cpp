@@ -93,10 +93,10 @@ void debugDrawing::drawFrame()
 
 void debugBox::draw()
 {
-	Broodwar->drawBox(ctype, left, right, top, bottom, color, isSolid);
+	Broodwar->drawBox(ctype, left, top, right, bottom, color, isSolid);
 }
 
-debugBox::debugBox(CoordinateType::Enum parCtype, int parLeft, int parRight, int parTop, int parBottom, Color parColor, int parFrames, bool parIsSolid)
+debugBox::debugBox(CoordinateType::Enum parCtype, int parLeft, int parTop, int parRight, int parBottom, Color parColor, int parFrames, bool parIsSolid)
 {
 	ctype = parCtype;
 	left = parLeft;
@@ -108,7 +108,7 @@ debugBox::debugBox(CoordinateType::Enum parCtype, int parLeft, int parRight, int
 	frames = parFrames;
 }
 
-ZerGreenAI::debugBox::debugBox(BWAPI::CoordinateType::Enum parCtype, BWAPI::Position topLeft, BWAPI::Position bottomRight, BWAPI::Color parColor, int parFrames, bool parIsSolid) : debugBox(parCtype, topLeft.x, bottomRight.x, topLeft.y, bottomRight.y, parColor, parFrames, isSolid)
+ZerGreenAI::debugBox::debugBox(BWAPI::CoordinateType::Enum parCtype, BWAPI::Position topLeft, BWAPI::Position bottomRight, BWAPI::Color parColor, int parFrames, bool parIsSolid) : debugBox(parCtype, topLeft.x, topLeft.y, bottomRight.x, bottomRight.y, parColor, parFrames, parIsSolid)
 {
 }
 

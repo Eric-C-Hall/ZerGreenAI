@@ -229,11 +229,6 @@ TilePosition LayoutPlanner::getAvailablePosition(UnitType type)
 	return bestPosition;
 }
 
-void LayoutPlanner::recycleUnit(Unit u)
-{
-
-}
-
 void updateLayout(UnitType type)
 {
 }

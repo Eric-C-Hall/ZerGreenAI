@@ -104,7 +104,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\BuildOrderNew.cpp" />
+    <ClCompile Include="Source\PylonConstruction.cpp" />
+    <ClCompile Include="Source\BuildOrder.cpp" />
     <ClCompile Include="Source\FAP.cpp" />
     <ClCompile Include="Source\FAPUtil.cpp" />
     <ClCompile Include="Source\GeneralManagement.cpp" />
@@ -121,7 +122,7 @@
     <ClCompile Include="Source\ScoutAnalysis.cpp" />
     <ClCompile Include="Source\Deathball.cpp" />
     <ClCompile Include="Source\ProbeScout.cpp" />
-    <ClCompile Include="Source\BuildOrder.cpp" />
+    <ClCompile Include="Source\BuildOrderOld.cpp" />
     <ClCompile Include="Source\Achievements.cpp" />
     <ClCompile Include="Source\Easter.cpp" />
     <ClCompile Include="Source\MapAnalyser.cpp" />
@@ -159,7 +160,8 @@
     <ClCompile Include="Source\Upgrade.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\BuildOrderNew.hpp" />
+    <ClInclude Include="Source\PylonConstruction.hpp" />
+    <ClInclude Include="Source\BuildOrder.hpp" />
     <ClInclude Include="Source\astar-algorithm-cpp-master\cpp\fsa.h" />
     <ClInclude Include="Source\astar-algorithm-cpp-master\cpp\stlastar.h" />
     <ClInclude Include="Source\FAP.h" />
@@ -180,7 +182,7 @@
     <ClInclude Include="Source\ProbeScout.hpp" />
     <ClInclude Include="Source\BWEMHashes.hpp" />
     <ClInclude Include="Source\bwemL.hpp" />
-    <ClInclude Include="Source\BuildOrder.hpp" />
+    <ClInclude Include="Source\BuildOrderOld.hpp" />
     <ClInclude Include="Source\Achievements.hpp" />
     <ClInclude Include="Source\Easter.hpp" />
     <ClInclude Include="Source\MapAnalyser.hpp" />

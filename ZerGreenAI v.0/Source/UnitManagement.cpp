@@ -9,7 +9,6 @@
 #include "Construction.hpp"
 #include "Timer.hpp"
 #include "LayoutPlanner.hpp"
-#include "BuildOrder.hpp"
 #include "CombatStrategist.hpp"
 #include "Namespaces.hpp"
 
@@ -116,6 +115,4 @@ void ZerGreenAI::recycleUnitSenior(Unit u)
 	{
 		Unit2Manager.erase(u);
 	}
-
-	buildOrderOnRecycle(u);
 }

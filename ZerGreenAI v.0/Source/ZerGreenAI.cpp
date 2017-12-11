@@ -28,7 +28,8 @@
 #include "EnemyMovement.hpp"
 #include "IMPScoutManager.hpp"
 #include "Construction.hpp"
-#include "BuildOrderNew.hpp"
+#include "BuildOrder.hpp"
+#include "PylonConstruction.hpp"
 
 // ------------
 // ZerGreenAI
@@ -106,6 +107,7 @@ void ZerGreenAIObj::onStart()
 		enemyMovementManager = new EnemyMovementManager;
 		impScoutManager = new IMPScoutManager;
 		buildOrderManager = new BuildOrderManager;
+		pylonConstructionManager = new PylonConstructionManager;
 		onStartTimerEnd("Create Managers");
 
 		onStartTimerStart("Map Analyser");
@@ -373,6 +375,7 @@ ZerGreenAI::ZerGreenAIObj::~ZerGreenAIObj()
 	delete enemyMovementManager;
 	delete impScoutManager;
 	delete buildOrderManager;
+	delete pylonConstructionManager;
 
 	delete resourceAllocator; // Makes sense to be the last to delete, since UnitManagers might give units to resource allocator on delete
 }

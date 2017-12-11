@@ -40,9 +40,11 @@ void ConstructionManager::onFrame()
 
 	for (auto const &u : assignedUnits)
 	{
+
 		TilePosition topLeft = buildPosition[u];
 		TilePosition bottomRight = buildPosition[u] + buildType[u].tileSize();
 		new debugBox(CoordinateType::Map, (Position)topLeft, (Position)bottomRight, Colors::Red, Broodwar->getLatencyFrames(), false);
+		new debugText((Position)topLeft + Position(10, 10), buildType[u].c_str(), Broodwar->getLatencyFrames());
 
 		if (!Broodwar->isVisible(topLeft) || !Broodwar->isVisible(bottomRight))
 		{
@@ -84,6 +86,7 @@ void ZerGreenAI::ConstructionManager::onUnitCreate(Unit u)
 
 void ZerGreenAI::ConstructionManager::onUnitMorph(Unit u)
 {
+	// Might be wrong morph direction
 	if ((IsOwned && IsRefinery)(u))
 	{
 		onUnitCreate(u);
@@ -99,6 +102,11 @@ bool ConstructionManager::constructBuilding(UnitType type)
 		return false;
 	}
 
+	if (!Broodwar->canMake(type))
+	{
+		return false;
+	}
+		
 	TilePosition buildPos = ZerGreenAIObj::mainInstance->layoutPlanner->getAvailablePosition(type);
 	if (buildPos == TilePositions::None)
 	{

@@ -34,6 +34,14 @@ void ProductionManager::attemptTrain(Unit u)
 	}
 }
 
+void ZerGreenAI::ProductionManager::onStart()
+{
+	SetUnitWeight(UnitTypes::Protoss_Zealot, 1);
+	SetUnitWeight(UnitTypes::Protoss_Scout, 1);
+	SetUnitWeight(UnitTypes::Protoss_Reaver, 1);
+	UpdateWeightLists();
+}
+
 void ProductionManager::onFrame()
 {
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)

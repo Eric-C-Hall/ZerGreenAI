@@ -34,10 +34,6 @@ UnitManager * whoToGive(Unit u)
 		{
 			return ZerGreenAIObj::mainInstance->upgradeManager;
 		}
-		else if (u->getType() == UnitTypes::Protoss_Pylon)
-		{
-			return ZerGreenAIObj::mainInstance->layoutPlanner;
-		}
 		return nullptr;
 
 	}

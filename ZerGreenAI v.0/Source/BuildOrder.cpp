@@ -1,308 +1,319 @@
 #include "stdafx.h"
 
-#include <fstream>
+#include <sstream>
 
 #include "ZerGreenAI.hpp"
+#include "Construction.hpp"
 #include "BuildOrder.hpp"
-#include "Hashes.hpp"
-#include "Production.hpp"
-#include "Upgrade.hpp"
-#include "ProbeScout.hpp"
-#include "Namespaces.hpp"
+#include "ModularNN.h"
 
-struct BuildOrderFile;
-template <>
-struct std::hash<BuildOrderFile>;
-std::unordered_map<Race,std::vector<BuildOrderFile>> potentialBuildOrders;
-std::unordered_map<UnitType, int> numOfType;
-std::unordered_map<UnitType, int> unitTypeWeight;
+const float ZerGreenAI::BuildOrderManager::LEARNING_SPEED = 0.01f;
+const float ZerGreenAI::BuildOrderManager::CHANCE_TO_RANDOMIZE_ACTION = 0.1f;
 
-struct BuildOrderFile
+std::vector<BWAPI::UnitType> ZerGreenAI::protossBuildingTypesExcludingPylon = { UnitTypes::Protoss_Arbiter_Tribunal, UnitTypes::Protoss_Assimilator, UnitTypes::Protoss_Citadel_of_Adun, UnitTypes::Protoss_Cybernetics_Core, UnitTypes::Protoss_Fleet_Beacon, UnitTypes::Protoss_Forge, UnitTypes::Protoss_Gateway, UnitTypes::Protoss_Nexus, UnitTypes::Protoss_Observatory, UnitTypes::Protoss_Photon_Cannon, UnitTypes::Protoss_Robotics_Facility, UnitTypes::Protoss_Shield_Battery, UnitTypes::Protoss_Stargate, UnitTypes::Protoss_Templar_Archives };
+
+std::vector<std::string> ZerGreenAI::BuildOrderManager::getFileLabelledInput(std::string fileName)
 {
-	Race race;
-	std::string filePath;
-};
-
-enum BuildOrderCommand
-{
-	none = 0,
-	scout
-};
-
-struct BuildOrderElement
-{
-	UnitType unit = UnitTypes::None;
-	TechType tech = TechTypes::None;
-	UpgradeType upgrade = UpgradeTypes::None;
-	BuildOrderCommand command = none;
-};
-
-std::vector<BuildOrderElement> buildOrder;
-auto buildOrderIterator = buildOrder.begin();
-
-namespace std
-{
-	template<>
-	struct hash<BuildOrderFile>
+	std::ifstream currentFile(fileName);
+	if (!currentFile.is_open())
 	{
-		size_t operator()(BuildOrderFile file)
-		{
-			return std::hash<std::string>()(file.filePath) + file.race;
-		}
-	};
-}
+		throw "Error: unable to open " + fileName + " in getFileLabelledInput";
+	}
+	std::vector<std::string> returnVector;
 
-void saveBuildOrder(std::string filePath)
-{
-	filePath.insert(0, "bwapi-data/write/buildOrders/");
-
-	std::ofstream saveFile;
-	saveFile.open(filePath);
-	saveFile.clear();
-
-	if (!saveFile.is_open()) {
-		Broodwar << "File could not be opened" << std::endl;
-		return;
+	std::string currentLine;
+	std::getline(currentFile, currentLine);
+	while (currentFile)
+	{
+		returnVector.push_back(currentLine);
+		std::getline(currentFile, currentLine);
 	}
 
-	int convertEnum;
-	for (auto const &elt : buildOrder)
+	if (returnVector.empty())
 	{
-		if (elt.unit != UnitTypes::None)
-		{
-			saveFile << 'U';
-			convertEnum = elt.unit;
-			saveFile << convertEnum;
-		}
-		else if (elt.tech != TechTypes::None)
-		{
-			saveFile << 'T';
-			convertEnum = elt.tech;
-			saveFile << convertEnum;
-		}
-		else if (elt.upgrade != UpgradeTypes::None)
-		{
-			saveFile << 'G';
-			convertEnum = elt.upgrade;
-			saveFile << convertEnum;
-		}
-		else if (elt.command != none)
-		{
-			saveFile << 'C';
-			convertEnum = elt.command;
-			saveFile << convertEnum;
-		}
+		throw "Error: unable to parse" + fileName + "in getFileLabelledInput";
 	}
-	saveFile << 'X';
-	saveFile << '0';
-	saveFile.close();
+	std::string didWinString = returnVector.back();
+	returnVector.pop_back();
+	for (auto i = returnVector.begin(); i != returnVector.end(); i++)
+	{
+		i->append(' ' + didWinString);
+	}
+	return returnVector;
 }
 
-void loadBuildOrder(std::string filePath)
+inline std::string ZerGreenAI::BuildOrderManager::getSaveFileName(int i)
 {
-	filePath.insert(0, "bwapi-data/read/buildOrders/");
-
-	std::ifstream loadFile;
-	loadFile.open(filePath);
-
-	if (!loadFile.is_open()) {
-		Broodwar << "File could not be opened" << std::endl;
-		return;
-	}
-
-	buildOrder.clear();
-
-	char eltType;
-	int convertEnum;
-	BuildOrderElement tempElement;
-
-	while (!loadFile.bad())
-	{
-		loadFile >> eltType;
-		loadFile >> convertEnum;
-
-		if (eltType == 'U')
-		{
-			tempElement.unit = convertEnum;
-			tempElement.tech = TechTypes::None;
-			tempElement.upgrade = UpgradeTypes::None;
-			tempElement.command = none;
-		}
-		else if (eltType == 'T')
-		{
-			tempElement.tech = convertEnum;
-			tempElement.unit = UnitTypes::None;
-			tempElement.upgrade = UpgradeTypes::None;
-			tempElement.command = none;
-		}
-		else if (eltType == 'G')
-		{
-			tempElement.upgrade = convertEnum;
-			tempElement.unit = UnitTypes::None;
-			tempElement.tech = TechTypes::None;
-			tempElement.command = none;
-		}
-		else if (eltType == 'C')
-		{
-			tempElement.command = (BuildOrderCommand)convertEnum;
-			tempElement.unit = UnitTypes::None;
-			tempElement.tech = TechTypes::None;
-			tempElement.upgrade = UpgradeTypes::None;
-		}
-		else if (eltType == 'X')
-		{
-			break;
-		}
-
-		buildOrder.insert(buildOrder.end(), tempElement); 
-	}
-	buildOrderIterator = buildOrder.begin();
-	assert(!buildOrder.empty());
-	Broodwar << "Successfully loaded " << filePath << std::endl;
-	loadFile.close();
+	return "bwapi-data/read/instance" + std::to_string(Broodwar->getInstanceNumber()) + "/gameinfo/buildOrder/game" + std::to_string(i) + ".bo";
 }
 
-#define SUPPLY_LEEWAY ( Broodwar->self()->supplyTotal() < 25 ? 4 : 18)
-
-bool pylonNeccessary()
+inline std::string ZerGreenAI::BuildOrderManager::getGamenumberFileName()
 {
-	int expectedGain = numOfType[UnitTypes::Protoss_Nexus] * 2 + numOfType[UnitTypes::Protoss_Gateway] * 4 + numOfType[UnitTypes::Protoss_Stargate] * 6 + numOfType[UnitTypes::Protoss_Robotics_Facility] * 8 + SUPPLY_LEEWAY;
-	int expectedAmount = Broodwar->self()->supplyUsed() + expectedGain;
-	// expectedCap is calculated this way to account for Pylons/Nexi that are unfinished
-	int expectedCap = numOfType[UnitTypes::Protoss_Pylon] * UnitTypes::Protoss_Pylon.supplyProvided() + numOfType[UnitTypes::Protoss_Nexus] * UnitTypes::Protoss_Nexus.supplyProvided();
-	return (expectedCap < expectedAmount);
+	return "bwapi-data/read/instance" + std::to_string(Broodwar->getInstanceNumber()) + "/gameinfo/buildOrder/gamenumber.txt";
 }
 
-void ZerGreenAI::buildOrderOnCreate(Unit unit)
+inline std::string getBuildOrderNNFileName()
 {
-	numOfType[unit->getType()]++;
-	if (buildOrderIterator != buildOrder.end() && unit->getType() == buildOrderIterator->unit)
+	return "bwapi-data/read/instance" + std::to_string(Broodwar->getInstanceNumber()) + "/neuralNetworks/buildOrderManager.txt";
+}
+
+void ZerGreenAI::BuildOrderManager::onStart()
+{
+	std::ifstream gameNumberFileInput(getGamenumberFileName(), ifstream::in);
+	assert(gameNumberFileInput.is_open());
+	gameNumberFileInput >> gameNumber;
+	gameNumberFileInput.close();
+
+	gameNumber++;
+	if (gameNumber >= NUM_REMEMBER_GAMES)
 	{
-		buildOrderIterator++;
+		gameNumber = 0;
+	}
+
+	std::ofstream gameNumberFileOutput(getGamenumberFileName(), ifstream::out | ifstream::trunc);
+	assert(gameNumberFileOutput.is_open());
+	gameNumberFileOutput << gameNumber;
+	gameNumberFileOutput.close();
+
+	for (int i = 0; i < gameNumber; i++)
+	{
+		try
+		{
+			getFileLabelledInput(getSaveFileName(i));
+		}
+		catch (const std::string &) //e)
+		{
+			// Just ignore the exception. Perhaps this is a bad idea.
+			//Broodwar << e << std::endl;
+		}
+
+	}
+
+	gameFile.open(getSaveFileName(gameNumber));
+}
+
+// TODO: Do this in a cleaner, intended way. See Below comment
+// This seems to turn an ifstream into a istream or something somehow
+// Note: very similar to getNeuralNetworkOutputStream
+auto getNeuralNetworkInputStream()
+{
+	return [&]() {
+#ifndef SSCAIT
+		std::ifstream model(getBuildOrderNNFileName());
+		assert(model.is_open());
+		return model;
+
+#else
+		return std::ifstream("bwapi-data/AI/model.nn");
+#endif
+	}();
+}
+
+// TODO: Do this in a cleaner, intended way. See Below comment
+// This seems to turn an ofstream into a ostream or something somehow
+// Note: very similar to getNeuralNetworkInputStream
+auto getNeuralNetworkOutputStream()
+{
+	return [&]() {
+#ifndef SSCAIT
+		std::ofstream model(getBuildOrderNNFileName());
+		assert(model.is_open());
+		return model;
+
+#else
+		return std::ifstream("bwapi-data/AI/model.nn");
+#endif
+	}();
+}
+
+
+void ZerGreenAI::BuildOrderManager::onEnd(bool didWin)
+{
+	gameFile << didWin << std::endl;
+
+	for (const std::string &experienceString : getFileLabelledInput(getSaveFileName(gameNumber)))
+	{
+		std::vector<float> experienceVector;
+		stringstream sstream(experienceString);
+
+		float currentFloat;
+		while (sstream >> currentFloat)
+		{
+			experienceVector.push_back(currentFloat);
+			if (sstream.peek() == ',')
+				sstream.ignore();
+		}
+
+		float value = experienceVector.back();
+		experienceVector.pop_back();
+		neuralNetwork.updateNeuralNetwork(experienceVector, { value }, LEARNING_SPEED);
+		neuralNetwork.write(getNeuralNetworkOutputStream());
 	}
 }
 
-void ZerGreenAI::buildOrderOnRecycle(Unit unit)
+std::vector<float> BuildOrderManager::getInput(UnitType whatAction)
 {
-	numOfType[unit->getType()]--;
-}
-
-void ZerGreenAI::buildOrderOnFrame()
-{
-	if (Broodwar->getFrameCount() % 20 != 0)
+	std::vector<float> returnVector;
+	for (UnitType t : protossBuildingTypesExcludingPylon)
 	{
-		return;
-	}
-
-	if (pylonNeccessary() && Broodwar->canMake(UnitTypes::Protoss_Pylon))
-	{
-		ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(UnitTypes::Protoss_Pylon);
-		return;
-	}
-
-
-
-
-	if (buildOrderIterator == buildOrder.end())
-	{
-		static bool hasReachedEnd = false;
-		if (!hasReachedEnd)
+		for (int i = 0; i < LIMIT_TO_DISTINCT_NUMBERS_OF_BUILDINGS; i++)
 		{
-			hasReachedEnd = true;
-		}
-		return;
-	}
-
-	if (buildOrderIterator->unit != UnitTypes::None)
-	{
-		UnitType chosenType = buildOrderIterator->unit;
-		if (chosenType.isBuilding())
-		{
-			if (Broodwar->canMake(chosenType))
+			if (numUnitsOfType[t] == i)
 			{
-				ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(chosenType);
+				returnVector.push_back(1.0);
 			}
+			else
+			{
+				returnVector.push_back(0.0);
+			}
+		}
+		if (numUnitsOfType[t] >= LIMIT_TO_DISTINCT_NUMBERS_OF_BUILDINGS)
+		{
+			returnVector.push_back(1.0);
 		}
 		else
 		{
-			ZerGreenAIObj::mainInstance->productionManager->SetUnitWeight(chosenType, ++unitTypeWeight[chosenType]);
-			ZerGreenAIObj::mainInstance->productionManager->UpdateWeightLists();
-			buildOrderIterator++;
-
+			returnVector.push_back(0.0);
 		}
-
-		return;
 	}
-	else if (buildOrderIterator->tech != TechTypes::None)
+	for (UnitType t : protossBuildingTypesExcludingPylon)
 	{
-		ZerGreenAIObj::mainInstance->upgradeManager->ChooseTech(buildOrderIterator->tech);
-		buildOrderIterator++;
-	}
-	else if (buildOrderIterator->upgrade != UpgradeTypes::None)
-	{
-		ZerGreenAIObj::mainInstance->upgradeManager->ChooseUpgrade(buildOrderIterator->upgrade);
-		buildOrderIterator++;
-	}
-	else if (buildOrderIterator->command != none)
-	{
-		if (buildOrderIterator->command == scout)
+		if (t == whatAction)
 		{
-			startProbeScout();
+			returnVector.push_back(1.0);
 		}
-		buildOrderIterator++;
+		else
+		{
+			returnVector.push_back(0);
+		}
 	}
+	return returnVector;
 }
 
-void readBuildOrderManager()
+void ZerGreenAI::BuildOrderManager::onFrame()
 {
-	std::ifstream loadFile;
-	loadFile.open("bwapi-data/read/buildOrderManager.txt");
-
-	if (!loadFile.is_open()) {
-		Broodwar << "File could not be opened" << std::endl;
+	if (Broodwar->getFrameCount() % 10 != 0)
+	{
 		return;
 	}
 
-	char race;
-	std::string fileName;
-
-	while (!loadFile.bad())
+#ifdef _DEBUG
+	// Leaves the game soon after 10000 frames
+	if (Broodwar->getFrameCount() >= 10000)
 	{
-		BuildOrderFile currentFile;
+		if (rand() % 10)
+			Broodwar->leaveGame();
+	}
+#endif
 
-		loadFile >> race;
-		loadFile >> fileName;
-		currentFile.filePath = fileName;
-
-		switch (race)
+	if (constructionFailed)
+	{
+		UnitType chosenAction = chooseNextAction(CHANCE_TO_RANDOMIZE_ACTION);
+		
+		// Deliberate use of assign operator in if statement
+		if (!(constructionFailed = !ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(chosenAction)))
 		{
-		case 'T': currentFile.race = Races::Terran; break;
-		case 'Z': currentFile.race = Races::Zerg; break;
-		case 'P': currentFile.race = Races::Protoss; break;
-		case 'R': currentFile.race = Races::Unknown; break;
-		case 'X': goto gotFileNames; break;
+			rememberChosenAction(chosenAction);
+		}
+		Broodwar << chosenAction.c_str() << " chosen" << std::endl;
+	}
+}
+
+UnitType ZerGreenAI::BuildOrderManager::chooseNextAction(float chanceToChooseRandomly)
+{
+	if ((float)rand() / (float)RAND_MAX < chanceToChooseRandomly)
+	{
+		Broodwar << "Being epsilon-greedy" << std::endl;
+		return protossBuildingTypesExcludingPylon[rand() % protossBuildingTypesExcludingPylon.size()];
+	}
+		
+	float bestValue = std::numeric_limits<float>::lowest();
+	UnitType bestAction = UnitTypes::None;
+	for (UnitType testAction : protossBuildingTypesExcludingPylon)
+	{
+		std::vector <float> nnFrameData = getInput(testAction);
+
+		/*Broodwar << "Input : ";
+		for (float b : nnFrameData)
+		{
+			Broodwar << b << ' ';
+		}
+		Broodwar << std::endl;*/
+
+		//Broodwar << "Output: ";
+		std::vector <float> output;
+		output = neuralNetwork.run(nnFrameData);
+		/*for (float b : output)
+		{
+			Broodwar << b << ' ';
+		}
+		Broodwar << std::endl;*/
+		
+		if (output.front() > bestValue) // Should be exactly 1 in front
+		{
+			bestAction = testAction;
+			bestValue = output.front();
+		}
+	}
+	return bestAction;
+}
+
+void ZerGreenAI::BuildOrderManager::rememberChosenAction(UnitType action)
+{
+	for (float f : getInput(action))
+	{
+		gameFile << f << ", ";
+	}
+	gameFile << '\n';
+}
+
+void ZerGreenAI::BuildOrderManager::onUnitCreate(Unit u)
+{
+	if ((IsOwned && IsBuilding)(u) && u->getType() != UnitTypes::Protoss_Pylon)
+	{
+		numUnitsOfType[u->getType()]++;
+
+		UnitType chosenAction = chooseNextAction(CHANCE_TO_RANDOMIZE_ACTION);
+
+		// Deliberate use of assign operator in if statement
+		if (!(constructionFailed = !ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(chosenAction)))
+		{
+			rememberChosenAction(chosenAction);
 		}
 
-		auto buildVector = &potentialBuildOrders[currentFile.race];
-		buildVector->insert(buildVector->end(), currentFile);
+		Broodwar << chosenAction.c_str() << " chosen" << std::endl;
+
 	}
-gotFileNames:;
 }
 
-
-std::string chooseBuildOrder()
+void ZerGreenAI::BuildOrderManager::onUnitMorph(Unit u)
 {
-	assert(!potentialBuildOrders[Broodwar->enemy()->getRace()].empty());
+	if ((IsOwned && IsRefinery)(u))
+	{
+		numUnitsOfType[u->getType()]++;
+		onUnitCreate(u);
+	}
+	else if (u->getType() == UnitTypes::Resource_Vespene_Geyser)
+	{
+		numUnitsOfType[Broodwar->self()->getRace().getRefinery()]--;
+	}
 
-	const auto &buildVector = potentialBuildOrders[Broodwar->enemy()->getRace()];
-	return buildVector[rand() % buildVector.size()].filePath;
 }
 
-void ZerGreenAI::initializeBuildOrder()
+void ZerGreenAI::BuildOrderManager::onUnitDestroy(Unit u)
 {
-	readBuildOrderManager();
-	loadBuildOrder(chooseBuildOrder());
-	saveBuildOrder(chooseBuildOrder());
-	//checkCompletedPartsOfBuildOrder();
+	if ((IsOwned && IsBuilding)(u))
+	{
+		numUnitsOfType[u->getType()]--;
+	}
+}
 
+ZerGreenAI::BuildOrderManager::BuildOrderManager() : neuralNetwork(getNeuralNetworkInputStream())
+{
+
+}
+
+ZerGreenAI::BuildOrderManager::~BuildOrderManager()
+{
+	gameFile.close();
 }
