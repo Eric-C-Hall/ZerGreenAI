@@ -14,6 +14,7 @@ std::unordered_set<Manager*> &ZerGreenAI::Manager::ensureManagersCleanedUp()
 	{
 		managers.erase(m);
 	}
+	cleanUpList.clear();
 	return managers;
 }
 
@@ -52,7 +53,9 @@ void Manager::globalOnFrame()
 		if (cleanUpList.count(m) == 0)
 		{
 			startTimer(m->name());
+
 			m->onFrame();
+
 			if (cleanUpList.count(m) == 0)
 				endTimer(m->name());
 		}

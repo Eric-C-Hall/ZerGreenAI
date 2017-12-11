@@ -189,7 +189,7 @@ void ZerGreenAI::buildOrderOnRecycle(Unit unit)
 
 void ZerGreenAI::buildOrderOnFrame()
 {
-	if (Broodwar->getFrameCount() % 20 == 0)
+	if (Broodwar->getFrameCount() % 20 != 0)
 	{
 		return;
 	}
@@ -199,6 +199,9 @@ void ZerGreenAI::buildOrderOnFrame()
 		ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(UnitTypes::Protoss_Pylon);
 		return;
 	}
+
+
+
 
 	if (buildOrderIterator == buildOrder.end())
 	{
@@ -300,4 +303,6 @@ void ZerGreenAI::initializeBuildOrder()
 	readBuildOrderManager();
 	loadBuildOrder(chooseBuildOrder());
 	saveBuildOrder(chooseBuildOrder());
+	//checkCompletedPartsOfBuildOrder();
+
 }

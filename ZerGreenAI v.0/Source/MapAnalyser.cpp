@@ -17,6 +17,13 @@ void LineSegment::draw(Color color)
 
 void calculateMineralLine(const BWEM::Base * b)
 {
+	if (b->Minerals().empty())
+	{
+		mineralLines[b].end1 = b->Center();
+		mineralLines[b].end2 = b->Center();
+		return;
+	}
+
 	Position arbitraryMineral = b->Minerals().front()->Pos();
 
 	Position bestPos1 = arbitraryMineral;

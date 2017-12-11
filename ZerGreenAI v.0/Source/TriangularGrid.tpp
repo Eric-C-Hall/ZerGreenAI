@@ -7,6 +7,7 @@
 
 #include "Vector.hpp"
 #include "astar-algorithm-cpp-master\cpp\stlastar.h"
+#include "Debug.hpp"
 
 template <int distance>
 class TriangularGrid<distance>::GridPositionAStar
@@ -25,12 +26,12 @@ public:
 			Broodwar << "in AStar GetSuccessors, Pos is not on grid" << std::endl;
 			return true;
 		}
+
 		for (const BWAPI::Position & successor : ZerGreenAIObj::mainInstance->grid->grid.at(pos))
 		{
 			astarsearch->AddSuccessor(GridPositionAStar(successor));
-			return true;
 		}
-		return false;
+		return true;
 	}
 	float GetCost(GridPositionAStar &successor) { return 1.0f; }
 	inline bool IsSameState(GridPositionAStar &rhs) { return pos == rhs.pos; }
@@ -68,6 +69,9 @@ std::vector<BWAPI::Position> ZerGreenAI::TriangularGrid<distance>::findPath(BWAP
 
 	a = snapToGrid(a);
 	b = snapToGrid(b);
+
+	if (!isOnGrid(a) || !isOnGrid(b))
+		return returnValue;
 
 	AStarSearch<GridPositionAStar> astarsearch;
 	astarsearch.SetStartAndGoalStates(GridPositionAStar(a), GridPositionAStar(b));
@@ -157,10 +161,10 @@ void ZerGreenAI::TriangularGrid<distance>::draw(BWAPI::Color color)
 {
 	for (const auto &node : grid)
 	{
-		Broodwar->drawCircleMap(node.first, 5, color, true);
+		//Broodwar->drawCircleMap(node.first, 5, color, true);
 		for (const auto &neighbour : node.second)
 		{
-			Broodwar->drawLineMap(node.first, neighbour, color);
+			Broodwar->drawLineMap(node.first, (node.first + node.first + neighbour) / 3, color);
 		}
 	}
 }

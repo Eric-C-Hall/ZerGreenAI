@@ -13,7 +13,6 @@
 
 std::unordered_map<Unit, UnitType> buildType;
 std::unordered_map<Unit, TilePosition> buildPosition;
-std::unordered_map<Unit, int> newWorkerLeeway;
 
 std::unordered_map<UnitType, bool> typeConstructionImminent;
 
@@ -39,13 +38,11 @@ void ConstructionManager::onFrame()
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
 		return;
 
-	Unitset unAssignedUnits;
-
 	for (auto const &u : assignedUnits)
 	{
 		TilePosition topLeft = buildPosition[u];
 		TilePosition bottomRight = buildPosition[u] + buildType[u].tileSize();
-		new debugBox(CoordinateType::Map, topLeft.x, bottomRight.x, topLeft.y, bottomRight.y, Colors::Red, Broodwar->getLatencyFrames());
+		new debugBox(CoordinateType::Map, (Position)topLeft, (Position)bottomRight, Colors::Red, Broodwar->getLatencyFrames(), false);
 
 		if (!Broodwar->isVisible(topLeft) || !Broodwar->isVisible(bottomRight))
 		{
@@ -55,26 +52,45 @@ void ConstructionManager::onFrame()
 		{
 			u->build(buildType[u], buildPosition[u]);
 		}
-		else if (!u->isConstructing() && newWorkerLeeway[u] <= 0)
-		{
-			typeConstructionImminent[buildType[u]] = false;
-			buildType.erase(u);
-			buildPosition.erase(u);
-			unAssignedUnits.insert(u);
-		}
 		else
 		{
-			newWorkerLeeway[u]--;
 			new debugText(CoordinateType::Map, u->getPosition().x, u->getPosition().y, "Faster, Lazy Pleb", Broodwar->getLatencyFrames());
 		}
 
 	}
+}
 
-	for (auto const &u : unAssignedUnits)
+void ZerGreenAI::ConstructionManager::onUnitCreate(Unit u)
+{
+	if ((IsBuilding && IsOwned)(u))
 	{
-		giveUnitManagement(u, ZerGreenAIObj::mainInstance->resourceAllocator);
+		Unitset finishedWorkers;
+		for (auto const &currWorkerPosPair : buildPosition)
+		{
+			if (u->getTilePosition() == currWorkerPosPair.second)
+			{
+				finishedWorkers.insert(currWorkerPosPair.first);
+			}
+		}
+		for (auto const &u : finishedWorkers)
+		{
+			typeConstructionImminent[buildType[u]] = false;
+			buildType.erase(u);
+			buildPosition.erase(u);
+			giveUnitManagement(u, ZerGreenAIObj::mainInstance->resourceAllocator);
+		}
 	}
 }
+
+void ZerGreenAI::ConstructionManager::onUnitMorph(Unit u)
+{
+	if ((IsOwned && IsRefinery)(u))
+	{
+		onUnitCreate(u);
+	}
+}
+
+
 
 bool ConstructionManager::constructBuilding(UnitType type)
 {
@@ -106,7 +122,6 @@ bool ConstructionManager::constructBuilding(UnitType type)
 	requestUnitManagement(constructor);
 	buildType[constructor] = type;
 	buildPosition[constructor] = buildPos;
-	newWorkerLeeway[constructor] = 10 + Broodwar->getLatencyFrames();
 	if (!constructor->build(type, buildPos))
 	{
 		constructor->move(Position(buildPos));

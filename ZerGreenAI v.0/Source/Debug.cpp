@@ -9,8 +9,6 @@ std::unordered_map<Unit, int> debugTextFrames;
 std::unordered_set<debugDrawing *> drawings;
 std::unordered_set<debugDrawing *> removedDrawings;
 
-
-
 void ZerGreenAI::debugOnFrame()
 {
 	Unitset eraseDebugTextUnits;
@@ -42,9 +40,23 @@ void ZerGreenAI::debugOnFrame()
 	if (Broodwar->getSelectedUnits().size() == 1)
 	{
 		Unit selectedUnit = *Broodwar->getSelectedUnits().begin();
-		Broodwar->drawTextMap(selectedUnit->getPosition() + Position(0, 20), selectedUnit->getOrder().c_str());
-		Broodwar->drawTextMap(selectedUnit->getPosition() + Position(0, 30), getUnitManager(selectedUnit)->name().c_str());
+		if (selectedUnit != nullptr) // Should never be nullptr, but I think it was, once
+		{
+			Broodwar->drawTextMap(selectedUnit->getPosition() + Position(0, 20), selectedUnit->getOrder().c_str());
 
+			if (getUnitManager(selectedUnit) == nullptr)
+			{
+				Broodwar->drawTextMap(selectedUnit->getPosition() + Position(0, 30), "Nullptr");
+			}
+			else if (getUnitManager(selectedUnit) == (void *)0xcdcdcdcd)
+			{
+				Broodwar->drawTextMap(selectedUnit->getPosition() + Position(0, 30), "0xcdcdcdcd");
+			}
+			else
+			{
+				Broodwar->drawTextMap(selectedUnit->getPosition() + Position(0, 30), getUnitManager(selectedUnit)->name().c_str());
+			}
+		}
 	}
 }
 
@@ -94,6 +106,10 @@ debugBox::debugBox(CoordinateType::Enum parCtype, int parLeft, int parRight, int
 	color = parColor;
 	isSolid = parIsSolid;
 	frames = parFrames;
+}
+
+ZerGreenAI::debugBox::debugBox(BWAPI::CoordinateType::Enum parCtype, BWAPI::Position topLeft, BWAPI::Position bottomRight, BWAPI::Color parColor, int parFrames, bool parIsSolid) : debugBox(parCtype, topLeft.x, bottomRight.x, topLeft.y, bottomRight.y, parColor, parFrames, isSolid)
+{
 }
 
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <BWAPI.h>
 #include "Construction.hpp"
 
 namespace ZerGreenAI

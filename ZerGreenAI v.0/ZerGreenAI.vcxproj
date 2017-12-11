@@ -50,7 +50,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\boost_1_65_1;../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NOMINMAX;WIN32;_DEBUG;_WINDOWS;_USRDLL;EXAMPLEAIMODULE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -69,6 +69,7 @@
       <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalDependencies>../lib/BWAPId.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\boost_1_65_1\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>move /y "$(OutDir)ZerGreenAI.dll" "$(OutDir)..\..\..\StarCraft\bwapi-data\AI"</Command>
@@ -103,9 +104,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BuildOrderNew.cpp" />
+    <ClCompile Include="Source\FAP.cpp" />
+    <ClCompile Include="Source\FAPUtil.cpp" />
     <ClCompile Include="Source\GeneralManagement.cpp" />
     <ClCompile Include="Source\MacroCombatGroup.cpp" />
     <ClCompile Include="Source\MicroCombatGroup.cpp" />
+    <ClCompile Include="Source\ModularNN.cpp" />
     <ClCompile Include="Source\QueueUnitManagement.cpp" />
     <ClCompile Include="Source\bwStrings.cpp" />
     <ClCompile Include="Source\EventExt.cpp" />
@@ -149,15 +154,20 @@
     <ClCompile Include="Source\LocalHarvesting.cpp" />
     <ClCompile Include="Source\UnitManagement.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
+    <ClCompile Include="Source\FAPUnitManager.cpp" />
     <ClCompile Include="Source\ZerGreenAI.cpp" />
     <ClCompile Include="Source\Upgrade.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\BuildOrderNew.hpp" />
     <ClInclude Include="Source\astar-algorithm-cpp-master\cpp\fsa.h" />
     <ClInclude Include="Source\astar-algorithm-cpp-master\cpp\stlastar.h" />
+    <ClInclude Include="Source\FAP.h" />
+    <ClInclude Include="Source\FAPUtil.h" />
     <ClInclude Include="Source\GeneralManagement.hpp" />
     <ClInclude Include="Source\MacroCombatGroup.hpp" />
     <ClInclude Include="Source\MicroCombatGroup.hpp" />
+    <ClInclude Include="Source\ModularNN.h" />
     <ClInclude Include="Source\QueueUnitManagement.hpp" />
     <ClInclude Include="Source\bwStrings.hpp" />
     <ClInclude Include="Source\EventExt.hpp" />
@@ -204,6 +214,7 @@
     <ClInclude Include="Source\UnitManagement.hpp" />
     <ClInclude Include="Source\Namespaces.hpp" />
     <ClInclude Include="Source\Timer.hpp" />
+    <ClInclude Include="Source\FAPUnitManager.h" />
     <ClInclude Include="Source\ZerGreenAI.hpp" />
     <ClInclude Include="Source\Upgrade.hpp" />
     <ClInclude Include="Source\Vector.hpp" />

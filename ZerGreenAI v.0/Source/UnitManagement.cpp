@@ -19,7 +19,7 @@ UnitManager::~UnitManager()
 {
 	if (Broodwar->isInGame())
 	{
-		for (auto const &u : assignedUnits)
+		for (auto const &u : Unitset(assignedUnits)) // New unitset created because assignedUnits is modified within loop
 		{
 			Unit2Manager.erase(u);
 			giveUnitManagement(u, ZerGreenAIObj::mainInstance->resourceAllocator);
@@ -71,7 +71,7 @@ bool UnitManager::giveOrphanUnit(Unit u)
 
 void UnitManager::recycleUnitJunior(Unit u)
 {
-	if (cleanUpList.count(this) > 0)
+	if (cleanUpList.count(this) != 0)
 		return;
 	Unit2Manager.erase(u);
 	assignedUnits.erase(u);

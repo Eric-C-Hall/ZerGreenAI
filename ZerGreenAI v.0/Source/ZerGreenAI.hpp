@@ -18,6 +18,8 @@ namespace ZerGreenAI
 	class CombatStrategist;
 	class MacroCombatManager;
 	class MacroCombatManager;
+	class SaveLoadManager;
+	class BuildOrderManager;
 
 	template<int distance>
 	class TriangularGrid;
@@ -26,6 +28,10 @@ namespace ZerGreenAI
 	{
 		static int numInstances;
 	public:
+
+		bool drawTriangleGrid = true;
+		bool drawDebugTimers = true;
+
 		static ZerGreenAIObj * mainInstance;
 
 		ResourceAllocator * resourceAllocator;
@@ -38,6 +44,8 @@ namespace ZerGreenAI
 		IMPScoutManager * impScoutManager;
 		CombatStrategist * combatStrategist;
 		MacroCombatManager * macroCombatManager;
+		SaveLoadManager * saveLoadManager;
+		BuildOrderManager * buildOrderManager;
 
 		TriangularGrid<ZGA_TRIANGULAR_GRID_SIZE> * grid;
 		std::vector<BWAPI::Position> findPath(BWAPI::Position a, BWAPI::Position b);

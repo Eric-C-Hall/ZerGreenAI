@@ -2,6 +2,7 @@
 
 #include "ZerGreenAI.hpp"
 #include <iostream>
+#include <time.h>
 
 #include "bwemL.hpp"
 #include "GeneralManagement.hpp"
@@ -11,7 +12,6 @@
 #include "Cheats.hpp"
 #include "Timer.hpp"
 #include "MapAnalyser.hpp"
-#include "BuildOrder.hpp"
 #include "LayoutPlanner.hpp"
 #include "BM.hpp"
 #include "Easter.hpp"
@@ -27,6 +27,8 @@
 #include "Upgrade.hpp"
 #include "EnemyMovement.hpp"
 #include "IMPScoutManager.hpp"
+#include "Construction.hpp"
+#include "BuildOrderNew.hpp"
 
 // ------------
 // ZerGreenAI
@@ -60,8 +62,8 @@ void ZerGreenAIObj::onStart()
 		Broodwar->setGUI(true);
 
 		// Sets the number of milliseconds Broodwar spends in each frame.
-		// "Fastest" game speed is 42ms/frame
-		Broodwar->setLocalSpeed(5);
+		// "Fastest" game speed ises 42ms/frame
+		Broodwar->setLocalSpeed(1);
 
 		// Set the command optimization level so that common commands can be grouped
 		// and reduce the bot's APM (Actions Per Minute).
@@ -74,6 +76,8 @@ void ZerGreenAIObj::onStart()
 		Broodwar << "Uses the BWEM library" << std::endl;
 		Broodwar << "Uses imp42's scouting algorithm's concept" << std::endl;
 		Broodwar << "Uses justinhj's AStar implemenation" << std::endl;
+		Broodwar << "Uses N00byEdge's FAP and Modular Neural Networks" << std::endl;
+		Broodwar << "------------" << std::endl;
 
 		if (Broodwar->self()->getRace() != Races::Protoss)
 		{
@@ -101,6 +105,7 @@ void ZerGreenAIObj::onStart()
 		upgradeManager = new UpgradeManager;
 		enemyMovementManager = new EnemyMovementManager;
 		impScoutManager = new IMPScoutManager;
+		buildOrderManager = new BuildOrderManager;
 		onStartTimerEnd("Create Managers");
 
 		onStartTimerStart("Map Analyser");
@@ -110,11 +115,6 @@ void ZerGreenAIObj::onStart()
 		onStartTimerStart("Triangular Grid");
 		grid = new TriangularGrid<ZGA_TRIANGULAR_GRID_SIZE>();
 		onStartTimerEnd("Triangular Grid");
-
-
-		onStartTimerStart("Build Order");
-		initializeBuildOrder();
-		onStartTimerEnd("Build Order");
 
 		Manager::globalOnStart();
 
@@ -133,6 +133,20 @@ void ZerGreenAIObj::onEnd(bool isWinner)
 	Manager::globalOnEnd(isWinner);
 }
 
+template<BWAPI::Key key>
+bool keyToggle()
+{
+	static bool keyWasPressed = false;
+	bool keyIsPressed = Broodwar->getKeyState(key);
+	if (keyIsPressed && !keyWasPressed)
+	{
+		keyWasPressed = keyIsPressed;
+		return true;
+	}
+	keyWasPressed = keyIsPressed;
+	return false;
+}
+
 void ZerGreenAIObj::onFrame()
 {
 #if !_DEBUG
@@ -142,9 +156,23 @@ void ZerGreenAIObj::onFrame()
 		startTimer("Total");
 		carriageReturn();
 
-		startTimer("TriangularGrid");
-		grid->draw(Colors::Yellow);
-		endTimer("TriangularGrid");
+		if (keyToggle<Key::K_G>())
+		{
+			drawTriangleGrid = !drawTriangleGrid;
+		}
+
+		if (keyToggle<Key::K_M>())
+		{
+			drawDebugTimers = !drawDebugTimers;
+		}
+
+		if (drawTriangleGrid)
+		{
+			startTimer("TriangularGrid");
+			grid->draw(Colors::Yellow);
+			endTimer("TriangularGrid");
+		}
+
 
 		startTimer("BWEM drawing");
 
@@ -163,9 +191,6 @@ void ZerGreenAIObj::onFrame()
 
 		endTimer("BWEM drawing");
 		Manager::globalOnFrame();
-		startTimer("Build Order");
-		buildOrderOnFrame();
-		endTimer("Build Order");
 		startTimer("debug drawing");
 		debugOnFrame();
 		endTimer("debug drawing");
@@ -263,8 +288,6 @@ void ZerGreenAIObj::onUnitCreate(BWAPI::Unit unit)
 		ZerGreenAIObj::mainInstance->resourceAllocator->giveOrphanUnit(unit);
 	}
 
-	buildOrderOnCreate(unit);
-
 	Manager::globalOnUnitCreate(unit);
 }
 
@@ -293,10 +316,6 @@ void ZerGreenAIObj::onUnitDestroy(BWAPI::Unit unit)
 
 void ZerGreenAIObj::onUnitMorph(BWAPI::Unit unit)
 {
-	if (IsRefinery(unit))
-	{
-		buildOrderOnCreate(unit);
-	}
 	Manager::globalOnUnitMorph(unit);
 }
 
@@ -332,6 +351,12 @@ ZerGreenAI::ZerGreenAIObj::ZerGreenAIObj()
 	{
 		mainInstance = this;
 	}
+
+	srand((unsigned)time(NULL));
+	for (int i = 0; i < rand() % 1001; i++)
+	{
+		rand();
+	}
 	
 }
 
@@ -341,11 +366,13 @@ ZerGreenAI::ZerGreenAIObj::~ZerGreenAIObj()
 	delete macroCombatManager;
 	delete combatStrategist;
 	delete globalHarvestManager;
-	delete resourceAllocator;
 	delete constructionManager;
 	delete layoutPlanner;
 	delete productionManager;
 	delete upgradeManager;
 	delete enemyMovementManager;
 	delete impScoutManager;
+	delete buildOrderManager;
+
+	delete resourceAllocator; // Makes sense to be the last to delete, since UnitManagers might give units to resource allocator on delete
 }

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "ZerGreenAI.hpp"
 #include "Namespaces.hpp"
 #include "Timer.hpp"
 #include "Debug.hpp"
@@ -25,7 +26,8 @@ void ZerGreenAI::startTimer(std::string timer)
 void ZerGreenAI::endTimer(std::string timer)
 {
 	milliseconds currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
-	Broodwar->drawTextScreen(Position(5, 10 * currentLine), "%s: %d", timer.c_str(), currentTime - string2Time[timer]);
+	if (ZerGreenAIObj::mainInstance->drawDebugTimers)
+		Broodwar->drawTextScreen(Position(5, 10 * currentLine), "%s: %d", timer.c_str(), currentTime - string2Time[timer]);
 	currentLine++;
 	if (currentTime - string2Time[timer] > (milliseconds)85)
 	{
@@ -44,7 +46,7 @@ void ZerGreenAI::onStartTimerEnd(std::string timer)
 	std::string output = timer;
 	output.append(": ").append(std::to_string((currentTime - string2Time[timer]).count()));
 
-	new debugText(CoordinateType::Screen, 200, 10 * currentLine, output,480);
+	new debugText(CoordinateType::Screen, 200, 10 * currentLine, output, 480);
 	currentLine++;
 	if (currentTime - string2Time[timer] > (milliseconds)5000)
 	{

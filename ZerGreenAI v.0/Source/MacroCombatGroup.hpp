@@ -19,5 +19,6 @@ namespace ZerGreenAI
 		~MacroCombatManager();
 
 		inline virtual std::string name() { return "Macro Combat Manager"; }
+		friend MicroCombatManager;
 	};
 }

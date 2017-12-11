@@ -145,6 +145,21 @@
     <ClCompile Include="Source\GeneralManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BuildOrderNew.cpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FAP.cpp">
+      <Filter>ZerGreenAI\N00byEdge</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FAPUnitManager.cpp">
+      <Filter>ZerGreenAI\N00byEdge</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FAPUtil.cpp">
+      <Filter>ZerGreenAI\N00byEdge</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModularNN.cpp">
+      <Filter>ZerGreenAI\N00byEdge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BWEM\area.h">
@@ -315,6 +330,21 @@
     <ClInclude Include="Source\astar-algorithm-cpp-master\cpp\fsa.h">
       <Filter>AStar</Filter>
     </ClInclude>
+    <ClInclude Include="Source\BuildOrderNew.hpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FAP.h">
+      <Filter>ZerGreenAI\N00byEdge</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FAPUnitManager.h">
+      <Filter>ZerGreenAI\N00byEdge</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FAPUtil.h">
+      <Filter>ZerGreenAI\N00byEdge</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModularNN.h">
+      <Filter>ZerGreenAI\N00byEdge</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="BWEM">
@@ -338,9 +368,6 @@
     <Filter Include="ZerGreenAI\Map Analysis">
       <UniqueIdentifier>{4c9e3470-bd6b-4b74-b965-0b7ad4f8f91a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZerGreenAI\Other">
-      <UniqueIdentifier>{959ebf47-3697-4e35-a2d7-4610fb330e5f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ZerGreenAI\Combat">
       <UniqueIdentifier>{899011b2-0b82-4690-8b0c-8b7b944a80be}</UniqueIdentifier>
     </Filter>
@@ -350,17 +377,23 @@
     <Filter Include="ZerGreenAI\BWAPI Extended">
       <UniqueIdentifier>{949639f4-7355-48c0-b1a3-c876581506af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZerGreenAI\Scouting/Intelligence">
-      <UniqueIdentifier>{5973e7af-041b-436f-9799-0986dd2e6b6e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ZerGreenAI\Harvesting">
       <UniqueIdentifier>{75ba9922-40b1-4c31-b986-79eea56063d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AStar">
+      <UniqueIdentifier>{4fa49819-653b-46fb-b02f-39f058dd3d8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Other">
+      <UniqueIdentifier>{959ebf47-3697-4e35-a2d7-4610fb330e5f}</UniqueIdentifier>
     </Filter>
     <Filter Include="ZerGreenAI\Main">
       <UniqueIdentifier>{25607a34-c4e3-4e06-b416-407e5720df7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AStar">
-      <UniqueIdentifier>{4fa49819-653b-46fb-b02f-39f058dd3d8d}</UniqueIdentifier>
+    <Filter Include="ZerGreenAI\Scouting/Intelligence">
+      <UniqueIdentifier>{5973e7af-041b-436f-9799-0986dd2e6b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\N00byEdge">
+      <UniqueIdentifier>{67423660-2c2f-4f47-bcbc-270622baceaa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

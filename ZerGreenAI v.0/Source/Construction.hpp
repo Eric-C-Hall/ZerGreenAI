@@ -12,6 +12,8 @@ namespace ZerGreenAI
 	public:
 		inline virtual std::string name() { return "Construction Manager"; }
 		void onFrame();
+		void onUnitCreate(Unit u) override;
+		void onUnitMorph(Unit u) override;
 
 		bool constructBuilding(BWAPI::UnitType type);
 	};

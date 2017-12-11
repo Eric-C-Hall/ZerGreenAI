@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#include "ZerGreenAI.hpp"
+#include "IMPScoutManager.hpp"
 #include "MacroCombatGroup.hpp"
 #include "MicroCombatGroup.hpp"
 #include "Production.hpp"
@@ -33,7 +35,10 @@ void MacroCombatManager::onFrame()
 		}
 	}
 
-
+	for (MicroCombatManager * c : childManagers)
+	{
+		c->updateTarget((Position)ZerGreenAIObj::mainInstance->impScoutManager->getColdest());
+	}
 }
 
 void MacroCombatManager::onAssignment(Unit u)
@@ -70,8 +75,8 @@ void MacroCombatManager::onAssignment(Unit u)
 
 ZerGreenAI::MacroCombatManager::~MacroCombatManager()
 {
-	for (MicroCombatManager * m : childManagers)
+	while (!childManagers.empty())
 	{
-		delete m;
+		delete *childManagers.begin();
 	}
 }
