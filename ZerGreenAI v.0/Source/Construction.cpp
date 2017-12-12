@@ -30,6 +30,7 @@ bool ConstructionManager::acceptRequest(Unit u)
 
 void ConstructionManager::onFrame()
 {
+	UnitManager::onFrame();
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
 		return;
 
@@ -51,6 +52,10 @@ void ConstructionManager::onFrame()
 		else if (!Broodwar->canBuildHere(buildPosition[u], buildType[u]))
 		{
 			buildPosition[u] = ZerGreenAIObj::mainInstance->layoutPlanner->getAvailablePosition(buildType[u]);
+		}
+		else if (u->getOrder() != Orders::PlaceBuilding)
+		{
+			u->move(Position(topLeft));
 		}
 
 		new debugText(CoordinateType::Map, u->getPosition().x, u->getPosition().y, "Faster, Lazy Pleb", Broodwar->getLatencyFrames());

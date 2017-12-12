@@ -10,11 +10,13 @@
 
 void CombatStrategist::onAssignment(Unit u)
 {
+	UnitManager::onAssignment(u);
 	giveUnitManagement(u, ZerGreenAIObj::mainInstance->macroCombatManager);
 }
 
 void CombatStrategist::onFrame()
 {
+	UnitManager::onFrame();
 	for (auto const &u : assignedUnits)
 	{
 		onAssignment(u);

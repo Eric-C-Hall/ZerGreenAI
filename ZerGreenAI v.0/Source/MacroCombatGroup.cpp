@@ -17,6 +17,7 @@ void MacroCombatManager::newManager(Unit u)
 
 void MacroCombatManager::onFrame()
 {
+	UnitManager::onFrame();
 	static bool hasOccurred = false;
 	for (MicroCombatManager * c1 : childManagers)
 	{
@@ -51,6 +52,7 @@ void MacroCombatManager::onFrame()
 
 void MacroCombatManager::onAssignment(Unit u)
 {
+	UnitManager::onAssignment(u);
 	if (childManagers.size() > 0)
 	{
 		MicroCombatManager * bestManager;

@@ -5,6 +5,7 @@
 
 void UpgradeManager::onFrame()
 {
+	UnitManager::onFrame();
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
 		return;
 

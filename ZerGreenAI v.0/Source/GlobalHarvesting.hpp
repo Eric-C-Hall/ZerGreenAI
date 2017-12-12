@@ -8,7 +8,7 @@ namespace ZerGreenAI
 
 	class GlobalHarvestManager : public UnitManager
 	{
-		void onAssignment(BWAPI::Unit u);
+		void onAssignment(BWAPI::Unit u) override;
 		void assignWorker(BWAPI::Unit u);
 
 		std::unordered_set<LocalHarvestManager *> childManagers;
@@ -21,7 +21,7 @@ namespace ZerGreenAI
 
 		inline virtual std::string name() { return "Global Harvester"; }
 
-		void onFrame();
+		void onFrame() override;
 
 		int numHarvesters();
 		int numMineralHarvesters();

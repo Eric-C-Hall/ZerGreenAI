@@ -7,14 +7,26 @@
 #include "IMPScoutManager.hpp"
 #include "Namespaces.hpp"
 #include "TriangularGrid.hpp"
+#include "Debug.hpp"
 
 void MicroCombatManager::onUnitTurn(Unit u)
 {
-	u->move(center);
+	debugUnitText(u, "hasHadATurn");
+
+	Unitset neutralUnits = u->getUnitsInRadius(MCG_PUSH_RADIUS, IsNeutral);
+	if (neutralUnits.size() > 0)
+	{
+		u->attack(*neutralUnits.begin());
+	}
+	else
+	{
+		u->attack(center);
+	}
 }
 
 void ZerGreenAI::MicroCombatManager::onReassignment(BWAPI::Unit u)
 {
+	QueueUnitManager::onReassignment(u);
 	if (assignedUnits.size() == 0)
 		delete this;
 }
@@ -37,6 +49,7 @@ ZerGreenAI::MicroCombatManager::~MicroCombatManager()
 
 void MicroCombatManager::onFrame()
 {
+	QueueUnitManager::onFrame();
 	if (assignedUnits.empty())
 	{
 		delete this;
@@ -60,8 +73,6 @@ void MicroCombatManager::onFrame()
 		if (path.size() > 0)
 		{
 			center = path.front();
-			for (Unit const &u : assignedUnits)
-				u->attack(center);
 			path.erase(path.begin());
 		}
 	}
@@ -71,7 +82,5 @@ void MicroCombatManager::absorb(MicroCombatManager * other)
 {
 	assignedUnits.insert(other->assignedUnits.begin(), other->assignedUnits.end());
 	other->assignedUnits.clear();
-	for (Unit const &u : assignedUnits)
-		u->attack(center);
 	delete other;
 }

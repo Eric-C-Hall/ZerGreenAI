@@ -10,7 +10,7 @@ namespace ZerGreenAI
 		BWAPI::Position currentBallPosition;
 		BWAPI::Position goal;
 		bool wouldWinConfrontation;
-		void onAssignment(BWAPI::Unit u);
+		void onAssignment(BWAPI::Unit u) override;
 		void unitDecide(BWAPI::Unit u);
 		void goDirect(BWAPI::Unit u);
 		bool isTogether();
@@ -23,7 +23,7 @@ namespace ZerGreenAI
 		void updateConfrontation();
 
 	public:
-		void onFrame();
+		void onFrame() override;
 		inline virtual std::string name() { return "Deathball Manager"; }
 		DeathballManager();
 	};

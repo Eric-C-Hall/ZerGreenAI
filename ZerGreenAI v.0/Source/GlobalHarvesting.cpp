@@ -37,6 +37,7 @@ void GlobalHarvestManager::assignWorker(Unit u)
 
 void GlobalHarvestManager::onAssignment(Unit u)
 {
+	UnitManager::onAssignment(u);
 	if (IsResourceDepot(u))
 	{
 		addHarvestManager(new LocalHarvestManager(u));
@@ -50,6 +51,7 @@ void GlobalHarvestManager::onAssignment(Unit u)
 
 void GlobalHarvestManager::onFrame()
 {
+	UnitManager::onFrame();
 	auto tempStorage = assignedUnits;
 	for (auto const &u : tempStorage)
 	{

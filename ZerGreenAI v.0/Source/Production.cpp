@@ -44,6 +44,7 @@ void ZerGreenAI::ProductionManager::onStart()
 
 void ProductionManager::onFrame()
 {
+	UnitManager::onFrame();
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
 		return;
 

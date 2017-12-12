@@ -234,3 +234,7 @@ debugDot::debugDot(CoordinateType::Enum parCtype, int parX, int parY, Color parC
 	color = parColor;
 	frames = parFrames;
 }
+
+ZerGreenAI::debugDot::debugDot(BWAPI::Position p, BWAPI::Color parColor, int parFrames) : debugDot(BWAPI::CoordinateType::Map, p.x, p.y, parColor, parFrames)
+{
+}

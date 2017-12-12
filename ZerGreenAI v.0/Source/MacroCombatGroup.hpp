@@ -14,8 +14,7 @@ namespace ZerGreenAI
 
 		void newManager(BWAPI::Unit u);
 		void onFrame() override;
-
-		void onAssignment(BWAPI::Unit u);
+		void onAssignment(BWAPI::Unit u) override;
 
 	public:
 		~MacroCombatManager();

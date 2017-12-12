@@ -60,6 +60,7 @@ inline std::string getBuildOrderNNFileName()
 void ZerGreenAI::BuildOrderManager::onStart()
 {
 	didTie = false;
+	ignoreResults = false;
 
 	std::ifstream gameNumberFileInput(getGamenumberFileName(), ifstream::in);
 	assert(gameNumberFileInput.is_open());
@@ -131,14 +132,55 @@ auto getNeuralNetworkOutputStream()
 
 void ZerGreenAI::BuildOrderManager::onEnd(bool didWin)
 {
+	if (ignoreResults)
+		return;
+
+	float gameValue;
+
+	// GameValue is between 0 and 1.
+	// A loss is between 0 and 0.4
+	// A tie is between 0.4 and 0.6
+	// A win is between 0.6 and 1
+
 	if (didTie)
 	{
-		gameFile << 0.5f << std::endl;
+		gameValue = 0.4f;
+
+		// Could potentially be ratio of their units killed to our units killed, but perhaps due to fog of war, efficiency could be inaccurate.
+		// This probably works fine.
+		int gameResourcesValue = Broodwar->self()->gatheredMinerals() + 2 * Broodwar->self()->gatheredGas();
+		int maxNumberResources = 0;
+		for (Unit u : Broodwar->getStaticMinerals())
+		{
+			maxNumberResources += u->getInitialResources();
+		}
+		for (Unit u : Broodwar->getStaticGeysers())
+		{
+			maxNumberResources += u->getInitialResources();
+		}
+
+		gameValue += ((float)gameResourcesValue / (float)maxNumberResources) * 0.2f;
+		assert(gameValue >= 0.4 && gameValue <= 0.6);
 	}
 	else
 	{
-		gameFile << didWin << std::endl;
+		gameValue = didWin;
+
+		// Should be between 0 and 0.5, increasing as game length increases.
+		float gameLengthValue = ((float)Broodwar->getFrameCount() /(float)MAX_NUM_FRAMES ) * 0.4f;
+		if (didWin)
+		{
+			gameValue -= gameLengthValue;
+			assert(gameValue >= 0.6 && gameValue <= 1);
+		}
+		else
+		{
+			gameValue += gameLengthValue;
+			assert(gameValue >= 0 && gameValue <= 0.4);
+		}
 	}
+
+	gameFile << gameValue << std::endl;;
 
 	for (const std::string &experienceString : getFileLabelledInput(getSaveFileName(gameNumber)))
 	{
@@ -207,7 +249,7 @@ void ZerGreenAI::BuildOrderManager::onFrame()
 	}
 
 	// Leaves the game with a tie after 30000 frames. Should remove this when not testing
-	if (Broodwar->getFrameCount() >= 30000)
+	if (Broodwar->getFrameCount() >= MAX_NUM_FRAMES)
 	{
 		didTie = true;
 		Broodwar->leaveGame();
@@ -215,14 +257,7 @@ void ZerGreenAI::BuildOrderManager::onFrame()
 
 	if (constructionFailed)
 	{
-		UnitType chosenAction = chooseNextAction(CHANCE_TO_RANDOMIZE_ACTION);
-		
-		// Deliberate use of assign operator in if statement
-		if (!(constructionFailed = !ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(chosenAction)))
-		{
-			rememberChosenAction(chosenAction);
-		}
-		Broodwar << chosenAction.c_str() << " chosen" << std::endl;
+		constructionFailed = !ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(lastChosenAction);
 	}
 }
 
@@ -231,7 +266,19 @@ UnitType ZerGreenAI::BuildOrderManager::chooseNextAction(float chanceToChooseRan
 	if ((float)rand() / (float)RAND_MAX < chanceToChooseRandomly)
 	{
 		Broodwar << "Being epsilon-greedy" << std::endl;
-		return protossBuildingTypesExcludingPylon[rand() % protossBuildingTypesExcludingPylon.size()];
+
+		UnitType randomType;
+		// Deliberate use of assignment operator in while loop
+		for (auto type : protossBuildingTypesExcludingPylon)
+		{
+			if (Broodwar->canMake(type)) // Can make some type, no infinite loop
+			{
+				while (!Broodwar->canMake(randomType = protossBuildingTypesExcludingPylon[rand() % protossBuildingTypesExcludingPylon.size()])) {}
+				return randomType;
+			}
+		}
+		
+		return UnitTypes::Protoss_Gateway; // No type possible, return gateway
 	}
 		
 	float bestValue = std::numeric_limits<float>::lowest();
@@ -281,14 +328,11 @@ void ZerGreenAI::BuildOrderManager::onUnitCreate(Unit u)
 		numUnitsOfType[u->getType()]++;
 
 		UnitType chosenAction = chooseNextAction(CHANCE_TO_RANDOMIZE_ACTION);
-
-		// Deliberate use of assign operator in if statement
-		if (!(constructionFailed = !ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(chosenAction)))
-		{
-			rememberChosenAction(chosenAction);
-		}
-
+		rememberChosenAction(chosenAction);
 		Broodwar << chosenAction.c_str() << " chosen" << std::endl;
+
+		lastChosenAction = chosenAction;
+		constructionFailed = !ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(chosenAction);
 
 	}
 }
@@ -326,6 +370,11 @@ void ZerGreenAI::BuildOrderManager::onSendText(std::string text)
 	{
 		Broodwar->leaveGame();
 	}
+	else if (text == "void")
+	{
+		ignoreResults = true;
+		Broodwar->leaveGame();
+	}
 }
 
 void ZerGreenAI::BuildOrderManager::onReceiveText(BWAPI::Player player, std::string text)
@@ -333,6 +382,11 @@ void ZerGreenAI::BuildOrderManager::onReceiveText(BWAPI::Player player, std::str
 	if (text == "tie")
 	{
 		didTie = true;
+		Broodwar->leaveGame();
+	}
+	else if (text == "void")
+	{
+		ignoreResults = true;
 		Broodwar->leaveGame();
 	}
 }

@@ -15,13 +15,16 @@ namespace ZerGreenAI
 	class BuildOrderManager : Manager
 	{
 		static const int NUM_REMEMBER_GAMES = 10000;
+		static const int MAX_NUM_FRAMES = 30000;
 		static const float LEARNING_SPEED;
 		static const float CHANCE_TO_RANDOMIZE_ACTION;
 		ModularNN neuralNetwork;
 		int gameNumber;
 		std::ofstream gameFile;
+		UnitType lastChosenAction;
 		bool constructionFailed = false;
 		bool didTie;
+		bool ignoreResults;
 
 		std::vector<std::string> getFileLabelledInput(std::string fileName);
 		std::string getSaveFileName(int i);

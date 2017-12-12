@@ -6,13 +6,15 @@ namespace ZerGreenAI
 {
 	class UnitManager : public Manager
 	{
+	protected:
+		// Important Note:
+		// UnitManager::onAssignment, etc should be called in the relevant methods of any derived class.
 		virtual void onAssignment(BWAPI::Unit u) {};
 		virtual void onReassignment(BWAPI::Unit u) {};
-		void onUnitDestroy(BWAPI::Unit u) override;
-		void onUnitRenegade(BWAPI::Unit u) override;
-		void onFrame();
+		virtual void onUnitDestroy(BWAPI::Unit u) override;
+		virtual void onUnitRenegade(BWAPI::Unit u) override;
+		virtual void onFrame();
 
-	protected:
 		BWAPI::Unitset assignedUnits;
 		void giveUnitManagement(BWAPI::Unit u, UnitManager * const mgr);
 

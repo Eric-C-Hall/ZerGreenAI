@@ -12,7 +12,7 @@ namespace ZerGreenAI
 
 	public:
 		inline virtual std::string name() { return  "Upgrade Manager"; }
-		void onFrame();
+		void onFrame() override;
 
 		void ChooseTech(BWAPI::TechType tech);
 		void ChooseUpgrade(BWAPI::UpgradeType upgrade);

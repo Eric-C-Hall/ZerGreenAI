@@ -19,6 +19,7 @@
 
 void DeathballManager::onAssignment(Unit u)
 {
+	UnitManager::onAssignment(u);
 	unitDecideQueue.push(u);
 }
 
@@ -295,6 +296,7 @@ void DeathballManager::updateBallPosition()
 #define SHOW_BALL_POSITION 1
 void DeathballManager::onFrame()
 {
+	UnitManager::onFrame();
 	updateBallPosition();
 	updateGoal();
 	updateConfrontation();

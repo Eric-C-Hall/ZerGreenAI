@@ -19,7 +19,7 @@ namespace ZerGreenAI
 		inline MicroCombatManager(BWAPI::Position center, BWAPI::Position target) : center(center) { updateTarget(target); }
 		inline BWAPI::Position getCenter() { return center; }
 		inline virtual std::string name() { return "Micro Combat Manager"; }
-		void onFrame();
+		void onFrame() override;
 		void absorb(MicroCombatManager * other);
 		void updateTarget(BWAPI::Position p);
 		inline BWAPI::Position getTarget() { return target; }

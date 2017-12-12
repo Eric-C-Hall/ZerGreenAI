@@ -9,7 +9,7 @@ namespace ZerGreenAI
 	{
 		bool acceptRequest(BWAPI::Unit u); // Preferably should blacklist rather than whitelist
 
-		void onFrame();
+		void onFrame() override;
 		void onUnitCreate(Unit u) override;
 		void onUnitMorph(Unit u) override;
 	public:

@@ -50,7 +50,14 @@ void ZerGreenAI::TriangularGrid<distance>::addNode(BWAPI::Position p)
 
 			BWAPI::Position currentNode = p + pos;
 
-			if (BWAPI::Broodwar->hasPath(p, currentNode) && BWAPI::Broodwar->hasPath(p, (p + currentNode) / 2))
+			bool noPathToSomeSixteenth = false;
+			for (int i = 1; i <= 16; i++)
+			{
+				WalkPosition foo = (WalkPosition)((p*i + currentNode*(16 - i)) / 16);
+				if (foo.isValid() && !BWAPI::Broodwar->isWalkable(foo))
+					noPathToSomeSixteenth = true;
+			}
+			if (!noPathToSomeSixteenth && currentNode.isValid())
 			{
 				grid[p].insert(currentNode);
 				if (grid.count(currentNode) == 0)

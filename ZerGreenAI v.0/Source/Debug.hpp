@@ -91,6 +91,7 @@ namespace ZerGreenAI
 		void draw();
 	public:
 		debugDot(BWAPI::CoordinateType::Enum parCtype, int parX, int parY, BWAPI::Color parColor, int parFrames);
+		debugDot(BWAPI::Position p, BWAPI::Color parColor, int parFrames);
 	};
 
 }

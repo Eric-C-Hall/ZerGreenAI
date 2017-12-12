@@ -5,22 +5,32 @@
 
 void QueueUnitManager::onAssignment(Unit u)
 {
+	UnitManager::onAssignment(u);
 	unitDecideQueue.push_back(u);
 }
 
 void QueueUnitManager::onReassignment(Unit u)
 {
+	UnitManager::onReassignment(u);
 	std::remove(unitDecideQueue.begin(), unitDecideQueue.end(), u);
 }
 
 void QueueUnitManager::onFrame()
 {
+	UnitManager::onFrame();
 	if (!unitDecideQueue.empty())
+	{
 		onUnitTurn(rotateQueue());
+	}
 }
 
 Unit QueueUnitManager::rotateQueue()
 {
+	if (unitDecideQueue.empty())
+	{
+		return nullptr;
+	}
+
 	Unit returnValue;
 	do
 	{
@@ -28,13 +38,9 @@ Unit QueueUnitManager::rotateQueue()
 		unitDecideQueue.pop_front();
 	} while (!returnValue->exists() && !unitDecideQueue.empty());
 
-	if (unitDecideQueue.empty())
-	{
-		return nullptr;
-	}
-	else
-	{
-		unitDecideQueue.push_back(returnValue);
-		return returnValue;
-	}
+	unitDecideQueue.push_back(returnValue);
+
+	Broodwar << "rotate Queue" << returnValue->getType().c_str() << std::endl;
+	return returnValue;
+
 }

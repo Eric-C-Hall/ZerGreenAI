@@ -16,9 +16,8 @@ namespace ZerGreenAI
 		void createPair(BWAPI::Unit gath, BWAPI::Unit min);
 		void erasePair(BWAPI::Unit gath);
 
-		void onAssignment(BWAPI::Unit u);
-		bool acceptRequest(BWAPI::Unit u); // Preferably should blacklist rather than whitelist
-		void onReassignment(BWAPI::Unit u);
+		void onAssignment(BWAPI::Unit u) override;
+		void onReassignment(BWAPI::Unit u) override;
 
 		void drawDebugResourceInfo();
 
@@ -34,7 +33,7 @@ namespace ZerGreenAI
 		BWAPI::Unit giveNearbyAvailableHarvester(BWAPI::Position p, UnitManager * toWho);
 		BWAPI::TilePosition getAssimilatorPosition();
 		LocalHarvestManager(BWAPI::Unit u);
-		void onFrame();
+		void onFrame() override;
 
 		// if the following ends up being deleted, delete in cpp too.
 		//void reassessOldWorkers();

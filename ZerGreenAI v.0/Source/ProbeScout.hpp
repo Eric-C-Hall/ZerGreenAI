@@ -11,7 +11,7 @@ namespace ZerGreenAI
 		void onReassignment(BWAPI::Unit u) override;
 	public:
 		inline virtual std::string name() { return "Probe Scout Manager"; }
-		void onFrame();
+		void onFrame() override;
 	};
 
 	void startProbeScout();

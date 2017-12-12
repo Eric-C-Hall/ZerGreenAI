@@ -57,12 +57,6 @@ void LocalHarvestManager::onAssignment(Unit u)
 
 }
 
-bool LocalHarvestManager::acceptRequest(Unit u)
-{
-	erasePair(u);
-	return true;
-}
-
 void LocalHarvestManager::onReassignment(Unit u)
 {
 	if (u == base)
@@ -102,6 +96,7 @@ void LocalHarvestManager::drawDebugResourceInfo()
 #define MINERAL_UMBILICAL 1
 void LocalHarvestManager::onFrame()
 {
+	UnitManager::onFrame();
 	drawDebugResourceInfo();
 
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
