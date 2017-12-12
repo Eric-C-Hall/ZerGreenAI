@@ -28,11 +28,6 @@ bool ConstructionManager::acceptRequest(Unit u)
 	return true;
 }
 
-void ConstructionManager::recycleUnit(Unit u)
-{
-
-}
-
 void ConstructionManager::onFrame()
 {
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
@@ -40,7 +35,6 @@ void ConstructionManager::onFrame()
 
 	for (auto const &u : assignedUnits)
 	{
-
 		TilePosition topLeft = buildPosition[u];
 		TilePosition bottomRight = buildPosition[u] + buildType[u].tileSize();
 		new debugBox(CoordinateType::Map, (Position)topLeft, (Position)bottomRight, Colors::Red, Broodwar->getLatencyFrames(), false);
@@ -54,11 +48,12 @@ void ConstructionManager::onFrame()
 		{
 			u->build(buildType[u], buildPosition[u]);
 		}
-		else
+		else if (!Broodwar->canBuildHere(buildPosition[u], buildType[u]))
 		{
-			new debugText(CoordinateType::Map, u->getPosition().x, u->getPosition().y, "Faster, Lazy Pleb", Broodwar->getLatencyFrames());
+			buildPosition[u] = ZerGreenAIObj::mainInstance->layoutPlanner->getAvailablePosition(buildType[u]);
 		}
 
+		new debugText(CoordinateType::Map, u->getPosition().x, u->getPosition().y, "Faster, Lazy Pleb", Broodwar->getLatencyFrames());
 	}
 }
 
@@ -113,7 +108,7 @@ bool ConstructionManager::constructBuilding(UnitType type)
 		return false;
 	}
 
-	Unit constructor = ZerGreenAIObj::mainInstance->globalHarvestManager->nearbyAvailableHarvester(Position(buildPos));
+	Unit constructor = ZerGreenAIObj::mainInstance->globalHarvestManager->giveNearbyAvailableHarvester(Position(buildPos), this);
 
 	if (constructor == nullptr)
 	{
@@ -127,7 +122,6 @@ bool ConstructionManager::constructBuilding(UnitType type)
 		return false;
 	}
 
-	requestUnitManagement(constructor);
 	buildType[constructor] = type;
 	buildPosition[constructor] = buildPos;
 	if (!constructor->build(type, buildPos))

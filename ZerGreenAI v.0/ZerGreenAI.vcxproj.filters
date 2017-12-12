@@ -377,9 +377,6 @@
     <Filter Include="ZerGreenAI\Combat">
       <UniqueIdentifier>{899011b2-0b82-4690-8b0c-8b7b944a80be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZerGreenAI\Production">
-      <UniqueIdentifier>{32fbcc41-fb01-4262-9eb6-a0a6d0d706d8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ZerGreenAI\BWAPI Extended">
       <UniqueIdentifier>{949639f4-7355-48c0-b1a3-c876581506af}</UniqueIdentifier>
     </Filter>
@@ -400,6 +397,9 @@
     </Filter>
     <Filter Include="ZerGreenAI\N00byEdge">
       <UniqueIdentifier>{67423660-2c2f-4f47-bcbc-270622baceaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Production">
+      <UniqueIdentifier>{32fbcc41-fb01-4262-9eb6-a0a6d0d706d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

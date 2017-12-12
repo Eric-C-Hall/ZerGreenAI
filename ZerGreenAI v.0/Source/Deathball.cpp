@@ -22,11 +22,6 @@ void DeathballManager::onAssignment(Unit u)
 	unitDecideQueue.push(u);
 }
 
-void DeathballManager::recycleUnit(Unit u)
-{
-	
-}
-
 bool DeathballManager::isTogether()
 {
 	unsigned int numHere = 0;

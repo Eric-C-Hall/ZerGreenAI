@@ -6,6 +6,7 @@
 #include "MicroCombatGroup.hpp"
 #include "Production.hpp"
 #include "Namespaces.hpp"
+#include "EnemyMovement.hpp"
 
 void MacroCombatManager::newManager(Unit u)
 {
@@ -26,7 +27,7 @@ void MacroCombatManager::onFrame()
 			{
 				continue;
 			}
-			if (c1->getCenter().getApproxDistance(c2->getCenter()) < MCG_LEASH)
+			if (c1->getCenter().getApproxDistance(c2->getCenter()) < MCG_LEASH && c1->numUnits() + c2->numUnits() <= MAXIMUM_MICRO_GROUP_SIZE)
 			{
 				hasOccurred = true;
 				c1->absorb(c2);
@@ -37,7 +38,14 @@ void MacroCombatManager::onFrame()
 
 	for (MicroCombatManager * c : childManagers)
 	{
-		c->updateTarget((Position)ZerGreenAIObj::mainInstance->impScoutManager->getColdest());
+		Position newTarget;
+		newTarget = ZerGreenAIObj::mainInstance->enemyMovementManager->getNearestTrackedEnemyLocation(c->getCenter());
+		if (!newTarget.isValid())
+		{
+			newTarget = (Position)ZerGreenAIObj::mainInstance->impScoutManager->getColdest();
+		}
+		c->updateTarget(newTarget);
+
 	}
 }
 

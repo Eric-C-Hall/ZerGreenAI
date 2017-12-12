@@ -158,6 +158,8 @@ void ZerGreenAIObj::onFrame()
 		startTimer("Total");
 		carriageReturn();
 
+		Broodwar->drawTextMouse(Position(0,0), "Frames: %d", Broodwar->getFrameCount());
+
 		if (keyToggle<Key::K_G>())
 		{
 			drawTriangleGrid = !drawTriangleGrid;
@@ -302,10 +304,6 @@ void ZerGreenAIObj::onUnitDestroy(BWAPI::Unit unit)
 		if (unit->getType().isMineralField())    theMap.OnMineralDestroyed(unit);
 		else if (unit->getType().isSpecialBuilding()) theMap.OnStaticBuildingDestroyed(unit);
 
-		if (unit->getPlayer() == Broodwar->self())
-		{
-			recycleUnitSenior(unit);
-		}
 		Manager::globalOnUnitDestroy(unit);
 #if !_DEBUG
 	}
@@ -323,10 +321,6 @@ void ZerGreenAIObj::onUnitMorph(BWAPI::Unit unit)
 
 void ZerGreenAIObj::onUnitRenegade(BWAPI::Unit unit)
 {
-	if (unit->getPlayer() != Broodwar->self())
-	{
-		recycleUnitSenior(unit);
-	}
 	Manager::globalOnUnitRenegade(unit);
 }
 

@@ -12,7 +12,7 @@ namespace ZerGreenAI
 		std::deque<BWAPI::Unit> unitDecideQueue;	// There should be no reason to need unitDecideQueue outside of QueueUnitManagement: Use assignedUnits instead
 		BWAPI::Unit rotateQueue();
 		virtual void onAssignment(BWAPI::Unit u) override;
-		virtual void recycleUnit(BWAPI::Unit u) override;
+		virtual void onReassignment(BWAPI::Unit u) override;
 		virtual void onUnitTurn(BWAPI::Unit u) {};
 		virtual void onFrame() override;
 	public:

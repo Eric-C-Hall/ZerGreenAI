@@ -63,7 +63,7 @@ bool LocalHarvestManager::acceptRequest(Unit u)
 	return true;
 }
 
-void LocalHarvestManager::recycleUnit(Unit u)
+void LocalHarvestManager::onReassignment(Unit u)
 {
 	if (u == base)
 	{
@@ -197,7 +197,7 @@ bool LocalHarvestManager::needProbes()
 	return assignedUnits.size() < numSaturated();
 }
 
-Unit LocalHarvestManager::nearbyAvailableHarvester(Position p)
+Unit LocalHarvestManager::giveNearbyAvailableHarvester(Position p, UnitManager * toWho)
 {
 	double bestDistance = 100000;
 	Unit bestUnit;
@@ -210,6 +210,7 @@ Unit LocalHarvestManager::nearbyAvailableHarvester(Position p)
 			bestUnit = u;
 		}
 	}
+	giveUnitManagement(bestUnit, toWho);
 	return bestUnit;
 }
 

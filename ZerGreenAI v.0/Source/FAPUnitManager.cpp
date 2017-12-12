@@ -8,7 +8,7 @@ std::set <BWAPI::Unit> emptyUnitset;
 #define PROTOSSSHEILDREGEN	7
 #define ZERGREGEN			8
 
-Neolib::UnitManager unitManager;
+Neolib::FAPUnitManager unitManager;
 
 int deathMatrixGround[(256 * 4)*(256 * 4)], deathMatrixAir[(256 * 4)*(256 * 4)];
 
@@ -81,7 +81,7 @@ namespace Neolib {
 		return std::hash <BWAPI::Unit>()(ed.u);
 	}
 
-	int UnitManager::countUnit(BWAPI::UnitType t, const BWAPI::UnitFilter &filter) const {
+	int FAPUnitManager::countUnit(BWAPI::UnitType t, const BWAPI::UnitFilter &filter) const {
 		if (!BWAPI::Broodwar->getAllUnits().size())
 			return 0;
 
@@ -94,7 +94,7 @@ namespace Neolib {
 		return c;
 	}
 
-	int UnitManager::countFriendly(BWAPI::UnitType t, bool onlyWithWeapons) const {
+	int FAPUnitManager::countFriendly(BWAPI::UnitType t, bool onlyWithWeapons) const {
 		int sum = 0;
 
 		if (t == BWAPI::UnitTypes::AllUnits) {
@@ -114,7 +114,7 @@ namespace Neolib {
 		return sum;
 	}
 
-	int UnitManager::countEnemy(BWAPI::UnitType t, bool onlyWithWeapons) const {
+	int FAPUnitManager::countEnemy(BWAPI::UnitType t, bool onlyWithWeapons) const {
 		int sum = 0;
 
 		if (t == BWAPI::UnitTypes::AllUnits) {
@@ -133,7 +133,7 @@ namespace Neolib {
 		return sum;
 	}
 
-	unsigned UnitManager::getNumArmedSilos() const {
+	unsigned FAPUnitManager::getNumArmedSilos() const {
 		unsigned num = 0;
 
 		for (auto & ns : getFriendlyUnitsByType(BWAPI::UnitTypes::Terran_Nuclear_Silo))
@@ -143,7 +143,7 @@ namespace Neolib {
 		return num;
 	}
 
-	unsigned UnitManager::getNumArmingSilos() const {
+	unsigned FAPUnitManager::getNumArmingSilos() const {
 		unsigned num = 0;
 
 		for (auto & ns : getFriendlyUnitsByType(BWAPI::UnitTypes::Terran_Nuclear_Silo))
@@ -153,7 +153,7 @@ namespace Neolib {
 		return num;
 	}
 
-	unsigned UnitManager::getNumUnarmedSilos() const {
+	unsigned FAPUnitManager::getNumUnarmedSilos() const {
 		unsigned num = 0;
 
 		for (auto & ns : getFriendlyUnitsByType(BWAPI::UnitTypes::Terran_Nuclear_Silo))
@@ -163,11 +163,11 @@ namespace Neolib {
 		return num;
 	}
 
-	const std::map <BWAPI::UnitType, std::set <std::shared_ptr <EnemyData>>> &UnitManager::getEnemyUnitsByType() const {
+	const std::map <BWAPI::UnitType, std::set <std::shared_ptr <EnemyData>>> &FAPUnitManager::getEnemyUnitsByType() const {
 		return enemyUnitsByType;
 	}
 
-	const std::set <std::shared_ptr <EnemyData>> &UnitManager::getEnemyUnitsByType(BWAPI::UnitType ut) const {
+	const std::set <std::shared_ptr <EnemyData>> &FAPUnitManager::getEnemyUnitsByType(BWAPI::UnitType ut) const {
 		auto res = enemyUnitsByType.find(ut);
 		if (res != enemyUnitsByType.end()) {
 			return res->second;
@@ -175,11 +175,11 @@ namespace Neolib {
 		return emptyEnemyDataSet;
 	}
 
-	const std::map <BWAPI::UnitType, std::set <BWAPI::Unit>> &UnitManager::getFriendlyUnitsByType() const {
+	const std::map <BWAPI::UnitType, std::set <BWAPI::Unit>> &FAPUnitManager::getFriendlyUnitsByType() const {
 		return friendlyUnitsByType;
 	}
 
-	const std::set <BWAPI::Unit> &UnitManager::getFriendlyUnitsByType(BWAPI::UnitType ut) const {
+	const std::set <BWAPI::Unit> &FAPUnitManager::getFriendlyUnitsByType(BWAPI::UnitType ut) const {
 		auto res = friendlyUnitsByType.find(ut);
 		if (res != friendlyUnitsByType.end()) {
 			return res->second;
@@ -187,23 +187,23 @@ namespace Neolib {
 		return emptyUnitset;
 	}
 
-	const std::set<std::shared_ptr<EnemyData>>& UnitManager::getNonVisibleEnemies() const {
+	const std::set<std::shared_ptr<EnemyData>>& FAPUnitManager::getNonVisibleEnemies() const {
 		return nonVisibleEnemies;
 	}
 
-	const std::set<std::shared_ptr<EnemyData>>& UnitManager::getVisibleEnemies() const {
+	const std::set<std::shared_ptr<EnemyData>>& FAPUnitManager::getVisibleEnemies() const {
 		return visibleEnemies;
 	}
 
-	const std::set<std::shared_ptr<EnemyData>>& UnitManager::getInvalidatedEnemies() const {
+	const std::set<std::shared_ptr<EnemyData>>& FAPUnitManager::getInvalidatedEnemies() const {
 		return invalidatedEnemies;
 	}
 
-	const std::set<std::shared_ptr<EnemyData>>& UnitManager::getDeadEnemies() const {
+	const std::set<std::shared_ptr<EnemyData>>& FAPUnitManager::getDeadEnemies() const {
 		return deadEnemies;
 	}
 
-	std::shared_ptr<EnemyData> UnitManager::getClosestEnemy(BWAPI::Unit from, const BWAPI::UnitFilter &f, bool onlyWithWeapons) const {
+	std::shared_ptr<EnemyData> FAPUnitManager::getClosestEnemy(BWAPI::Unit from, const BWAPI::UnitFilter &f, bool onlyWithWeapons) const {
 		std::shared_ptr<EnemyData> closest = nullptr;
 		int dist;
 
@@ -273,7 +273,7 @@ namespace Neolib {
 		return closest;
 	}
 
-	std::shared_ptr <EnemyData> UnitManager::getClosestEnemy(BWAPI::Unit from, bool onlyWithWeapons) const {
+	std::shared_ptr <EnemyData> FAPUnitManager::getClosestEnemy(BWAPI::Unit from, bool onlyWithWeapons) const {
 		std::shared_ptr <EnemyData> closest = nullptr;
 		int dist;
 
@@ -339,7 +339,7 @@ namespace Neolib {
 		return closest;
 	}
 
-	std::shared_ptr <EnemyData> UnitManager::getClosestVisibleEnemy(BWAPI::Unit from, const BWAPI::UnitFilter &f, bool onlyWithWeapons) const {
+	std::shared_ptr <EnemyData> FAPUnitManager::getClosestVisibleEnemy(BWAPI::Unit from, const BWAPI::UnitFilter &f, bool onlyWithWeapons) const {
 		std::shared_ptr <EnemyData> closest = nullptr;
 		int dist;
 
@@ -380,7 +380,7 @@ namespace Neolib {
 		return closest;
 	}
 
-	std::shared_ptr <EnemyData> UnitManager::getClosestVisibleEnemy(BWAPI::Unit from, bool onlyWithWeapons) const {
+	std::shared_ptr <EnemyData> FAPUnitManager::getClosestVisibleEnemy(BWAPI::Unit from, bool onlyWithWeapons) const {
 		std::shared_ptr <EnemyData> closest = nullptr;
 		int dist;
 
@@ -419,7 +419,7 @@ namespace Neolib {
 		return closest;
 	}
 
-	std::shared_ptr <EnemyData> UnitManager::getClosestNonVisibleEnemy(BWAPI::Unit from, const BWAPI::UnitFilter &f, bool onlyWithWeapons) const {
+	std::shared_ptr <EnemyData> FAPUnitManager::getClosestNonVisibleEnemy(BWAPI::Unit from, const BWAPI::UnitFilter &f, bool onlyWithWeapons) const {
 		std::shared_ptr <EnemyData> closest = nullptr;
 		int dist;
 
@@ -460,7 +460,7 @@ namespace Neolib {
 		return closest;
 	}
 
-	std::shared_ptr <EnemyData> UnitManager::getClosestNonVisibleEnemy(BWAPI::Unit from, bool onlyWithWeapons) const {
+	std::shared_ptr <EnemyData> FAPUnitManager::getClosestNonVisibleEnemy(BWAPI::Unit from, bool onlyWithWeapons) const {
 		std::shared_ptr <EnemyData> closest = nullptr;
 		int dist;
 
@@ -499,43 +499,43 @@ namespace Neolib {
 		return closest;
 	}
 
-	std::shared_ptr<EnemyData> UnitManager::getEnemyData(BWAPI::Unit ptr) {
+	std::shared_ptr<EnemyData> FAPUnitManager::getEnemyData(BWAPI::Unit ptr) {
 		auto it = enemyUnits.find(ptr->getID());
 		if (it == enemyUnits.end())
 			return nullptr;
 		else return it->second;
 	}
 
-	bool UnitManager::isEnemy(BWAPI::Unit u) {
+	bool FAPUnitManager::isEnemy(BWAPI::Unit u) {
 		return BWAPI::Broodwar->self()->isEnemy(u->getPlayer());
 	}
 
-	bool UnitManager::isOwn(BWAPI::Unit u) {
+	bool FAPUnitManager::isOwn(BWAPI::Unit u) {
 		return u->getPlayer() == BWAPI::Broodwar->self();
 	}
 
-	bool UnitManager::isNeutral(BWAPI::Unit u) {
+	bool FAPUnitManager::isNeutral(BWAPI::Unit u) {
 		return !isEnemy(u) && !isOwn(u);
 	}
 
-	bool UnitManager::reallyHasWeapon(const BWAPI::UnitType &ut) {
+	bool FAPUnitManager::reallyHasWeapon(const BWAPI::UnitType &ut) {
 		return ut.groundWeapon().damageAmount() || ut == BWAPI::UnitTypes::Terran_Bunker || ut == BWAPI::UnitTypes::Protoss_High_Templar || ut == BWAPI::UnitTypes::Protoss_Carrier || ut == BWAPI::UnitTypes::Protoss_Reaver;
 	}
 
-	inline bool UnitManager::isOnFire(EnemyData building) {
+	inline bool FAPUnitManager::isOnFire(EnemyData building) {
 		return building.lastType.isBuilding() && building.isCompleted && building.lastType.getRace() == BWAPI::Races::Terran && building.lastHealth < building.lastType.maxHitPoints() / 3;
 	}
 
 
-	SimResults UnitManager::getSimResults() {
+	SimResults FAPUnitManager::getSimResults() {
 		return sr;
 	}
 
-	unsigned UnitManager::getLaunchedNukeCount() const {
+	unsigned FAPUnitManager::getLaunchedNukeCount() const {
 		return launchedNukeCount;
 	}
 
-	void UnitManager::onFrame() {
+	void FAPUnitManager::onFrame() {
 		// Update visible enemies
 		for (auto &u : visibleEnemies) 
 			u->updateFromUnit();
@@ -560,13 +560,13 @@ namespace Neolib {
 		doCombatSim();
 	}
 
-	void UnitManager::onNukeDetect(BWAPI::Position target) {
+	void FAPUnitManager::onNukeDetect(BWAPI::Position target) {
 		++launchedNukeCount;
 
 		BWAPI::Broodwar->sendText("You may want to know that there is a nuke coming for you at %d %d", target.x, target.y);
 	}
 
-	void UnitManager::onUnitDiscover(BWAPI::Unit unit) {
+	void FAPUnitManager::onUnitDiscover(BWAPI::Unit unit) {
 		if (isEnemy(unit)) {
 			auto it = enemyUnits.find(unit->getID());
 
@@ -590,7 +590,7 @@ namespace Neolib {
 			friendlyUnitsByType[unit->getType()].insert(unit);
 	}
 
-	void UnitManager::onUnitShow(BWAPI::Unit unit) {
+	void FAPUnitManager::onUnitShow(BWAPI::Unit unit) {
 		auto ptr = enemyUnits.find(unit->getID());
 		if (ptr != enemyUnits.end()) {
 			nonVisibleEnemies.erase(ptr->second);
@@ -600,7 +600,7 @@ namespace Neolib {
 		}
 	}
 
-	void UnitManager::onUnitHide(BWAPI::Unit unit) {
+	void FAPUnitManager::onUnitHide(BWAPI::Unit unit) {
 		auto ptr = enemyUnits.find(unit->getID());
 		if (ptr != enemyUnits.end()) {
 			visibleEnemies.erase(ptr->second);
@@ -609,11 +609,11 @@ namespace Neolib {
 		}
 	}
 
-	void UnitManager::onUnitCreate(BWAPI::Unit unit) {
+	void FAPUnitManager::onUnitCreate(BWAPI::Unit unit) {
 
 	}
 
-	void UnitManager::onUnitDestroy(BWAPI::Unit unit) {
+	void FAPUnitManager::onUnitDestroy(BWAPI::Unit unit) {
 		if (isEnemy(unit)) {
 			auto ed = enemyUnits[unit->getID()];
 			enemyUnitsByType[unit->getType()].erase(ed);
@@ -636,15 +636,15 @@ namespace Neolib {
 
 	}
 
-	void UnitManager::onUnitMorph(BWAPI::Unit unit) {
+	void FAPUnitManager::onUnitMorph(BWAPI::Unit unit) {
 		
 	}
 
-	void UnitManager::onUnitEvade(BWAPI::Unit unit) {
+	void FAPUnitManager::onUnitEvade(BWAPI::Unit unit) {
 
 	}
 
-	void UnitManager::onUnitRenegade(BWAPI::Unit unit) {
+	void FAPUnitManager::onUnitRenegade(BWAPI::Unit unit) {
 		if (isOwn(unit)) {
 			auto it = enemyUnits.find(unit->getID());
 			if (it != enemyUnits.end()) {
@@ -660,13 +660,13 @@ namespace Neolib {
 		}
 	}
 
-	void UnitManager::onUnitComplete(BWAPI::Unit unit) {
+	void FAPUnitManager::onUnitComplete(BWAPI::Unit unit) {
 		if (unit->getPlayer() == BWAPI::Broodwar->self()) {
 			friendlyUnitsByType[unit->getType()].insert(unit);
 		}
 	}
 
-	void UnitManager::doCombatSim() {
+	void FAPUnitManager::doCombatSim() {
 		fap = FastAPproximation();
 
 		for (auto &u : getFriendlyUnitsByType(BWAPI::UnitTypes::Terran_Marine))
@@ -700,7 +700,7 @@ namespace Neolib {
 		sr.postsim.unitCounts = { fap.getState().first->size(), fap.getState().second->size() };
 	}
 
-	void UnitManager::doMultikillDetector() {
+	void FAPUnitManager::doMultikillDetector() {
 		int unitsKilledThisFrame = 0;
 		for (auto &ut : multikillDetector)
 			unitsKilledThisFrame += ut.second;

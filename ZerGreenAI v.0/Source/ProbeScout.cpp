@@ -10,18 +10,14 @@
 
 Unit probe;
 
-void ProbeScoutManager::recycleUnit(Unit u)
-{
-	delete this;
-}
-
-ProbeScoutManager::ProbeScoutManager(Unit u)
+void ZerGreenAI::ProbeScoutManager::onAssignment(BWAPI::Unit u)
 {
 	probe = u;
-	if (!requestUnitManagement(u))
-	{
-		Broodwar << "Error: ProbeScoutManager given probe without consent" << std::endl;
-	}
+}
+
+void ProbeScoutManager::onReassignment(Unit u)
+{
+	delete this;
 }
 
 void ProbeScoutManager::onFrame()
@@ -34,14 +30,11 @@ void ProbeScoutManager::onFrame()
 
 void ZerGreenAI::startProbeScout()
 {
-	Unit probe = ZerGreenAIObj::mainInstance->globalHarvestManager->nearbyAvailableHarvester(Position(Broodwar->getStartLocations().front()));
+	ProbeScoutManager * newManager = new ProbeScoutManager;
+	Unit probe = ZerGreenAIObj::mainInstance->globalHarvestManager->giveNearbyAvailableHarvester(Position(Broodwar->getStartLocations().front()),newManager);
 	if (probe == nullptr)
 	{
 		Broodwar << "Error: failed to find probe for scouting" << std::endl;
-		return;
-	}
-	else
-	{
-		new ProbeScoutManager(probe);
+		delete newManager;
 	}
 }

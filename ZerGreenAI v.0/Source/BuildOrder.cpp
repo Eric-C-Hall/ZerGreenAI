@@ -59,6 +59,8 @@ inline std::string getBuildOrderNNFileName()
 
 void ZerGreenAI::BuildOrderManager::onStart()
 {
+	didTie = false;
+
 	std::ifstream gameNumberFileInput(getGamenumberFileName(), ifstream::in);
 	assert(gameNumberFileInput.is_open());
 	gameNumberFileInput >> gameNumber;
@@ -129,7 +131,14 @@ auto getNeuralNetworkOutputStream()
 
 void ZerGreenAI::BuildOrderManager::onEnd(bool didWin)
 {
-	gameFile << didWin << std::endl;
+	if (didTie)
+	{
+		gameFile << 0.5f << std::endl;
+	}
+	else
+	{
+		gameFile << didWin << std::endl;
+	}
 
 	for (const std::string &experienceString : getFileLabelledInput(getSaveFileName(gameNumber)))
 	{
@@ -197,14 +206,12 @@ void ZerGreenAI::BuildOrderManager::onFrame()
 		return;
 	}
 
-#ifdef _DEBUG
-	// Leaves the game soon after 10000 frames
-	if (Broodwar->getFrameCount() >= 10000)
+	// Leaves the game with a tie after 30000 frames. Should remove this when not testing
+	if (Broodwar->getFrameCount() >= 30000)
 	{
-		if (rand() % 10)
-			Broodwar->leaveGame();
+		didTie = true;
+		Broodwar->leaveGame();
 	}
-#endif
 
 	if (constructionFailed)
 	{
@@ -305,6 +312,28 @@ void ZerGreenAI::BuildOrderManager::onUnitDestroy(Unit u)
 	if ((IsOwned && IsBuilding)(u))
 	{
 		numUnitsOfType[u->getType()]--;
+	}
+}
+
+void ZerGreenAI::BuildOrderManager::onSendText(std::string text)
+{
+	if (text == "tie")
+	{
+		didTie = true;
+		Broodwar->leaveGame();
+	}
+	else if (text == "loss")
+	{
+		Broodwar->leaveGame();
+	}
+}
+
+void ZerGreenAI::BuildOrderManager::onReceiveText(BWAPI::Player player, std::string text)
+{
+	if (text == "tie")
+	{
+		didTie = true;
+		Broodwar->leaveGame();
 	}
 }
 

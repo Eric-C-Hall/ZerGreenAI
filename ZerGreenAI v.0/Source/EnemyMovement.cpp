@@ -63,3 +63,28 @@ void EnemyMovementManager::onUnitDestroy(Unit u)
 {
 	trackedUnits.erase(u->getID());
 }
+
+void ZerGreenAI::EnemyMovementManager::onUnitMorph(BWAPI::Unit u)
+{
+	if (u->getType() == UnitTypes::Resource_Vespene_Geyser)
+	{
+		trackedUnits.erase(u->getID());
+	}
+}
+
+BWAPI::Position ZerGreenAI::EnemyMovementManager::getNearestTrackedEnemyLocation(BWAPI::Position p)
+{
+	double bestDistance = DBL_MAX;
+	Position bestPos = Positions::None;
+	for (auto const &t : trackedUnits)
+	{
+		Position currentPos = t.second->position;
+		double currentDistance = currentPos.getApproxDistance(p);
+		if (currentDistance <= bestDistance)
+		{
+			bestDistance = currentDistance;
+			bestPos = currentPos;
+		}
+	}
+	return bestPos;
+}

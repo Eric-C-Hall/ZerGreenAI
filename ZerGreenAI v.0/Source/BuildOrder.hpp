@@ -21,6 +21,7 @@ namespace ZerGreenAI
 		int gameNumber;
 		std::ofstream gameFile;
 		bool constructionFailed = false;
+		bool didTie;
 
 		std::vector<std::string> getFileLabelledInput(std::string fileName);
 		std::string getSaveFileName(int i);
@@ -36,6 +37,8 @@ namespace ZerGreenAI
 		void onUnitCreate(Unit u) override;
 		void onUnitMorph(Unit u) override;
 		void onUnitDestroy(Unit u) override;
+		void onSendText(std::string text) override;
+		void onReceiveText(BWAPI::Player player, std::string text) override;
 
 		std::vector<float> getInput(UnitType whatAction);
 	public:

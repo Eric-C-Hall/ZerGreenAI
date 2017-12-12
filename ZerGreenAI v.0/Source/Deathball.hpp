@@ -11,7 +11,6 @@ namespace ZerGreenAI
 		BWAPI::Position goal;
 		bool wouldWinConfrontation;
 		void onAssignment(BWAPI::Unit u);
-		void recycleUnit(BWAPI::Unit u);
 		void unitDecide(BWAPI::Unit u);
 		void goDirect(BWAPI::Unit u);
 		bool isTogether();

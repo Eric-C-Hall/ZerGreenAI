@@ -6,10 +6,14 @@ namespace ZerGreenAI
 
 	class EnemyMovementManager : Manager
 	{
-		void onUnitDiscover(BWAPI::Unit u);
-		void onFrame();
-		void onUnitDestroy(BWAPI::Unit u);
+		void onUnitDiscover(BWAPI::Unit u) override;
+		void onFrame() override;
+		void onUnitDestroy(BWAPI::Unit u) override;
+		void onUnitMorph(BWAPI::Unit u) override;
 		inline virtual std::string name() { return "Enemy Movement Manager"; }
+
+	public:
+		BWAPI::Position getNearestTrackedEnemyLocation(BWAPI::Position p);
 
 	};
 

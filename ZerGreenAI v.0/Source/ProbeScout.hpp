@@ -7,10 +7,10 @@ namespace ZerGreenAI
 
 	class ProbeScoutManager : public UnitManager
 	{
-		void recycleUnit(BWAPI::Unit u);
+		void onAssignment(BWAPI::Unit u) override;
+		void onReassignment(BWAPI::Unit u) override;
 	public:
 		inline virtual std::string name() { return "Probe Scout Manager"; }
-		ProbeScoutManager(BWAPI::Unit u);
 		void onFrame();
 	};
 

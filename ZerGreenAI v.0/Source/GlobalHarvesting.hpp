@@ -28,7 +28,7 @@ namespace ZerGreenAI
 		int numGasHarvesters();
 
 		bool needProbes();
-		BWAPI::Unit nearbyAvailableHarvester(BWAPI::Position p);
+		BWAPI::Unit giveNearbyAvailableHarvester(BWAPI::Position p, UnitManager * giveToWho);
 		BWAPI::TilePosition getAssimilatorPosition();
 		BWAPI::TilePosition getBasePosition();
 	};

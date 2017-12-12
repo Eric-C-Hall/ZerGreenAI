@@ -14,7 +14,7 @@ namespace ZerGreenAI
 		BWAPI::Position center;
 		BWAPI::Position target;
 		void onUnitTurn(BWAPI::Unit u) override;
-		void recycleUnit(BWAPI::Unit u) override;
+		void onReassignment(BWAPI::Unit u) override;
 	public:
 		inline MicroCombatManager(BWAPI::Position center, BWAPI::Position target) : center(center) { updateTarget(target); }
 		inline BWAPI::Position getCenter() { return center; }
@@ -24,6 +24,7 @@ namespace ZerGreenAI
 		void updateTarget(BWAPI::Position p);
 		inline BWAPI::Position getTarget() { return target; }
 		~MicroCombatManager();
+		inline int numUnits() { return assignedUnits.size(); }
 	};
 
 }

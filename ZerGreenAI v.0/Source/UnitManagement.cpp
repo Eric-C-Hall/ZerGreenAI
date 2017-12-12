@@ -26,34 +26,18 @@ UnitManager::~UnitManager()
 	}
 }
 
-bool UnitManager::requestUnitManagement(Unit u)
-{
-	UnitManager * uMgr = getUnitManager(u);
-	if (uMgr == nullptr)
-	{
-		giveOrphanUnit(u);
-		return true;
-	}
-	if (uMgr->acceptRequest(u))
-	{
-		uMgr->assignedUnits.erase(u);
-		Unit2Manager[u] = nullptr;
-		giveOrphanUnit(u);
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
 void UnitManager::giveUnitManagement(Unit u, UnitManager * mgr)
 {
-	acceptRequest(u); // Called in order to have side effects, result ignored.
+	assert(assignedUnits.contains(u));
+	onReassignment(u);
 
 	assignedUnits.erase(u);
-	Unit2Manager[u] = nullptr;
-	mgr->giveOrphanUnit(u);
+	Unit2Manager.erase(u);
+	if (mgr != nullptr)
+	{
+		mgr->giveOrphanUnit(u);
+	}
+
 }
 
 bool UnitManager::giveOrphanUnit(Unit u)
@@ -68,21 +52,29 @@ bool UnitManager::giveOrphanUnit(Unit u)
 	return false;
 }
 
-void UnitManager::recycleUnitJunior(Unit u)
-{
-	if (cleanUpList.count(this) != 0)
-		return;
-	Unit2Manager.erase(u);
-	assignedUnits.erase(u);
-	recycleUnit(u);
-}
-
 UnitManager* ZerGreenAI::getUnitManager(Unit u)
 {
 	return Unit2Manager[u];
 }
 
 #define SHOW_OWNER 0
+
+void ZerGreenAI::UnitManager::onUnitDestroy(BWAPI::Unit u)
+{
+	if (assignedUnits.contains(u))
+	{
+		giveUnitManagement(u, nullptr);
+	}
+}
+
+void ZerGreenAI::UnitManager::onUnitRenegade(BWAPI::Unit u)
+{
+	if (assignedUnits.contains(u))
+	{
+		giveUnitManagement(u, nullptr);
+	}
+}
+
 
 void UnitManager::onFrame()
 {
@@ -103,16 +95,4 @@ void UnitManager::onFrame()
 		}
 	}
 #endif
-}
-
-void ZerGreenAI::recycleUnitSenior(Unit u)
-{
-	if (Unit2Manager[u] != nullptr)
-	{
-		Unit2Manager[u]->recycleUnitJunior(u);
-	}
-	else
-	{
-		Unit2Manager.erase(u);
-	}
 }

@@ -18,7 +18,7 @@ namespace ZerGreenAI
 
 		void onAssignment(BWAPI::Unit u);
 		bool acceptRequest(BWAPI::Unit u); // Preferably should blacklist rather than whitelist
-		void recycleUnit(BWAPI::Unit u);
+		void onReassignment(BWAPI::Unit u);
 
 		void drawDebugResourceInfo();
 
@@ -31,7 +31,7 @@ namespace ZerGreenAI
 		unsigned int numGasHarvesters();
 		BWAPI::Position getPosition();
 		bool needProbes();
-		BWAPI::Unit nearbyAvailableHarvester(BWAPI::Position p);
+		BWAPI::Unit giveNearbyAvailableHarvester(BWAPI::Position p, UnitManager * toWho);
 		BWAPI::TilePosition getAssimilatorPosition();
 		LocalHarvestManager(BWAPI::Unit u);
 		void onFrame();

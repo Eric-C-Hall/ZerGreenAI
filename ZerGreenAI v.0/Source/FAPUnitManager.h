@@ -52,7 +52,7 @@ namespace Neolib {
 		int shortLosses;
 	};
 
-	class UnitManager {
+	class FAPUnitManager {
 		public:
 			const std::map <BWAPI::UnitType, std::set<std::shared_ptr<EnemyData>>> &getEnemyUnitsByType() const;
 			const std::set <std::shared_ptr<EnemyData>> &getEnemyUnitsByType(BWAPI::UnitType ut) const;
@@ -127,7 +127,7 @@ namespace Neolib {
 
 }
 
-extern Neolib::UnitManager unitManager;
+extern Neolib::FAPUnitManager unitManager;
 extern int deathMatrixGround[(256 * 4)*(256 * 4)], deathMatrixAir[(256 * 4)*(256 * 4)];
 
 #define deathMatrixSideLen (256 * 4)

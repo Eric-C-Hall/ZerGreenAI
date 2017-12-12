@@ -8,7 +8,7 @@ void QueueUnitManager::onAssignment(Unit u)
 	unitDecideQueue.push_back(u);
 }
 
-void QueueUnitManager::recycleUnit(Unit u)
+void QueueUnitManager::onReassignment(Unit u)
 {
 	std::remove(unitDecideQueue.begin(), unitDecideQueue.end(), u);
 }

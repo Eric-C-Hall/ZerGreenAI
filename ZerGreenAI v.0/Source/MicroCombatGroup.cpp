@@ -13,7 +13,7 @@ void MicroCombatManager::onUnitTurn(Unit u)
 	u->move(center);
 }
 
-void ZerGreenAI::MicroCombatManager::recycleUnit(BWAPI::Unit u)
+void ZerGreenAI::MicroCombatManager::onReassignment(BWAPI::Unit u)
 {
 	if (assignedUnits.size() == 0)
 		delete this;

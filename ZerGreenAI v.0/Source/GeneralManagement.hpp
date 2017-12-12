@@ -21,7 +21,6 @@ namespace ZerGreenAI
 		virtual void onUnitMorph(BWAPI::Unit unit) {};
 		virtual void onUnitRenegade(BWAPI::Unit unit) {};
 		virtual void onSaveGame(std::string gameName) {};
-		virtual void onLoadGame() {};
 		virtual void onUnitComplete(BWAPI::Unit unit) {};
 
 		inline virtual std::string name() { return "Unnamed Manager"; }
@@ -58,7 +57,6 @@ namespace ZerGreenAI
 		static void globalOnUnitMorph(BWAPI::Unit unit);
 		static void globalOnUnitRenegade(BWAPI::Unit unit);
 		static void globalOnSaveGame(std::string gameName);
-		static void globalOnLoadGame();
 		static void globalOnUnitComplete(BWAPI::Unit unit);
 
 

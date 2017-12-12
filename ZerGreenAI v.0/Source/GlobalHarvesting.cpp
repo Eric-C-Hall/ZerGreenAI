@@ -85,7 +85,7 @@ int GlobalHarvestManager::numGasHarvesters()
 	return sum;
 }
 
-Unit GlobalHarvestManager::nearbyAvailableHarvester(Position p)
+Unit GlobalHarvestManager::giveNearbyAvailableHarvester(Position p, UnitManager * toWho)
 {	
 	double bestDistance = 100000;
 	LocalHarvestManager * bestLocalHarvestManager = nullptr;
@@ -106,7 +106,7 @@ Unit GlobalHarvestManager::nearbyAvailableHarvester(Position p)
 
 	if (bestLocalHarvestManager != nullptr)
 	{
-		return bestLocalHarvestManager->nearbyAvailableHarvester(p);
+		return bestLocalHarvestManager->giveNearbyAvailableHarvester(p, toWho);
 	}
 	else
 	{
