@@ -280,6 +280,8 @@ void ZerGreenAI::BuildOrderManager::onFrame()
 
 	if (constructionFailed)
 	{
+		assert(actionIsValid(lastChosenAction));
+
 		new debugText(CoordinateType::Mouse, Position(0, 10), lastChosenAction.c_str(), FRAMES_BEFORE_ATTEMPT_ACTION);
 		constructionFailed = !ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(lastChosenAction);
 	}

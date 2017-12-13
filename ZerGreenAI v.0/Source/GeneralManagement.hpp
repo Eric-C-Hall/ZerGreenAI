@@ -49,11 +49,11 @@ namespace ZerGreenAI
 		const std::string d_name = name();
 #endif
 
-		static std::unordered_set<Manager *> managers;
-		static std::unordered_set<Manager *> &ensureManagersCleanedUp();
-	protected:
-
+		static std::vector<Manager *> managers;
+		static std::vector<Manager *> ensureManagersCleanedUp();
 		static std::unordered_set<Manager *> cleanUpList;
+	protected:
+		static bool isDeleted(Manager * mgr) {return cleanUpList.count(mgr); }
 	public:
 
 		Manager();

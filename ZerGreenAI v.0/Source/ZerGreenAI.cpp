@@ -98,6 +98,9 @@ void ZerGreenAIObj::onStart()
 		onStartTimerEnd("BWEM Init");
 
 		onStartTimerStart("Create Managers");
+		// Some managers rely on unitsOfTypeCounter being up to date
+		unitsOfTypeCounter = new UnitsOfTypeCounter;
+
 		macroCombatManager = new MacroCombatManager;
 		combatStrategist = new CombatStrategist;
 		globalHarvestManager = new GlobalHarvestManager;
@@ -111,7 +114,6 @@ void ZerGreenAIObj::onStart()
 		buildOrderManager = new BuildOrderManager;
 		pylonConstructionManager = new PylonConstructionManager;
 		boringCombatManager = new BoringCombatManager;
-		unitsOfTypeCounter = new UnitsOfTypeCounter;
 		onStartTimerEnd("Create Managers");
 
 		onStartTimerStart("Map Analyser");

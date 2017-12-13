@@ -5,14 +5,16 @@
 #include "Namespaces.hpp"
 #include "Hashes.hpp"
 
-std::unordered_set<Manager *> Manager::managers;
+// Vector instead of unordered_set for managers to retain a guaranteed order of execution.
+// While it may be possible to instead use set if you were to use a custom comparison frunction on priority (making sure that non-equal manager pointers are not considered equal), removal etc is required sufficiently rarely, and the vector size is sufficiently small, that I haven't bothered implementing this.
+std::vector<Manager *> Manager::managers;
 std::unordered_set<Manager *> Manager::cleanUpList;
 
-std::unordered_set<Manager*> &ZerGreenAI::Manager::ensureManagersCleanedUp()
+std::vector<Manager*> ZerGreenAI::Manager::ensureManagersCleanedUp()
 {
 	for (Manager * m : cleanUpList)
 	{
-		managers.erase(m);
+		managers.erase(std::remove(managers.begin(), managers.end(), m), managers.end());
 	}
 	cleanUpList.clear();
 	return managers;
@@ -20,7 +22,7 @@ std::unordered_set<Manager*> &ZerGreenAI::Manager::ensureManagersCleanedUp()
 
 Manager::Manager()
 {
-	managers.insert(this);
+	managers.push_back(this);
 }
 
 Manager::~Manager()
@@ -50,13 +52,13 @@ void Manager::globalOnFrame()
 {
 	for (Manager * m : ensureManagersCleanedUp())
 	{
-		if (cleanUpList.count(m) == 0)
+		if (isDeleted(m) == 0)
 		{
 			startTimer(m->name());
 
 			m->onFrame();
 
-			if (cleanUpList.count(m) == 0)
+			if (isDeleted(m) == 0)
 				endTimer(m->name());
 		}
 	}

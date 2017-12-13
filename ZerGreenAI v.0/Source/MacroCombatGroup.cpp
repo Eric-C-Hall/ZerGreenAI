@@ -24,7 +24,7 @@ void MacroCombatManager::onFrame()
 		for (MicroCombatManager * c2 : childManagers)
 		{
 			
-			if (c1 == c2 || cleanUpList.count(c2) != 0)
+			if (c1 == c2 || isDeleted(c2))
 			{
 				continue;
 			}

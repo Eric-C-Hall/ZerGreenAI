@@ -50,7 +50,7 @@ void LocalHarvestManager::onAssignment(Unit u)
 	{
 		createPair(u, bestMineral);
 	}
-	else
+	else if (numHarvesters() > numSaturated())
 	{
 		giveUnitManagement(u, ZerGreenAIObj::mainInstance->resourceAllocator);
 	}
