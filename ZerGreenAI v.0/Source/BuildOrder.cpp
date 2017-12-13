@@ -323,6 +323,11 @@ void ZerGreenAI::BuildOrderManager::rememberChosenAction(UnitType action)
 
 bool ZerGreenAI::BuildOrderManager::actionIsValid(UnitType action)
 {
+	if (action == UnitTypes::Protoss_Assimilator)
+	{
+		return ZerGreenAIObj::mainInstance->unitsOfTypeCounter->numUnitsOfType(UnitTypes::Protoss_Nexus) > ZerGreenAIObj::mainInstance->unitsOfTypeCounter->numUnitsOfType(UnitTypes::Protoss_Assimilator);
+	}
+
 	for (auto reqType : action.requiredUnits())
 	{
 		if (reqType.first == UnitTypes::Protoss_Pylon || reqType.first == UnitTypes::Protoss_Probe)

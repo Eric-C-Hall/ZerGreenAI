@@ -15,7 +15,7 @@ UnitFilter IsGeyser = isGeyser;
 
 void ZerGreenAI::BoringCombatManager::onUnitTurn(BWAPI::Unit u)
 {
-	Unitset neutralUnits = u->getUnitsInRadius(200, IsNeutral && !(IsMineralField || IsGeyser));
+	Unitset neutralUnits = u->getUnitsInRadius(200, IsNeutral && !IsFlying && !(IsMineralField || IsGeyser));
 	if (neutralUnits.size() > 0)
 	{
 		new debugText(u->getPosition(), "Damn you and your rocks, Dustin Browder!", turnLength());

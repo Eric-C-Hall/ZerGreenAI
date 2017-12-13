@@ -10,6 +10,7 @@
 #include "Timer.hpp"
 #include "Namespaces.hpp"
 #include "ResourceAllocator.hpp"
+#include "ProbeScout.hpp"
 
 std::unordered_map<Unit, UnitType> buildType;
 std::unordered_map<Unit, TilePosition> buildPosition;
@@ -72,6 +73,13 @@ void ZerGreenAI::ConstructionManager::onUnitCreate(Unit u)
 			if (u->getTilePosition() == currWorkerPosPair.second)
 			{
 				finishedWorkers.insert(currWorkerPosPair.first);
+
+				static bool firstPylon = true;
+				if (firstPylon && u->getType() == UnitTypes::Protoss_Pylon)
+				{
+					startProbeScout();
+					firstPylon = false;
+				}
 			}
 		}
 		for (auto const &u : finishedWorkers)
