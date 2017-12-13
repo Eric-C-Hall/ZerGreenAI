@@ -8,6 +8,15 @@
 #include "Vector.hpp"
 #include "astar-algorithm-cpp-master\cpp\stlastar.h"
 #include "Debug.hpp"
+#include "TriangularGrid.hpp"
+
+template <int distance>
+const BWAPI::Position ZerGreenAI::TriangularGrid<distance>::southEast = getVectorPolar(M_PI / 3, distance);
+template <int distance>
+const BWAPI::Position ZerGreenAI::TriangularGrid<distance>::southWest = getVectorPolar(2 * M_PI / 3, distance);
+template <int distance>
+const BWAPI::Position ZerGreenAI::TriangularGrid<distance>::east = Position(getVectorPolar(M_PI / 3, distance).x - getVectorPolar(2 * M_PI / 3, distance).x, 0);
+
 
 template <int distance>
 class TriangularGrid<distance>::GridPositionAStar
@@ -62,6 +71,7 @@ void ZerGreenAI::TriangularGrid<distance>::addNode(BWAPI::Position p)
 				grid[p].insert(currentNode);
 				if (grid.count(currentNode) == 0)
 				{
+					grid[currentNode].insert(p);
 					addNode(currentNode);
 				}
 			}
@@ -176,15 +186,19 @@ void ZerGreenAI::TriangularGrid<distance>::draw(BWAPI::Color color)
 	}
 }
 
-template <int distance>
-const BWAPI::Position ZerGreenAI::TriangularGrid<distance>::southEast = getVectorPolar(M_PI / 3, distance);
-template <int distance>
-const BWAPI::Position ZerGreenAI::TriangularGrid<distance>::southWest = getVectorPolar(2 * M_PI / 3, distance);
-template <int distance>
-const BWAPI::Position ZerGreenAI::TriangularGrid<distance>::east = Position(getVectorPolar(M_PI / 3, distance).x - getVectorPolar(2 * M_PI / 3, distance).x, 0);
+template<int distance>
+void ZerGreenAI::TriangularGrid<distance>::stripClosestGridPositionNeighbours(BWAPI::Position p)
+{
+	grid[snapToGrid(p)].clear();
+}
 
 template<int distance>
 ZerGreenAI::TriangularGrid<distance>::TriangularGrid()
 {
 	addNode((BWAPI::Position)BWAPI::Broodwar->self()->getStartLocation());
+
+	for (Unit u : Broodwar->getStaticMinerals())
+	{
+		stripClosestGridPositionNeighbours(u->getPosition());
+	}
 }

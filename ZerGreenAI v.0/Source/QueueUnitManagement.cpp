@@ -15,6 +15,11 @@ void QueueUnitManager::onReassignment(Unit u)
 	std::remove(unitDecideQueue.begin(), unitDecideQueue.end(), u);
 }
 
+int ZerGreenAI::QueueUnitManager::turnLength()
+{
+	return assignedUnits.size();
+}
+
 void QueueUnitManager::onFrame()
 {
 	UnitManager::onFrame();
@@ -26,21 +31,20 @@ void QueueUnitManager::onFrame()
 
 Unit QueueUnitManager::rotateQueue()
 {
+	
 	if (unitDecideQueue.empty())
 	{
 		return nullptr;
 	}
 
-	Unit returnValue;
-	do
+	Unit returnValue = nullptr;
+	while ((returnValue == nullptr || !returnValue->exists()) && !unitDecideQueue.empty())
 	{
 		returnValue = unitDecideQueue.front();
 		unitDecideQueue.pop_front();
-	} while (!returnValue->exists() && !unitDecideQueue.empty());
+	}
 
 	unitDecideQueue.push_back(returnValue);
-
-	Broodwar << "rotate Queue" << returnValue->getType().c_str() << std::endl;
 	return returnValue;
 
 }

@@ -21,6 +21,8 @@ namespace ZerGreenAI
 	class SaveLoadManager;
 	class BuildOrderManager;
 	class PylonConstructionManager;
+	class BoringCombatManager;
+	class UnitsOfTypeCounter;
 
 	template<int distance>
 	class TriangularGrid;
@@ -48,6 +50,8 @@ namespace ZerGreenAI
 		SaveLoadManager * saveLoadManager;
 		BuildOrderManager * buildOrderManager;
 		PylonConstructionManager * pylonConstructionManager;
+		BoringCombatManager * boringCombatManager;
+		UnitsOfTypeCounter * unitsOfTypeCounter;
 
 		TriangularGrid<ZGA_TRIANGULAR_GRID_SIZE> * grid;
 		std::vector<BWAPI::Position> findPath(BWAPI::Position a, BWAPI::Position b);

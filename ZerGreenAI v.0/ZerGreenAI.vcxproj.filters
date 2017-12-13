@@ -163,6 +163,12 @@
     <ClCompile Include="Source\BuildOrder.cpp">
       <Filter>ZerGreenAI\Production</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BoringCombat.cpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitsOfTypeCounter.cpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BWEM\area.h">
@@ -349,6 +355,12 @@
       <Filter>ZerGreenAI\Production</Filter>
     </ClInclude>
     <ClInclude Include="Source\BuildOrder.hpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BoringCombat.hpp">
+      <Filter>ZerGreenAI\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitsOfTypeCounter.hpp">
       <Filter>ZerGreenAI\Production</Filter>
     </ClInclude>
   </ItemGroup>

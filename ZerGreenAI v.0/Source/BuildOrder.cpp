@@ -6,6 +6,7 @@
 #include "Construction.hpp"
 #include "BuildOrder.hpp"
 #include "ModularNN.h"
+#include "UnitsOfTypeCounter.hpp"
 
 const float ZerGreenAI::BuildOrderManager::LEARNING_SPEED = 0.01f;
 const float ZerGreenAI::BuildOrderManager::CHANCE_TO_RANDOMIZE_ACTION = 0.1f;
@@ -263,27 +264,26 @@ void ZerGreenAI::BuildOrderManager::onFrame()
 
 UnitType ZerGreenAI::BuildOrderManager::chooseNextAction(float chanceToChooseRandomly)
 {
+	std::vector<UnitType> possibleActions;
+	for (auto type : protossBuildingTypesExcludingPylon)
+	{
+		if (actionIsValid(type))
+		{
+			possibleActions.push_back(type);
+		}
+	}
+
+	assert(possibleActions.size() > 0);
+
 	if ((float)rand() / (float)RAND_MAX < chanceToChooseRandomly)
 	{
 		Broodwar << "Being epsilon-greedy" << std::endl;
-
-		UnitType randomType;
-		// Deliberate use of assignment operator in while loop
-		for (auto type : protossBuildingTypesExcludingPylon)
-		{
-			if (Broodwar->canMake(type)) // Can make some type, no infinite loop
-			{
-				while (!Broodwar->canMake(randomType = protossBuildingTypesExcludingPylon[rand() % protossBuildingTypesExcludingPylon.size()])) {}
-				return randomType;
-			}
-		}
-		
-		return UnitTypes::Protoss_Gateway; // No type possible, return gateway
+		return possibleActions[rand() % possibleActions.size()];
 	}
 		
 	float bestValue = std::numeric_limits<float>::lowest();
 	UnitType bestAction = UnitTypes::None;
-	for (UnitType testAction : protossBuildingTypesExcludingPylon)
+	for (UnitType testAction : possibleActions)
 	{
 		std::vector <float> nnFrameData = getInput(testAction);
 
@@ -319,6 +319,22 @@ void ZerGreenAI::BuildOrderManager::rememberChosenAction(UnitType action)
 		gameFile << f << ", ";
 	}
 	gameFile << '\n';
+}
+
+bool ZerGreenAI::BuildOrderManager::actionIsValid(UnitType action)
+{
+	for (auto reqType : action.requiredUnits())
+	{
+		if (reqType.first == UnitTypes::Protoss_Pylon || reqType.first == UnitTypes::Protoss_Probe)
+			continue;
+
+		if (ZerGreenAIObj::mainInstance->unitsOfTypeCounter->numUnitsOfType(reqType.first) < reqType.second)
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
 
 void ZerGreenAI::BuildOrderManager::onUnitCreate(Unit u)
@@ -375,6 +391,11 @@ void ZerGreenAI::BuildOrderManager::onSendText(std::string text)
 		ignoreResults = true;
 		Broodwar->leaveGame();
 	}
+	else if (text == "nolearn")
+	{
+		ignoreResults = true;
+		Broodwar << "Build order learning cancelled for this game" << std::endl;
+	}
 }
 
 void ZerGreenAI::BuildOrderManager::onReceiveText(BWAPI::Player player, std::string text)
@@ -388,6 +409,11 @@ void ZerGreenAI::BuildOrderManager::onReceiveText(BWAPI::Player player, std::str
 	{
 		ignoreResults = true;
 		Broodwar->leaveGame();
+	}
+	else if (text == "nolearn")
+	{
+		ignoreResults = true;
+		Broodwar << "Build order learning cancelled for this game" << std::endl;
 	}
 }
 

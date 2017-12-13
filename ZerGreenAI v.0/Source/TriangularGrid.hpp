@@ -14,6 +14,7 @@ namespace ZerGreenAI
 		static const BWAPI::Position east;
 
 		void addNode(BWAPI::Position p);
+		void stripClosestGridPositionNeighbours(BWAPI::Position p);
 
 		class GridPositionAStar;
 	public:

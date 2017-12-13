@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ZerGreenAI.hpp"
+
 namespace ZerGreenAI
 {
 
@@ -22,25 +24,7 @@ namespace ZerGreenAI
 		virtual void onUnitRenegade(BWAPI::Unit unit) {};
 		virtual void onSaveGame(std::string gameName) {};
 		virtual void onUnitComplete(BWAPI::Unit unit) {};
-
-		inline virtual std::string name() { return "Unnamed Manager"; }
-
-#if _DEBUG
-		const std::string d_name = name();
-#endif
-
-		static std::unordered_set<Manager *> managers;
-		static std::unordered_set<Manager *> &ensureManagersCleanedUp();
-	protected:
-
-		static std::unordered_set<Manager *> cleanUpList;
-	public:
-
-
-
-		Manager();
-		~Manager();
-
+		
 		static void globalOnStart();
 		static void globalOnEnd(bool isWinner);
 		static void globalOnFrame();
@@ -59,7 +43,23 @@ namespace ZerGreenAI
 		static void globalOnSaveGame(std::string gameName);
 		static void globalOnUnitComplete(BWAPI::Unit unit);
 
+		inline virtual std::string name() { return "Unnamed Manager"; }
 
+#if _DEBUG
+		const std::string d_name = name();
+#endif
+
+		static std::unordered_set<Manager *> managers;
+		static std::unordered_set<Manager *> &ensureManagersCleanedUp();
+	protected:
+
+		static std::unordered_set<Manager *> cleanUpList;
+	public:
+
+		Manager();
+		~Manager();
+
+		friend ZerGreenAIObj;
 	};
 
 }

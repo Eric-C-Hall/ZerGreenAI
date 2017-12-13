@@ -33,6 +33,7 @@ namespace ZerGreenAI
 		std::map<BWAPI::UnitType, int> numUnitsOfType;
 		UnitType chooseNextAction(float chanceToChooseRandomly);
 		void rememberChosenAction(UnitType action);
+		bool actionIsValid(UnitType action);
 
 		void onStart() override;
 		void onEnd(bool didWin) override;

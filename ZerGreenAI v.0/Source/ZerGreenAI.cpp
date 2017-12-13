@@ -30,6 +30,8 @@
 #include "Construction.hpp"
 #include "BuildOrder.hpp"
 #include "PylonConstruction.hpp"
+#include "BoringCombat.hpp"
+#include "UnitsOfTypeCounter.hpp"
 
 // ------------
 // ZerGreenAI
@@ -108,6 +110,8 @@ void ZerGreenAIObj::onStart()
 		impScoutManager = new IMPScoutManager;
 		buildOrderManager = new BuildOrderManager;
 		pylonConstructionManager = new PylonConstructionManager;
+		boringCombatManager = new BoringCombatManager;
+		unitsOfTypeCounter = new UnitsOfTypeCounter;
 		onStartTimerEnd("Create Managers");
 
 		onStartTimerStart("Map Analyser");
@@ -349,6 +353,10 @@ ZerGreenAI::ZerGreenAIObj::ZerGreenAIObj()
 	}
 
 	srand((unsigned)time(NULL));
+	for (int i = 0; i < Broodwar->getInstanceNumber(); i++)
+	{
+		rand();
+	}
 	for (int i = 0; i < rand() % 1001; i++)
 	{
 		rand();
@@ -370,6 +378,8 @@ ZerGreenAI::ZerGreenAIObj::~ZerGreenAIObj()
 	delete impScoutManager;
 	delete buildOrderManager;
 	delete pylonConstructionManager;
+	delete boringCombatManager;
+	delete unitsOfTypeCounter;
 
 	delete resourceAllocator; // Makes sense to be the last to delete, since UnitManagers might give units to resource allocator on delete
 }

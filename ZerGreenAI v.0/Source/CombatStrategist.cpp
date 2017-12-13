@@ -5,13 +5,14 @@
 #include "Deathball.hpp"
 #include "MacroCombatGroup.hpp"
 #include "Namespaces.hpp"
+#include "BoringCombat.hpp"
 
 //DeathballManager* MainDeathball;
 
 void CombatStrategist::onAssignment(Unit u)
 {
 	UnitManager::onAssignment(u);
-	giveUnitManagement(u, ZerGreenAIObj::mainInstance->macroCombatManager);
+	giveUnitManagement(u, ZerGreenAIObj::mainInstance->boringCombatManager);
 }
 
 void CombatStrategist::onFrame()

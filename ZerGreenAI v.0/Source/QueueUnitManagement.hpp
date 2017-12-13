@@ -18,6 +18,8 @@ namespace ZerGreenAI
 		virtual void onFrame() override;
 		virtual void onAssignment(BWAPI::Unit u) override;
 		virtual void onReassignment(BWAPI::Unit u) override;
+
+		int turnLength();
 	public:
 		inline virtual std::string name() { return "Unnamed Queue Unit Manager"; }
 	};

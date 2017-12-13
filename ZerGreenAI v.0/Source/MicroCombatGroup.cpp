@@ -11,8 +11,6 @@
 
 void MicroCombatManager::onUnitTurn(Unit u)
 {
-	debugUnitText(u, "hasHadATurn");
-
 	Unitset neutralUnits = u->getUnitsInRadius(MCG_PUSH_RADIUS, IsNeutral);
 	if (neutralUnits.size() > 0)
 	{
@@ -67,6 +65,7 @@ void MicroCombatManager::onFrame()
 	Broodwar->drawCircleMap(center, MCG_PUSH_RADIUS, Colors::Purple);
 	Broodwar->drawCircleMap(center, MCG_LEASH, Colors::Purple);
 	Broodwar->drawLineMap(center, target, Colors::Orange);
+	Broodwar->drawCircleMap(assignedUnits.getPosition(), 5, Colors::White);
 
 	if (center.getApproxDistance(assignedUnits.getPosition()) < MCG_PUSH_RADIUS)
 	{
@@ -80,7 +79,10 @@ void MicroCombatManager::onFrame()
 
 void MicroCombatManager::absorb(MicroCombatManager * other)
 {
-	assignedUnits.insert(other->assignedUnits.begin(), other->assignedUnits.end());
-	other->assignedUnits.clear();
+	// New unitset created because assignedUnits is modified
+	for (Unit u : Unitset(other->assignedUnits))
+	{
+		other->giveUnitManagement(u, this);
+	}
 	delete other;
 }
