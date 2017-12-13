@@ -118,6 +118,7 @@ bool ConstructionManager::constructBuilding(UnitType type)
 	TilePosition buildPos = ZerGreenAIObj::mainInstance->layoutPlanner->getAvailablePosition(type);
 	if (buildPos == TilePositions::None)
 	{
+		Broodwar << "Failed to find build position" << std::endl;
 		return false;
 	}
 
@@ -125,15 +126,16 @@ bool ConstructionManager::constructBuilding(UnitType type)
 
 	if (constructor == nullptr)
 	{
+		Broodwar << "Failed to find constructor" << std::endl;
 		return false;
 	}
 
-	if (!Broodwar->canBuildHere(buildPos, type, constructor))
+	/*if (!Broodwar->canBuildHere(buildPos, type, constructor))
 	{
 		Error err = Broodwar->getLastError();
 		Broodwar << "Constructor cannot build: " << err.c_str() << std::endl;
 		return false;
-	}
+	}*/
 
 	buildType[constructor] = type;
 	buildPosition[constructor] = buildPos;

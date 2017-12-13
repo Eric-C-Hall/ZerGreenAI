@@ -1,8 +1,8 @@
 #pragma once
 
 #include "BWAPI.h"
-#include "FAPUnitManager.h"
 
+#include "FAPUnitManager.h"
 #include <set>
 
 namespace Neolib {

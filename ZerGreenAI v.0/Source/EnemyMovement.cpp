@@ -37,8 +37,6 @@ namespace std
 	};
 }
 
-std::unordered_map<int, UnitTracker *> trackedUnits;
-
 void EnemyMovementManager::onUnitDiscover(Unit u)
 {
 	if (IsEnemy(u))
@@ -56,6 +54,25 @@ void EnemyMovementManager::onFrame()
 	{
 		t.second->update();
 		t.second->draw();
+		if (Broodwar->isVisible((TilePosition)t.second->position) && !t.second->whatUnit->exists())
+		{
+			visibleTrackers[t.second]++;
+		}
+		else
+		{
+			visibleTrackers.erase(t.second);
+		}
+	}
+
+	auto copyVisibleTrackers = visibleTrackers;
+	for (auto const &t : copyVisibleTrackers)
+	{
+		if (t.second >= FRAMES_VISIBLE_TO_DECIDE_GONE)
+		{
+			trackedUnits.erase(t.first->id);
+			visibleTrackers.erase(t.first);
+			delete t.first;
+		}
 	}
 }
 

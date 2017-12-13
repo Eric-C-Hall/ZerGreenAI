@@ -15,7 +15,8 @@ namespace ZerGreenAI
 		std::unordered_set<TilePosition> unclaimedBases;
 
 		inline void addHarvestManager(LocalHarvestManager * mgr) { childManagers.insert(mgr); }
-		void initializeGlobalHarvester();
+		void onStart() override;
+		void onUnitCreate(Unit u) override;
 	public:
 		~GlobalHarvestManager();
 
@@ -26,6 +27,7 @@ namespace ZerGreenAI
 		int numHarvesters();
 		int numMineralHarvesters();
 		int numGasHarvesters();
+		inline int numClaimedBases() { return childManagers.size(); }
 
 		bool needProbes();
 		BWAPI::Unit giveNearbyAvailableHarvester(BWAPI::Position p, UnitManager * giveToWho);

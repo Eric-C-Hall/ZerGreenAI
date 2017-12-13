@@ -7,6 +7,8 @@
 #include "BuildOrder.hpp"
 #include "ModularNN.h"
 #include "UnitsOfTypeCounter.hpp"
+#include "Debug.hpp"
+#include "GlobalHarvesting.hpp"
 
 const float ZerGreenAI::BuildOrderManager::LEARNING_SPEED = 0.01f;
 const float ZerGreenAI::BuildOrderManager::CHANCE_TO_RANDOMIZE_ACTION = 0.1f;
@@ -244,7 +246,27 @@ std::vector<float> BuildOrderManager::getInput(UnitType whatAction)
 
 void ZerGreenAI::BuildOrderManager::onFrame()
 {
-	if (Broodwar->getFrameCount() % 10 != 0)
+	if (displayPossibleUnits)
+	{
+		int currentY = 0;
+		currentY += 10;
+		for (auto type : protossBuildingTypesExcludingPylon)
+		{
+			if (actionIsValid(type))
+			{
+				Broodwar->drawTextScreen(Position(5,currentY),type.c_str());
+				currentY += 10;
+			}
+		}
+		if (currentY == 0)
+		{
+			Broodwar->drawTextScreen(Position(5, currentY), "No Units Possible");
+			currentY += 10;
+		}
+	}
+
+
+	if (Broodwar->getFrameCount() % FRAMES_BEFORE_ATTEMPT_ACTION != 0)
 	{
 		return;
 	}
@@ -258,6 +280,7 @@ void ZerGreenAI::BuildOrderManager::onFrame()
 
 	if (constructionFailed)
 	{
+		new debugText(CoordinateType::Mouse, Position(0, 10), lastChosenAction.c_str(), FRAMES_BEFORE_ATTEMPT_ACTION);
 		constructionFailed = !ZerGreenAIObj::mainInstance->constructionManager->constructBuilding(lastChosenAction);
 	}
 }
@@ -325,7 +348,7 @@ bool ZerGreenAI::BuildOrderManager::actionIsValid(UnitType action)
 {
 	if (action == UnitTypes::Protoss_Assimilator)
 	{
-		return ZerGreenAIObj::mainInstance->unitsOfTypeCounter->numUnitsOfType(UnitTypes::Protoss_Nexus) > ZerGreenAIObj::mainInstance->unitsOfTypeCounter->numUnitsOfType(UnitTypes::Protoss_Assimilator);
+		return ZerGreenAIObj::mainInstance->globalHarvestManager->numClaimedBases() > ZerGreenAIObj::mainInstance->unitsOfTypeCounter->numUnitsOfType(UnitTypes::Protoss_Assimilator);
 	}
 
 	for (auto reqType : action.requiredUnits())
@@ -401,6 +424,11 @@ void ZerGreenAI::BuildOrderManager::onSendText(std::string text)
 		ignoreResults = true;
 		Broodwar << "Build order learning cancelled for this game" << std::endl;
 	}
+	else if (text == "possibleUnits")
+	{
+		Broodwar << "Displaying possible Units" << std::endl;
+		displayPossibleUnits = !displayPossibleUnits;
+	}
 }
 
 void ZerGreenAI::BuildOrderManager::onReceiveText(BWAPI::Player player, std::string text)
@@ -419,6 +447,11 @@ void ZerGreenAI::BuildOrderManager::onReceiveText(BWAPI::Player player, std::str
 	{
 		ignoreResults = true;
 		Broodwar << "Build order learning cancelled for this game" << std::endl;
+	}
+	else if (text == "possibleUnits")
+	{
+		Broodwar << "Displaying possible Units" << std::endl;
+		displayPossibleUnits = !displayPossibleUnits;
 	}
 }
 

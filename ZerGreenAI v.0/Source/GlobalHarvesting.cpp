@@ -35,13 +35,20 @@ void GlobalHarvestManager::assignWorker(Unit u)
 	giveUnitManagement(u, bestManager);
 }
 
+void ZerGreenAI::GlobalHarvestManager::onUnitCreate(Unit u)
+{
+	if (IsResourceDepot(u))
+	{
+		unclaimedBases.erase(u->getTilePosition());
+	}
+}
+
 void GlobalHarvestManager::onAssignment(Unit u)
 {
 	UnitManager::onAssignment(u);
 	if (IsResourceDepot(u))
 	{
 		addHarvestManager(new LocalHarvestManager(u));
-		unclaimedBases.erase(u->getTilePosition());
 	}
 	else if (IsWorker(u))
 	{
@@ -146,11 +153,12 @@ TilePosition GlobalHarvestManager::getAssimilatorPosition()
 TilePosition GlobalHarvestManager::getBasePosition()
 {
 	TilePosition bestPosition = TilePositions::None;
-	double bestDistance = 100000;
+	double bestDistance = DBL_MAX;
 	TilePosition startPosition = Broodwar->self()->getStartLocation();
 	for (auto const &b : unclaimedBases)
 	{
-		if (b.getApproxDistance(startPosition) < bestDistance)
+		double currentDistance = b.getApproxDistance(startPosition);
+		if (currentDistance < bestDistance)
 		{
 			bestDistance = b.getApproxDistance(startPosition);
 			bestPosition = b;
@@ -159,7 +167,7 @@ TilePosition GlobalHarvestManager::getBasePosition()
 	return bestPosition;
 }
 
-void GlobalHarvestManager::initializeGlobalHarvester()
+void GlobalHarvestManager::onStart()
 {
 	for (auto const &a : theMap.Areas())
 	{

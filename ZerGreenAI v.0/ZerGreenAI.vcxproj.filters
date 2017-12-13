@@ -380,9 +380,6 @@
     <Filter Include="ZerGreenAI\Utility">
       <UniqueIdentifier>{48db7d91-d675-4869-8eac-6f00f6688607}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZerGreenAI\Debug">
-      <UniqueIdentifier>{5edef592-30b5-4a96-9bdb-0c08d2010819}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ZerGreenAI\Map Analysis">
       <UniqueIdentifier>{4c9e3470-bd6b-4b74-b965-0b7ad4f8f91a}</UniqueIdentifier>
     </Filter>
@@ -412,6 +409,9 @@
     </Filter>
     <Filter Include="ZerGreenAI\Production">
       <UniqueIdentifier>{32fbcc41-fb01-4262-9eb6-a0a6d0d706d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Debug">
+      <UniqueIdentifier>{5edef592-30b5-4a96-9bdb-0c08d2010819}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

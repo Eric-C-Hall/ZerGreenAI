@@ -29,15 +29,13 @@ UnitManager::~UnitManager()
 void UnitManager::giveUnitManagement(Unit u, UnitManager * mgr)
 {
 	assert(assignedUnits.contains(u));
-	onReassignment(u);
-
 	assignedUnits.erase(u);
 	Unit2Manager.erase(u);
 	if (mgr != nullptr)
 	{
 		mgr->giveOrphanUnit(u);
 	}
-
+	onReassignment(u);
 }
 
 bool UnitManager::giveOrphanUnit(Unit u)

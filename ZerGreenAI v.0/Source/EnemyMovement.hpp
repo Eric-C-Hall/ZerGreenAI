@@ -3,9 +3,15 @@
 
 namespace ZerGreenAI
 {
+	class UnitTracker;
 
 	class EnemyMovementManager : Manager
 	{
+		static const int FRAMES_VISIBLE_TO_DECIDE_GONE = 10;
+
+		std::unordered_map<int, UnitTracker *> trackedUnits;
+		std::unordered_map<UnitTracker *, int> visibleTrackers;
+
 		void onUnitDiscover(BWAPI::Unit u) override;
 		void onFrame() override;
 		void onUnitDestroy(BWAPI::Unit u) override;
