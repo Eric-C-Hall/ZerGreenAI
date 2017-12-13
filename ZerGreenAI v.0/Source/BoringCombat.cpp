@@ -34,7 +34,7 @@ void ZerGreenAI::BoringCombatManager::onUnitTurn(BWAPI::Unit u)
 		if (!attackTarget.isValid())
 		{
 			new debugText(u->getPosition(), "Arrgh, where are you??", turnLength());
-			attackTarget = (Position)ZerGreenAIObj::mainInstance->impScoutManager->getColdest();
+			attackTarget = (Position)ZerGreenAIObj::mainInstance->impScoutManager->getColdestWeightingDistance(u->getTilePosition());
 		}
 		else
 		{

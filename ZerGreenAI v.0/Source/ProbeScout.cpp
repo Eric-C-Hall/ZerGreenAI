@@ -25,7 +25,7 @@ void ProbeScoutManager::onFrame()
 	UnitManager::onFrame();
 	if (Broodwar->isVisible((TilePosition)probe->getTargetPosition()))
 	{
-		probe->move((Position)ZerGreenAIObj::mainInstance->impScoutManager->getColdest());
+		probe->move((Position)ZerGreenAIObj::mainInstance->impScoutManager->getColdestWeightingDistance((TilePosition)probe->getPosition()));
 	}
 }
 

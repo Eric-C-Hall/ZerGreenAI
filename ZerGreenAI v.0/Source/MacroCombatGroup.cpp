@@ -43,7 +43,7 @@ void MacroCombatManager::onFrame()
 		newTarget = ZerGreenAIObj::mainInstance->enemyMovementManager->getNearestTrackedEnemyLocation(c->getCenter());
 		if (!newTarget.isValid())
 		{
-			newTarget = (Position)ZerGreenAIObj::mainInstance->impScoutManager->getColdest();
+			newTarget = (Position)ZerGreenAIObj::mainInstance->impScoutManager->getColdestWeightingDistance((TilePosition)c->getCenter());
 		}
 		c->updateTarget(newTarget);
 

@@ -66,3 +66,19 @@ TilePosition IMPScoutManager::getColdest()
 	}
 	return bestPos;
 }
+
+BWAPI::TilePosition ZerGreenAI::IMPScoutManager::getColdestWeightingDistance(BWAPI::TilePosition startP, double weight)
+{
+	TilePosition bestPos;
+	int bestValue = INT_MIN;
+	for (const auto &tileHeat : heatMap)
+	{
+		int currentValue = tileHeat.second - (int)(weight * startP.getApproxDistance(tileHeat.first));
+		if ( currentValue > bestValue)
+		{
+			bestPos = tileHeat.first;
+			bestValue = currentValue;
+		}
+	}
+	return bestPos;
+}
