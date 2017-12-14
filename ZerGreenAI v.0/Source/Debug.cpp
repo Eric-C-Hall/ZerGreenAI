@@ -60,10 +60,10 @@ void ZerGreenAI::debugOnFrame()
 	}
 }
 
-void ZerGreenAI::debugUnitText(Unit u, std::string text)
+void ZerGreenAI::debugUnitText(Unit u, std::string text, int numFrames)
 {
 	unit2DebugText[u] = text;
-	debugTextFrames[u] = NUM_UNIT_DEBUG_TEXT_FRAMES;
+	debugTextFrames[u] = numFrames;
 }
 
 debugDrawing::debugDrawing()

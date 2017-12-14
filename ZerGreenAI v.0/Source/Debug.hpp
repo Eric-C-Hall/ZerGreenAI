@@ -8,7 +8,14 @@ namespace ZerGreenAI
 #define NUM_UNIT_DEBUG_TEXT_FRAMES 24
 
 	void debugOnFrame();
-	void debugUnitText(BWAPI::Unit u, std::string text);
+	void debugUnitText(BWAPI::Unit u, std::string text, int numFrames = NUM_UNIT_DEBUG_TEXT_FRAMES);
+
+	class debugDrawing;
+	class debugBox;
+	class debugText;
+	class debugLine;
+	class debugCircle;
+	class debugDot;
 
 	class debugDrawing
 	{

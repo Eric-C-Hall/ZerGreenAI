@@ -7,6 +7,7 @@
 #include "ScoutAnalysis.hpp"
 #include "IMPScoutManager.hpp"
 #include "Namespaces.hpp"
+#include "Debug.hpp"
 
 Unit probe;
 
@@ -26,6 +27,15 @@ void ProbeScoutManager::onFrame()
 	if (Broodwar->isVisible((TilePosition)probe->getTargetPosition()))
 	{
 		probe->move((Position)ZerGreenAIObj::mainInstance->impScoutManager->getColdestWeightingDistance((TilePosition)probe->getPosition()));
+	}
+
+	chatterTime++;
+	if (chatterTime > chatterDuration)
+	{
+		chatterTime = 0;
+		chatterDuration = (rand() % (CHATTER_MAX_DURATION - CHATTER_MIN_DURATION)) + CHATTER_MIN_DURATION;
+		currentChatter = chatter[rand() % chatter.size()];
+		debugUnitText(probe, currentChatter, chatterDuration);
 	}
 }
 
