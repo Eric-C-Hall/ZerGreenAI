@@ -19,10 +19,11 @@ namespace ZerGreenAI
 	class MacroCombatManager;
 	class MacroCombatManager;
 	class SaveLoadManager;
-	class BuildOrderManager;
+	class Spender;
 	class PylonConstructionManager;
 	class BoringCombatManager;
 	class UnitsOfTypeCounter;
+	class BrainManager;
 
 	template<int distance>
 	class TriangularGrid;
@@ -30,6 +31,7 @@ namespace ZerGreenAI
 	class ZerGreenAIObj : public BWAPI::AIModule
 	{
 		static int numInstances;
+		int externalInstanceNumber;
 	public:
 
 		bool drawTriangleGrid = false;
@@ -48,10 +50,11 @@ namespace ZerGreenAI
 		CombatStrategist * combatStrategist;
 		MacroCombatManager * macroCombatManager;
 		SaveLoadManager * saveLoadManager;
-		BuildOrderManager * buildOrderManager;
+		Spender * spender;
 		PylonConstructionManager * pylonConstructionManager;
 		BoringCombatManager * boringCombatManager;
 		UnitsOfTypeCounter * unitsOfTypeCounter;
+		BrainManager * brainManager;
 
 		TriangularGrid<ZGA_TRIANGULAR_GRID_SIZE> * grid;
 		std::vector<BWAPI::Position> findPath(BWAPI::Position a, BWAPI::Position b);
@@ -74,10 +77,11 @@ namespace ZerGreenAI
 		virtual void onUnitRenegade(BWAPI::Unit unit);
 		virtual void onSaveGame(std::string gameName);
 		virtual void onUnitComplete(BWAPI::Unit unit);
-		// Everything below this line is safe to modify.
 
 		ZerGreenAIObj();
 		~ZerGreenAIObj();
+
+		inline int getExternalInstanceNumber() const { return externalInstanceNumber; }
 
 	};
 

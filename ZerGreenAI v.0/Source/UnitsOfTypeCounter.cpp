@@ -6,22 +6,26 @@ void ZerGreenAI::UnitsOfTypeCounter::onUnitCreate(BWAPI::Unit u)
 {
 	if ((IsOwned && IsBuilding)(u))
 	{
-		numOfType[u->getType()]++;
+		numUnitsOfTypeMap[u->getType()]++;
 	}
 }
 
 void ZerGreenAI::UnitsOfTypeCounter::onUnitDestroy(BWAPI::Unit u)
 {
-	if (IsOwned(u) && u->getType() == UnitTypes::Protoss_Pylon)
+	if ((IsOwned && IsBuilding)(u))
 	{
-		numOfType[u->getType()]--;
+		numUnitsOfTypeMap[u->getType()]--;
 	}
 }
 
 void ZerGreenAI::UnitsOfTypeCounter::onUnitMorph(BWAPI::Unit u)
 {
-	if (IsOwned(u) && IsRefinery(u))
+	if ((IsOwned && IsRefinery)(u))
 	{
-		numOfType[u->getType()]++;
+		numUnitsOfTypeMap[u->getType()]++;
+	}
+	else if (u->getType() == UnitTypes::Resource_Vespene_Geyser)
+	{
+		numUnitsOfTypeMap[Broodwar->self()->getRace().getRefinery()]--;
 	}
 }

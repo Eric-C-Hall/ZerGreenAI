@@ -30,3 +30,8 @@ IMP scouting based on imp42's post here: http://www.teamliquid.net/blogs/514487-
 
 N00byEdge's FAP here: https://github.com/N00byEdge/Neohuman
 
+OpenBW here: https://github.com/OpenBW/openbw
+
+OpenBWAPI here: https://github.com/OpenBW/bwapi
+
+General help from members of the SSCAIT discord

@@ -2,78 +2,35 @@
 
 #include <BWAPI.h>
 
-#include "GeneralManagement.hpp"
-#include "ModularNN.h"
-
+#include "Random.hpp"
 
 namespace ZerGreenAI
 {
-	const int LIMIT_TO_DISTINCT_NUMBERS_OF_BUILDINGS = 5;
 
-	extern std::vector<BWAPI::UnitType> protossBuildingTypesExcludingPylon;
-
-	class BuildOrderManager : Manager
+	class BuildOrder
 	{
-		static const int NUM_REMEMBER_GAMES = 10000;
-		static const int MAX_NUM_FRAMES = 30000;
-		static const int FRAMES_BEFORE_ATTEMPT_ACTION = 10;
-		static const float LEARNING_SPEED;
-		static const float CHANCE_TO_RANDOMIZE_ACTION;
-		ModularNN neuralNetwork;
-		int gameNumber;
-		std::ofstream gameFile;
-		UnitType lastChosenAction;
-		bool displayPossibleUnits = false;
-		bool constructionFailed = false;
-		bool didTie;
-		bool ignoreResults;
+		int currentPosition = 0;
+		std::vector<BWAPI::UnitType> currentBuild;
+		std::string filePath;
+		bool debug = false;
 
-		std::vector<std::string> getFileLabelledInput(std::string fileName);
-		std::string getSaveFileName(int i);
-		std::string getGamenumberFileName();
+		const std::vector<BWAPI::UnitType> protossBuildingTypesExceptPylon = { UnitTypes::Protoss_Arbiter_Tribunal, UnitTypes::Protoss_Assimilator, UnitTypes::Protoss_Citadel_of_Adun, UnitTypes::Protoss_Cybernetics_Core, UnitTypes::Protoss_Fleet_Beacon, UnitTypes::Protoss_Forge, UnitTypes::Protoss_Gateway, UnitTypes::Protoss_Nexus, UnitTypes::Protoss_Observatory, UnitTypes::Protoss_Photon_Cannon, UnitTypes::Protoss_Robotics_Facility, UnitTypes::Protoss_Shield_Battery, UnitTypes::Protoss_Stargate, UnitTypes::Protoss_Templar_Archives };
 
-		std::map<BWAPI::UnitType, int> numUnitsOfType;
-		UnitType chooseNextAction(float chanceToChooseRandomly);
-		void rememberChosenAction(UnitType action);
-		bool actionIsValid(UnitType action);
+		inline UnitType randomProtossUnitType();
 
-		void onStart() override;
-		void onEnd(bool didWin) override;
-		void onFrame() override;
-		void onUnitCreate(Unit u) override;
-		void onUnitMorph(Unit u) override;
-		void onUnitDestroy(Unit u) override;
-		void onSendText(std::string text) override;
-		void onReceiveText(BWAPI::Player player, std::string text) override;
-
-		std::vector<float> getInput(UnitType whatAction);
 	public:
-		BuildOrderManager();
-		~BuildOrderManager();
+		void mutate(double chanceToRandomize, double chanceToCreate, double chanceToDelete);
+		BWAPI::UnitType getNext();
+		BuildOrder(std::string filePath);
+		void write();
+
+		void debugDraw();
+		void enableDebugDraw(bool b = true) { debug = b; }
 	};
 
-	enum AttributeType
-	{
-		enemyRace,
-		allyUnit,
-		enemyUnit
-	};
+}
 
-	struct UnitData
-	{
-		BWAPI::UnitType type;
-		int number;
-	};
-
-	union AttributeData
-	{
-		BWAPI::Race race;
-		UnitData unitData;
-	};
-
-	class Attribute
-	{
-		AttributeType type;
-		AttributeData data;
-	};
+inline UnitType ZerGreenAI::BuildOrder::randomProtossUnitType()
+{
+	return randFromVector(protossBuildingTypesExceptPylon);
 }

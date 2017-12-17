@@ -54,3 +54,14 @@ void ZerGreenAI::onStartTimerEnd(std::string timer)
 	}
 	string2Time.erase(timer);
 }
+
+void ZerGreenAI::startTimerToOut(std::string timer)
+{
+	string2Time[timer] = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+}
+
+void ZerGreenAI::endTimerToOut(std::string timer)
+{
+	milliseconds currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+	std::cout << timer.c_str() << ": " << (currentTime - string2Time[timer]).count() << std::endl;
+}

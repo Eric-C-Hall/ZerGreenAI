@@ -28,10 +28,11 @@
 #include "EnemyMovement.hpp"
 #include "IMPScoutManager.hpp"
 #include "Construction.hpp"
-#include "BuildOrder.hpp"
 #include "PylonConstruction.hpp"
 #include "BoringCombat.hpp"
 #include "UnitsOfTypeCounter.hpp"
+#include "Brain.hpp"
+#include "Spender.hpp"
 
 // ------------
 // ZerGreenAI
@@ -39,7 +40,7 @@
 //
 // Written by Eric Hall
 //
-// Uses the BWAPI & BWEM libraries
+// Look in README.txt for sources
 
 std::vector<BWAPI::Position> ZerGreenAI::ZerGreenAIObj::findPath(BWAPI::Position a, BWAPI::Position b)
 {
@@ -49,6 +50,11 @@ std::vector<BWAPI::Position> ZerGreenAI::ZerGreenAIObj::findPath(BWAPI::Position
 int ZerGreenAIObj::numInstances = 0;
 ZerGreenAIObj * ZerGreenAIObj::mainInstance = nullptr;
 
+inline std::string getInstanceNumberFileName()
+{
+	return "bwapi-data/read/instanceNumber.txt";
+}
+
 void ZerGreenAIObj::onStart()
 {
 #if !_DEBUG
@@ -56,21 +62,6 @@ void ZerGreenAIObj::onStart()
 	{
 #endif
 		onStartTimerStart("Total");
-
-		// Enable the UserInput flag, which allows us to control the bot and type messages.
-		Broodwar->enableFlag(Flag::UserInput);
-
-		Broodwar->setLatCom(false);
-		Broodwar->setFrameSkip(0);
-		Broodwar->setGUI(true);
-
-		// Sets the number of milliseconds Broodwar spends in each frame.
-		// "Fastest" game speed ises 42ms/frame
-		Broodwar->setLocalSpeed(1);
-
-		// Set the command optimization level so that common commands can be grouped
-		// and reduce the bot's APM (Actions Per Minute).
-		Broodwar->setCommandOptimizationLevel(2);
 
 		Broodwar << "------------" << std::endl;
 		Broodwar << "ZerGreenAI" << std::endl;
@@ -89,6 +80,21 @@ void ZerGreenAIObj::onStart()
 			Broodwar << Text::BrightRed << "Wrong race - this is a Protoss bot" << std::endl;
 			Broodwar << Text::BrightRed << "Wrong race - this is a Protoss bot" << std::endl;
 		}
+
+		// Enable the UserInput flag, which allows us to control the bot and type messages.
+		Broodwar->enableFlag(Flag::UserInput);
+
+		Broodwar->setLatCom(false);
+		Broodwar->setFrameSkip(0);
+		Broodwar->setGUI(true);
+
+		// Sets the number of milliseconds Broodwar spends in each frame.
+		// "Fastest" game speed ises 42ms/frame
+		Broodwar->setLocalSpeed(1);
+
+		// Set the command optimization level so that common commands can be grouped
+		// and reduce the bot's APM (Actions Per Minute).
+		Broodwar->setCommandOptimizationLevel(2);
 
 		onStartTimerStart("BWEM Init");
 		theMap.Initialize();
@@ -111,9 +117,10 @@ void ZerGreenAIObj::onStart()
 		upgradeManager = new UpgradeManager;
 		enemyMovementManager = new EnemyMovementManager;
 		impScoutManager = new IMPScoutManager;
-		buildOrderManager = new BuildOrderManager;
 		pylonConstructionManager = new PylonConstructionManager;
 		boringCombatManager = new BoringCombatManager;
+		brainManager = new BrainManager;
+		spender = new Spender;
 		onStartTimerEnd("Create Managers");
 
 		onStartTimerStart("Map Analyser");
@@ -138,7 +145,25 @@ void ZerGreenAIObj::onStart()
 
 void ZerGreenAIObj::onEnd(bool isWinner)
 {
+	Broodwar << (isWinner ? "Won" : "Lost or Tied") << std::endl;
+	// Perhaps is is possible for some race conditions to occur here.
+	int currLowestInstanceNumber;
+	std::ifstream instanceNumberFileInput(getInstanceNumberFileName());
+	assert(instanceNumberFileInput.is_open());
+	instanceNumberFileInput >> currLowestInstanceNumber;
+	instanceNumberFileInput.close();
+	
+	if (externalInstanceNumber < currLowestInstanceNumber)
+	{
+		std::ofstream instanceNumberFileOutput(getInstanceNumberFileName(), ofstream::out | ofstream::trunc);
+		assert(instanceNumberFileOutput.is_open());
+		instanceNumberFileOutput << externalInstanceNumber << std::endl;
+		instanceNumberFileOutput.close();
+	}
+
 	Manager::globalOnEnd(isWinner);
+
+	Broodwar << "Analysis complete" << std::endl;
 }
 
 template<BWAPI::Key key>
@@ -342,6 +367,8 @@ void ZerGreenAIObj::onUnitComplete(BWAPI::Unit unit)
 
 ZerGreenAI::ZerGreenAIObj::ZerGreenAIObj()
 {
+	startTimerToOut("Constructing ZerGreenAIObj");
+	std::cout << "ZerGreenAIObj Created" << std::endl;
 	numInstances++;
 
 	if (numInstances > 1)
@@ -354,20 +381,43 @@ ZerGreenAI::ZerGreenAIObj::ZerGreenAIObj()
 		mainInstance = this;
 	}
 
+	// Perhaps is is possible for some race conditions to occur here.
+	std::ifstream instanceNumberFileInput(getInstanceNumberFileName());
+	if (instanceNumberFileInput.is_open())
+	{
+		instanceNumberFileInput >> externalInstanceNumber;
+		instanceNumberFileInput.close();
+	}
+	else
+	{
+		externalInstanceNumber = 1;
+	}
+
+	if (externalInstanceNumber >= 3)
+	{
+		Broodwar << "Error: External Instance Number >= 3, setting it to 1 in case of corruption" << std::endl;
+		Broodwar << "If you really want to run more than 2 instances, you will need to modify the code to remove this error" << std::endl;
+
+		externalInstanceNumber = 1;
+	}
+
+	std::ofstream instanceNumberFileOutput(getInstanceNumberFileName(), ofstream::out | ofstream::trunc);
+	assert(instanceNumberFileOutput.is_open());
+	instanceNumberFileOutput << externalInstanceNumber + 1 << std::endl;
+	instanceNumberFileOutput.close();
+
 	srand((unsigned)time(NULL));
-	for (int i = 0; i < Broodwar->getInstanceNumber(); i++)
+	for (int i = 0; i < ZerGreenAIObj::mainInstance->getExternalInstanceNumber(); i++)
 	{
-		rand();
+		srand(rand());
 	}
-	for (int i = 0; i < rand() % 1001; i++)
-	{
-		rand();
-	}
-	
+	srand(rand());
+	endTimerToOut("Constructing ZerGreenAIObj");
 }
 
 ZerGreenAI::ZerGreenAIObj::~ZerGreenAIObj()
 {
+	startTimerToOut("Deleting Managers");
 	numInstances--;
 	delete macroCombatManager;
 	delete combatStrategist;
@@ -378,10 +428,14 @@ ZerGreenAI::ZerGreenAIObj::~ZerGreenAIObj()
 	delete upgradeManager;
 	delete enemyMovementManager;
 	delete impScoutManager;
-	delete buildOrderManager;
+	delete spender;
 	delete pylonConstructionManager;
 	delete boringCombatManager;
 	delete unitsOfTypeCounter;
+	delete brainManager;
 
 	delete resourceAllocator; // Makes sense to be the last to delete, since UnitManagers might give units to resource allocator on delete
+
+	endTimerToOut("Deleting Managers");
+	std::cout << "ZerGreenAIObj Destroyed" << std::endl;
 }

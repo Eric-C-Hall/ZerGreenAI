@@ -9,19 +9,18 @@ namespace ZerGreenAI
 {
 	class ProductionManager : public UnitManager
 	{
-		std::unordered_map<BWAPI::UnitType, int> UnitWeights;
-		std::unordered_map<BWAPI::UnitType, std::queue<BWAPI::UnitType>> ProduceLists;
+		constexpr static int TIED_DOWN_DURATION = 0;
+		constexpr static int CANCEL_TIMER_DURATION = 24;
 
-		void cycleQueue(BWAPI::UnitType prod);
-		void attemptTrain(BWAPI::Unit u);
-
+		Unitset idleBuildings;
+		std::map<BWAPI::Unit, int> latencyFrames;
+		std::map<BWAPI::UnitType, int> tiedDownBuildingTypes;
+		void onFrame() override;
+		bool isIdleBuilding(BWAPI::Unit u);
 	public:
 		inline virtual std::string name() { return "Production Manager"; }
-		void onStart() override;
-		void onFrame() override;
-
-		void SetUnitWeight(BWAPI::UnitType unit, int Weight);
-		void UpdateWeightLists();
-		BWAPI::Unitset getProductionBuildings();
+		std::vector<BWAPI::UnitType> unassignedBuildingTypes();
+		bool produceType(BWAPI::UnitType whatType);
+		void tieDown(BWAPI::UnitType whatType);
 	};
 }

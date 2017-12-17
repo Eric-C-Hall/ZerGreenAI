@@ -7,9 +7,6 @@
     <ClCompile Include="Source\LocalHarvesting.cpp">
       <Filter>ZerGreenAI\Harvesting</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Construction.cpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ResourceAllocator.cpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
@@ -19,12 +16,6 @@
     <ClCompile Include="Source\Cheats.cpp">
       <Filter>ZerGreenAI\Chat</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Production.cpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LayoutPlanner.cpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Debug.cpp">
       <Filter>ZerGreenAI\Debug</Filter>
     </ClCompile>
@@ -33,9 +24,6 @@
     </ClCompile>
     <ClCompile Include="Source\Minimum.cpp">
       <Filter>ZerGreenAI\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\OldCodePotentiallyUseful.cpp">
-      <Filter>ZerGreenAI\Other</Filter>
     </ClCompile>
     <ClCompile Include="Source\BWEM\area.cpp">
       <Filter>BWEM</Filter>
@@ -106,20 +94,11 @@
     <ClCompile Include="Source\CombatAnalyst.cpp">
       <Filter>ZerGreenAI\Combat</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Upgrade.cpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClCompile>
     <ClCompile Include="Source\UnitManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClCompile>
-    <ClCompile Include="Source\bwStrings.cpp">
-      <Filter>ZerGreenAI\BWAPI Extended</Filter>
-    </ClCompile>
     <ClCompile Include="Source\EnemyMovement.cpp">
       <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\EventExt.cpp">
-      <Filter>ZerGreenAI\BWAPI Extended</Filter>
     </ClCompile>
     <ClCompile Include="Source\QueueUnitManagement.cpp">
       <Filter>ZerGreenAI\Management</Filter>
@@ -154,20 +133,47 @@
     <ClCompile Include="Source\ModularNN.cpp">
       <Filter>ZerGreenAI\N00byEdge</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PylonConstruction.cpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BuildOrderOld.cpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BuildOrder.cpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClCompile>
     <ClCompile Include="Source\BoringCombat.cpp">
       <Filter>ZerGreenAI\Combat</Filter>
     </ClCompile>
     <ClCompile Include="Source\UnitsOfTypeCounter.cpp">
+      <Filter>ZerGreenAI\BuildOrder</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Construction.cpp">
+      <Filter>ZerGreenAI\Construction</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PylonConstruction.cpp">
+      <Filter>ZerGreenAI\Construction</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LayoutPlanner.cpp">
+      <Filter>ZerGreenAI\Construction</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Spender.cpp">
+      <Filter>ZerGreenAI\BuildOrder</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Production.cpp">
       <Filter>ZerGreenAI\Production</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\bwStrings.cpp">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EventExt.cpp">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Upgrade.cpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ConstructionBrain.cpp">
+      <Filter>ZerGreenAI\Brain</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Brain.cpp">
+      <Filter>ZerGreenAI\Brain</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BuildOrder.cpp">
+      <Filter>ZerGreenAI\BuildOrder</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ConstructionUtility.cpp">
+      <Filter>ZerGreenAI\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,9 +252,6 @@
     <ClInclude Include="Source\bwemL.hpp">
       <Filter>ZerGreenAI\Map Analysis</Filter>
     </ClInclude>
-    <ClInclude Include="Source\bwStrings.hpp">
-      <Filter>ZerGreenAI\BWAPI Extended</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Cheats.hpp">
       <Filter>ZerGreenAI\Chat</Filter>
     </ClInclude>
@@ -258,9 +261,6 @@
     <ClInclude Include="Source\CombatStrategist.hpp">
       <Filter>ZerGreenAI\Combat</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Construction.hpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Deathball.hpp">
       <Filter>ZerGreenAI\Combat</Filter>
     </ClInclude>
@@ -269,9 +269,6 @@
     </ClInclude>
     <ClInclude Include="Source\EnemyMovement.hpp">
       <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\EventExt.hpp">
-      <Filter>ZerGreenAI\BWAPI Extended</Filter>
     </ClInclude>
     <ClInclude Include="Source\GeneralManagement.hpp">
       <Filter>ZerGreenAI\Management</Filter>
@@ -285,9 +282,6 @@
     <ClInclude Include="Source\IMPScoutManager.hpp">
       <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
     </ClInclude>
-    <ClInclude Include="Source\LayoutPlanner.hpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClInclude>
     <ClInclude Include="Source\LocalHarvesting.hpp">
       <Filter>ZerGreenAI\Harvesting</Filter>
     </ClInclude>
@@ -300,9 +294,6 @@
     <ClInclude Include="Source\ProbeScout.hpp">
       <Filter>ZerGreenAI\Scouting/Intelligence</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Production.hpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClInclude>
     <ClInclude Include="Source\QueueUnitManagement.hpp">
       <Filter>ZerGreenAI\Management</Filter>
     </ClInclude>
@@ -314,9 +305,6 @@
     </ClInclude>
     <ClInclude Include="Source\UnitManagement.hpp">
       <Filter>ZerGreenAI\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Upgrade.hpp">
-      <Filter>ZerGreenAI\Production</Filter>
     </ClInclude>
     <ClInclude Include="Source\ZerGreenAI.hpp">
       <Filter>ZerGreenAI\Main</Filter>
@@ -348,20 +336,53 @@
     <ClInclude Include="Source\ModularNN.h">
       <Filter>ZerGreenAI\N00byEdge</Filter>
     </ClInclude>
-    <ClInclude Include="Source\PylonConstruction.hpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BuildOrderOld.hpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BuildOrder.hpp">
-      <Filter>ZerGreenAI\Production</Filter>
-    </ClInclude>
     <ClInclude Include="Source\BoringCombat.hpp">
       <Filter>ZerGreenAI\Combat</Filter>
     </ClInclude>
     <ClInclude Include="Source\UnitsOfTypeCounter.hpp">
+      <Filter>ZerGreenAI\BuildOrder</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Construction.hpp">
+      <Filter>ZerGreenAI\Construction</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PylonConstruction.hpp">
+      <Filter>ZerGreenAI\Construction</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LayoutPlanner.hpp">
+      <Filter>ZerGreenAI\Construction</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Spender.hpp">
+      <Filter>ZerGreenAI\BuildOrder</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Production.hpp">
       <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\bwStrings.hpp">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EventExt.hpp">
+      <Filter>ZerGreenAI\BWAPI Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Upgrade.hpp">
+      <Filter>ZerGreenAI\Production</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ConstructionBrain.hpp">
+      <Filter>ZerGreenAI\Brain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ProductionBrain.hpp">
+      <Filter>ZerGreenAI\Brain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Brain.hpp">
+      <Filter>ZerGreenAI\Brain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BuildOrder.hpp">
+      <Filter>ZerGreenAI\BuildOrder</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Random.hpp">
+      <Filter>ZerGreenAI\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ConstructionUtility.hpp">
+      <Filter>ZerGreenAI\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -385,9 +406,6 @@
     </Filter>
     <Filter Include="ZerGreenAI\Combat">
       <UniqueIdentifier>{899011b2-0b82-4690-8b0c-8b7b944a80be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ZerGreenAI\BWAPI Extended">
-      <UniqueIdentifier>{949639f4-7355-48c0-b1a3-c876581506af}</UniqueIdentifier>
     </Filter>
     <Filter Include="ZerGreenAI\Harvesting">
       <UniqueIdentifier>{75ba9922-40b1-4c31-b986-79eea56063d2}</UniqueIdentifier>
@@ -413,6 +431,18 @@
     <Filter Include="ZerGreenAI\Debug">
       <UniqueIdentifier>{5edef592-30b5-4a96-9bdb-0c08d2010819}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ZerGreenAI\BuildOrder">
+      <UniqueIdentifier>{5c5c0526-904c-40d8-adac-713af2fed615}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Construction">
+      <UniqueIdentifier>{23d2e758-4581-4333-b46f-722ad168fc5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\BWAPI Extended">
+      <UniqueIdentifier>{14ace474-4ea8-41c2-86cc-3ceb68da8e53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZerGreenAI\Brain">
+      <UniqueIdentifier>{d88ca2d0-6258-461f-9c42-2bdef571f8f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt">
@@ -422,6 +452,9 @@
   <ItemGroup>
     <None Include="Source\TriangularGrid.tpp">
       <Filter>ZerGreenAI\Map Analysis</Filter>
+    </None>
+    <None Include="Source\ProductionBrain.tpp">
+      <Filter>ZerGreenAI\Brain</Filter>
     </None>
   </ItemGroup>
 </Project>

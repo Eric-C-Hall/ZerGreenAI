@@ -1,119 +1,76 @@
 #include "stdafx.h"
 
+#include <algorithm>
+
 #include "Production.hpp"
-#include "Construction.hpp"
 #include "Debug.hpp"
 #include "Namespaces.hpp"
 
-inline void ProductionManager::cycleQueue(UnitType prod)
+void ZerGreenAI::ProductionManager::onFrame()
 {
-	UnitType chosenType = ProduceLists[prod].front();
-	ProduceLists[prod].push(chosenType);
-	ProduceLists[prod].pop();
-}
-
-void ProductionManager::attemptTrain(Unit u)
-{
-	assert(u != nullptr);
-	if (ProduceLists[u->getType()].empty())
+	auto tiedDownBuildingTypesCopy = tiedDownBuildingTypes;
+	for (auto typeIntPair : tiedDownBuildingTypesCopy)
 	{
-		Broodwar << "Nothing in list to train" << std::endl;
-		return;
-	}
-
-	UnitType chosenType = ProduceLists[u->getType()].front();
-
-	if (u->canTrain(chosenType))
-	{
-		u->train(ProduceLists[u->getType()].front());
-		cycleQueue(u->getType());
-	}
-	else
-	{
-		cycleQueue(u->getType());
-	}
-}
-
-void ZerGreenAI::ProductionManager::onStart()
-{
-	SetUnitWeight(UnitTypes::Protoss_Zealot, 1);
-	SetUnitWeight(UnitTypes::Protoss_Scout, 1);
-	SetUnitWeight(UnitTypes::Protoss_Reaver, 1);
-	UpdateWeightLists();
-}
-
-void ProductionManager::onFrame()
-{
-	UnitManager::onFrame();
-	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
-		return;
-
-	for (auto const &u : assignedUnits)
-	{
-		if (!u->isCompleted())
+		tiedDownBuildingTypes[typeIntPair.first]--;
+		if (typeIntPair.second == 0)
 		{
+			tiedDownBuildingTypes.erase(typeIntPair.first);
+		}
+	}
+
+	for (Unit currUnit : assignedUnits)
+	{
+		if (latencyFrames[currUnit] > 0)
+		{
+			latencyFrames[currUnit]--;
 			continue;
 		}
 
-		int currentLine = 0;
-		auto tempQueue = ProduceLists[u->getType()];
-		while (!tempQueue.empty())
+		if (isIdleBuilding(currUnit))
 		{
-			new debugText(CoordinateType::Map, u->getPosition() + Position(0, currentLine * 10), tempQueue.front().c_str(), Broodwar->getLatencyFrames());
-			tempQueue.pop();
-			currentLine++;
+			idleBuildings.insert(currUnit);
 		}
-		if (u->getTrainingQueue().size() > 0)
+		else
 		{
-			std::string name = u->getTrainingQueue().front().getName();
-			name.insert(name.begin(), (char)BWAPI::Text::Green);
-			new debugText(CoordinateType::Map, u->getPosition() + Position(0, -10), name.c_str(), Broodwar->getLatencyFrames());
-		}
-
-		if (u->getRemainingTrainTime() - 24 < 0)
-		{
-			if (u->getTrainingQueue().size() < 2)
-			{
-				attemptTrain(u);
-			}
-
-		}
-		else if (u->getTrainingQueue().size() > 1)
-		{
-			// will need to fix things getting skipped in the queue if uncommented
-			//u->cancelTrain();
+			idleBuildings.erase(currUnit);
 		}
 	}
 }
 
-void ProductionManager::UpdateWeightLists()
+bool ZerGreenAI::ProductionManager::isIdleBuilding(BWAPI::Unit u)
 {
-	for (auto const &type : UnitTypes::allUnitTypes())
+	return u->getTrainingQueue().size() <= 0 && tiedDownBuildingTypes.count(u->getType()) == 0;
+}
+
+std::vector<BWAPI::UnitType> ZerGreenAI::ProductionManager::unassignedBuildingTypes()
+{
+	std::vector<UnitType> returnValue;
+	for (Unit u : idleBuildings)
 	{
-		if (!type.canProduce())
+		if (std::find(returnValue.begin(), returnValue.end(), u->getType()) == returnValue.end())
 		{
-			continue;
+			returnValue.push_back(u->getType());
 		}
-
-		std::deque<UnitType> initQueue;
-		for (auto const produce : type.buildsWhat())
-		{
-			for (int i = 0; i < UnitWeights[produce]; i++)
-			{
-				initQueue.push_front(produce);
-			}
-		}
-		std::random_shuffle(initQueue.begin(), initQueue.end());
-		ProduceLists[type] = std::queue<UnitType>(initQueue);
 	}
+	return returnValue;
 }
 
-void ProductionManager::SetUnitWeight(UnitType unit, int Weight)
+bool ZerGreenAI::ProductionManager::produceType(BWAPI::UnitType whatType)
 {
-	UnitWeights[unit] = Weight;
+	for (Unit u : Unitset(idleBuildings))
+	{
+		if (u->canTrain(whatType, false))
+		{
+			idleBuildings.erase(u);
+			latencyFrames[u] = Broodwar->getLatencyFrames() + 1;
+			return u->train(whatType);
+		}
+	}
+	return false;
 }
 
-Unitset ProductionManager::getProductionBuildings()
+void ZerGreenAI::ProductionManager::tieDown(BWAPI::UnitType whatType)
 {
-	return assignedUnits;
+	tiedDownBuildingTypes[whatType] = TIED_DOWN_DURATION;
 }
+

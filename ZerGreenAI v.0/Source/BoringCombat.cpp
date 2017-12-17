@@ -40,6 +40,10 @@ void ZerGreenAI::BoringCombatManager::onUnitTurn(BWAPI::Unit u)
 		{
 			new debugText(u->getPosition(), "You can run, but you can't hide", turnLength());
 		}
-		u->attack(attackTarget);
+
+		if (u->getOrder() != Orders::AttackMove && u->getOrder() != Orders::AttackUnit)
+		{
+			u->attack(attackTarget);
+		}
 	}
 }
