@@ -10,7 +10,7 @@ bool ZerGreenAI::isBuildingReasonableBuildChoice(UnitType action)
 {
 	if (action == Broodwar->self()->getRace().getRefinery())
 	{
-		return ZerGreenAIObj::mainInstance->globalHarvestManager->numClaimedBases() > ZerGreenAIObj::mainInstance->unitsOfTypeCounter->numUnitsOfType(UnitTypes::Protoss_Assimilator) + ZerGreenAIObj::mainInstance->constructionManager->isMakingBuilding(Broodwar->self()->getRace().getRefinery());
+		return ZerGreenAIObj::mainInstance->globalHarvestManager->numClaimedBases() > ZerGreenAIObj::mainInstance->unitsOfTypeCounter->numUnitsOfType(Broodwar->self()->getRace().getRefinery());
 	}
 
 	for (auto reqType : action.requiredUnits())

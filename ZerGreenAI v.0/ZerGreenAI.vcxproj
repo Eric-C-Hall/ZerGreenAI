@@ -251,6 +251,7 @@
     <ClCompile Include="Source\Upgrade.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ProductionChoice.hpp" />
     <ClInclude Include="Source\ConstructionUtility.hpp" />
     <ClInclude Include="Source\Random.hpp" />
     <ClInclude Include="Source\BuildOrder.hpp" />

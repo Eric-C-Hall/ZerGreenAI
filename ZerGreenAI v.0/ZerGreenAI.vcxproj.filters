@@ -384,6 +384,9 @@
     <ClInclude Include="Source\ConstructionUtility.hpp">
       <Filter>ZerGreenAI\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="ProductionChoice.hpp">
+      <Filter>ZerGreenAI\BuildOrder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="BWEM">

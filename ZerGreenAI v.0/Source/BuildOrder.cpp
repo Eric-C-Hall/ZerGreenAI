@@ -64,9 +64,16 @@ void ZerGreenAI::BuildOrder::debugDraw()
 	if (debug)
 	{
 		int y = 0;
-		for (UnitType type : currentBuild)
+		for (unsigned i = 0; i < currentBuild.size();i++)
 		{
-			Broodwar->drawTextScreen(Position(5, y), type.c_str());
+			if (i == currentPosition)
+			{
+				Broodwar->drawTextScreen(Position(5, y), "%c%s", BWAPI::Text::Green, currentBuild[i].c_str());
+			}
+			else
+			{
+				Broodwar->drawTextScreen(Position(5, y), currentBuild[i].c_str());
+			}
 			y += 10;
 		}
 	}

@@ -10,7 +10,7 @@
 
 void ZerGreenAI::Spender::onStart()
 {
-	buildOrder.mutate(0.05,0.05,0.06);
+	//buildOrder.mutate(0.05,0.05,0.06);
 }
 
 void ZerGreenAI::Spender::onFrame()

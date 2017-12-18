@@ -3,6 +3,8 @@
 #include <BWAPI.h>
 
 #include "GeneralManagement.hpp"
+#include "ZerGreenAI.hpp"
+#include "Construction.hpp"
 
 namespace ZerGreenAI
 {
@@ -16,7 +18,7 @@ namespace ZerGreenAI
 		void onUnitMorph(BWAPI::Unit u) override;
 	public:
 		inline virtual std::string name() { return "Units of Type Counter"; }
-		inline int numUnitsOfType(BWAPI::UnitType type) { return numUnitsOfTypeMap[type]; }
+		inline int numUnitsOfType(BWAPI::UnitType type) { return numUnitsOfTypeMap[type] + ZerGreenAIObj::mainInstance->constructionManager->isMakingBuilding(type); }
 	};
 
 }
